@@ -2,6 +2,7 @@ package com.example.crescendo_piano;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +11,9 @@ import android.widget.ImageButton;
 public class InstSelectActivity extends AppCompatActivity {
     private View decorView;
     private int uiOption;
-    ImageButton instsel_goBack;
+    private ImageButton instsel_goBack;
+    private Intent intent;
+    private Integer selectInst;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +30,8 @@ public class InstSelectActivity extends AppCompatActivity {
             uiOption|=View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         decorView.setSystemUiVisibility(uiOption);
         /////////////////////////////앱 하단바 제거/////////////////////////////// // 앱 하단바 제거
-
+        intent=getIntent();
+        selectInst=intent.getIntExtra("selectInst", 0);
         instsel_goBack=(ImageButton)findViewById(R.id.instsel_goBack);
 
         instsel_goBack.setOnClickListener(new View.OnClickListener() {
