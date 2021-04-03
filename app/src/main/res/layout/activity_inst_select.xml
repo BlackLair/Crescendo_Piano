@@ -5,8 +5,18 @@
     android:background="#01F8FF">
     <ImageButton
         android:layout_width="100dp"
-        android:layout_height="60dp"
+        android:layout_height="34dp"
         android:id="@+id/instsel_goBack"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true"
+        android:background="@drawable/instsel_goback"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
+    <ImageView
+        android:layout_width="256dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:background="@drawable/logo" />
+
 </RelativeLayout>
