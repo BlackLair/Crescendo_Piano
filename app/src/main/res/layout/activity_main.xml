@@ -12,19 +12,22 @@
             android:layout_width="237dp"
             android:layout_height="320dp"
             android:scaleType="fitXY"
-            android:background="@drawable/main_onapp"/>
+            android:background="@drawable/main_onapp"
+            android:soundEffectsEnabled="false"/>
         <ImageButton
             android:id="@+id/main_onmidi"
             android:layout_width="237dp"
             android:layout_height="320dp"
             android:scaleType="fitXY"
-            android:background="@drawable/main_onmidi"/>
+            android:background="@drawable/main_onmidi"
+            android:soundEffectsEnabled="false"/>
         <ImageButton
             android:id="@+id/main_code"
             android:layout_width="237dp"
             android:layout_height="320dp"
             android:scaleType="fitXY"
-            android:background="@drawable/main_code"/>
+            android:background="@drawable/main_code"
+            android:soundEffectsEnabled="false"/>
     </GridLayout>
     <ImageView
         android:layout_width="256dp"
