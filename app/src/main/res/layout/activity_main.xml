@@ -8,16 +8,19 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
         <ImageButton
+            android:id="@+id/main_onapp"
             android:layout_width="237dp"
             android:layout_height="320dp"
             android:scaleType="fitXY"
             android:background="@drawable/main_onapp"/>
         <ImageButton
+            android:id="@+id/main_onmidi"
             android:layout_width="237dp"
             android:layout_height="320dp"
             android:scaleType="fitXY"
             android:background="@drawable/main_onmidi"/>
         <ImageButton
+            android:id="@+id/main_code"
             android:layout_width="237dp"
             android:layout_height="320dp"
             android:scaleType="fitXY"
@@ -28,7 +31,6 @@
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:background="@drawable/logo"
-        />
+        android:background="@drawable/logo" />
 
 </RelativeLayout>
