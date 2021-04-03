@@ -9,7 +9,7 @@
         android:id="@+id/instsel_goBack"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/instsel_goback"
+        android:background="@drawable/back"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"/>
     <ImageView
@@ -17,6 +17,54 @@
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:background="@drawable/logo" />
+        android:background="@drawable/logo"
+        android:id="@+id/logo"/>
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/logo"
+        android:layout_centerHorizontal="true"
+        android:columnCount="3"
+        android:rowCount="3">
+        <ImageButton
+            android:layout_width="165dp"
+            android:layout_height="165dp"
+            android:id="@+id/inst_Piano"
+            android:scaleType="fitXY"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:background="@drawable/inst_piano" />
+        <LinearLayout
+            android:layout_width="55dp"
+            android:layout_height="175dp"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:visibility="invisible"/>
+        <ImageButton
+            android:layout_width="165dp"
+            android:layout_height="165dp"
+            android:id="@+id/inst_Violin"
+            android:scaleType="fitXY"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:background="@drawable/inst_violin"/>
+        <ImageButton
+            android:layout_width="165dp"
+            android:layout_height="165dp"
+            android:id="@+id/inst_Whatsthis"
+            android:scaleType="fitXY"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:background="@drawable/inst_harp"/>
+        <ImageButton
+            android:layout_width="165dp"
+            android:layout_height="165dp"
+            android:id="@+id/inst_Drum"
+            android:scaleType="fitXY"
+            android:layout_column="2"
+            android:layout_row="1"
+            android:background="@drawable/inst_drum"/>
+
+    </GridLayout>
 
 </RelativeLayout>
