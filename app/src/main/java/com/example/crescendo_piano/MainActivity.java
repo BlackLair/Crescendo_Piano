@@ -2,6 +2,7 @@ package com.example.crescendo_piano;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     private View decorView;
     private int uiOption;
     ImageButton main_onapp, main_onmidi, main_code;
+    Intent intent;
     private Integer selectedMode; //0 : app 연주  1 : MIDI 장치 연주
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +33,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        main_onapp=(ImageButton)findViewById(R.id.main_onapp);
+        main_onmidi=(ImageButton)findViewById(R.id.main_onmidi);
+        main_code=(ImageButton)findViewById(R.id.main_code);
+
         main_onapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectedMode=0;
+                intent=new Intent(MainActivity.this, InstSelectActivity.class);
+                intent.putExtra("selectInst", selectedMode);
+                startActivity(intent);
             }
         });
         main_onmidi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                selectedMode=1;
+                intent=new Intent(MainActivity.this, InstSelectActivity.class);
+                intent.putExtra("selectInst", selectedMode);
+                startActivity(intent);
             }
         });
         main_code.setOnClickListener(new View.OnClickListener() {
