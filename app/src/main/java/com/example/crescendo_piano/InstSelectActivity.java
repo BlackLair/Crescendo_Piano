@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 
 public class InstSelectActivity extends AppCompatActivity {
     private View decorView;
     private int uiOption;
+    ImageButton instsel_goBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,5 +28,13 @@ public class InstSelectActivity extends AppCompatActivity {
         decorView.setSystemUiVisibility(uiOption);
         /////////////////////////////앱 하단바 제거/////////////////////////////// // 앱 하단바 제거
 
+        instsel_goBack=(ImageButton)findViewById(R.id.instsel_goBack);
+
+        instsel_goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 }

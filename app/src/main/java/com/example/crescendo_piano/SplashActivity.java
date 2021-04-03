@@ -12,11 +12,11 @@ import androidx.annotation.Nullable;
 // 로딩화면 구현 클래스
 public class SplashActivity extends Activity {
 
-    int key_initsound;
-    SoundPool initsound;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
-
+        SoundPool initsound=new SoundPool(1, AudioManager.STREAM_MUSIC,0);
+        int key_initsound=initsound.load(getApplicationContext(), R.raw.initapp,1);
         super.onCreate(savedInstanceState);
 
 
@@ -29,6 +29,7 @@ public class SplashActivity extends Activity {
         }
         startActivity(new Intent(this, MainActivity.class));
 
+        initsound.play(key_initsound,1,1,0,0,1);
         finish();
     }
 

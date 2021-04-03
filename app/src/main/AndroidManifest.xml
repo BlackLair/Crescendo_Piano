@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Crescendo_Piano">
-        <activity android:name=".InstSelectActivity"></activity>
+        <activity
+            android:name=".InstSelectActivity"
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="landscape">
