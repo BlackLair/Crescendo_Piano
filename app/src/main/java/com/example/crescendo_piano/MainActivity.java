@@ -3,6 +3,8 @@ package com.example.crescendo_piano;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     ImageButton main_onapp, main_onmidi, main_code;
     Intent intent;
     private Integer selectedMode; //0 : app 연주  1 : MIDI 장치 연주
+    int key_initsound;
+    SoundPool initsound;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -32,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initsound=new SoundPool(1, AudioManager.STREAM_MUSIC,0);
+        key_initsound=initsound.load(this, R.raw.initapp,1);
+        initsound.play(key_initsound,1,1,0,0,1);
 
         main_onapp=(ImageButton)findViewById(R.id.main_onapp);
         main_onmidi=(ImageButton)findViewById(R.id.main_onmidi);
@@ -40,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         main_onapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                unloadInitSound(initsound);
                 selectedMode=0;
                 intent=new Intent(MainActivity.this, InstSelectActivity.class);
                 intent.putExtra("selectInst", selectedMode);
@@ -49,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         main_onmidi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                unloadInitSound(initsound);
                 selectedMode=1;
                 intent=new Intent(MainActivity.this, InstSelectActivity.class);
                 intent.putExtra("selectInst", selectedMode);
@@ -58,8 +67,13 @@ public class MainActivity extends AppCompatActivity {
         main_code.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                unloadInitSound(initsound);
             }
         });
+    }
+
+    private void unloadInitSound(SoundPool spool){
+        spool.release();
+        spool=null;
     }
 }
