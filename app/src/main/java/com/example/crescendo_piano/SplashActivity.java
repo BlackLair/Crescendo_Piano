@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
@@ -12,8 +11,7 @@ import androidx.annotation.Nullable;
 
 // 로딩화면 구현 클래스
 public class SplashActivity extends Activity {
-    private View decorView;
-    private int uiOption;
+
     int key_initsound;
     SoundPool initsound;
     @Override
