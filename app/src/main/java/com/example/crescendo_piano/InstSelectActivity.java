@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -34,11 +35,22 @@ public class InstSelectActivity extends AppCompatActivity {
         selectInst=intent.getIntExtra("selectInst", 0);
         instsel_goBack=(ImageButton)findViewById(R.id.instsel_goBack);
 
+        instsel_goBack.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction()==MotionEvent.ACTION_DOWN)
+                    instsel_goBack.setBackgroundResource(R.drawable.backgray);
+                else if(motionEvent.getAction()==MotionEvent.ACTION_UP)
+                    instsel_goBack.setBackgroundResource(R.drawable.back);
+                return false;
+            }
+        });
         instsel_goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+
     }
 }
