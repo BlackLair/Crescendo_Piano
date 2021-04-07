@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 public class InstSelectActivity extends AppCompatActivity {
-    private View decorView;
+    private View decorView; // 전체화면 출력을 위한 멤버 변수
     private int uiOption;
     private ImageButton instsel_goBack;
     private Intent intent;
