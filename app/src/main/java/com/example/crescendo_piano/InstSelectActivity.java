@@ -48,6 +48,8 @@ public class InstSelectActivity extends AppCompatActivity {
         instsel_goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent backToMain = new Intent(InstSelectActivity.this, MainActivity.class);
+                startActivity(backToMain);
                 finish();
             }
         });

@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 intent=new Intent(MainActivity.this, InstSelectActivity.class);
                 intent.putExtra("selectInst", selectedMode);
                 startActivity(intent);
+                finish();
             }
         });
         main_onmidi.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 intent=new Intent(MainActivity.this, InstSelectActivity.class);
                 intent.putExtra("selectInst", selectedMode);
                 startActivity(intent);
+                finish();
             }
         });
         main_code.setOnClickListener(new View.OnClickListener() {
