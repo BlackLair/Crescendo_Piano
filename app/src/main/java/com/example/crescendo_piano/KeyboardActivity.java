@@ -2,6 +2,8 @@ package com.example.crescendo_piano;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +11,14 @@ import android.view.View;
 public class KeyboardActivity extends AppCompatActivity {
     private View decorView;
     private int uiOption;
+    private int inst; // 0 : 피아노 1 : 바이올린 2 : 하프
+    private SoundResourceManager soundmanager;
+    private int soundKeys[];
+    private SoundPool keyboardSoundPool;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        soundmanager=new SoundResourceManager();
+        soundKeys=new int[88];
         /////////////////////////////앱 하단바 제거///////////////////////////////
         decorView=getWindow().getDecorView();
         uiOption=getWindow().getDecorView().getSystemUiVisibility();
@@ -24,5 +32,11 @@ public class KeyboardActivity extends AppCompatActivity {
         /////////////////////////////앱 하단바 제거/////////////////////////////// // 앱 하단바 제거
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keyboard);
+
+        Intent intent = new Intent();
+        intent.getIntExtra("inst", 0);
+        keyboardSoundPool=soundmanager.load(soundKeys, inst,this );
+
+
     }
 }
