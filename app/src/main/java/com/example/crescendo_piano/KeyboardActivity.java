@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
 
 public class KeyboardActivity extends AppCompatActivity {
     private View decorView;
@@ -15,6 +17,7 @@ public class KeyboardActivity extends AppCompatActivity {
     private SoundResourceManager soundmanager;
     private int soundKeys[];
     private SoundPool keyboardSoundPool;
+    private ImageButton goBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         soundmanager=new SoundResourceManager();
@@ -32,11 +35,28 @@ public class KeyboardActivity extends AppCompatActivity {
         /////////////////////////////앱 하단바 제거/////////////////////////////// // 앱 하단바 제거
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keyboard);
-
+        goBack=findViewById(R.id.keyboard_goBack);
         Intent intent = new Intent();
         intent.getIntExtra("inst", 0);
         keyboardSoundPool=soundmanager.load(soundKeys, inst,this );
 
-
+        goBack.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction()==MotionEvent.ACTION_DOWN)
+                    goBack.setBackgroundResource(R.drawable.backgray);
+                else if(motionEvent.getAction()==MotionEvent.ACTION_UP)
+                    goBack.setBackgroundResource(R.drawable.back);
+                return false;
+            }
+        });
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentBack=new Intent(KeyboardActivity.this, InstSelectActivity.class);
+                startActivity(intentBack);
+                finish();
+            }
+        });
     }
 }
