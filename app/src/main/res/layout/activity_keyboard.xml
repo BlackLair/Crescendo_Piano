@@ -35,7 +35,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.064000" />
+                app:layout_constraintWidth_percent="0.064100" />
 
             <ImageButton
                 android:id="@+id/btn_wkey1"
@@ -51,7 +51,7 @@
                 app:layout_constraintStart_toEndOf="@+id/btn_wkey0"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.064000" />
+                app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
                 android:id="@+id/btn_wkey2"
                 android:layout_width="0dp"
@@ -66,7 +66,7 @@
                 app:layout_constraintStart_toEndOf="@+id/btn_wkey1"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.064000" />
+                app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
                 android:id="@+id/btn_wkey3"
                 android:layout_width="0dp"
@@ -81,7 +81,7 @@
                 app:layout_constraintStart_toEndOf="@+id/btn_wkey2"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.064000" />
+                app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
                 android:id="@+id/btn_wkey4"
                 android:layout_width="0dp"
@@ -96,7 +96,7 @@
                 app:layout_constraintStart_toEndOf="@+id/btn_wkey3"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.064000" />
+                app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
                 android:id="@+id/btn_wkey5"
                 android:layout_width="0dp"
@@ -111,7 +111,7 @@
                 app:layout_constraintStart_toEndOf="@+id/btn_wkey4"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.064000" />
+                app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
                 android:id="@+id/btn_wkey6"
                 android:layout_width="0dp"
@@ -126,7 +126,7 @@
                 app:layout_constraintStart_toEndOf="@+id/btn_wkey5"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.064000" />
+                app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
                 android:id="@+id/btn_wkey7"
                 android:layout_width="0dp"
@@ -141,7 +141,7 @@
                 app:layout_constraintStart_toEndOf="@+id/btn_wkey6"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.064000" />
+                app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
                 android:id="@+id/btn_wkey8"
                 android:layout_width="0dp"
@@ -156,7 +156,7 @@
                 app:layout_constraintStart_toEndOf="@+id/btn_wkey7"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.064000" />
+                app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
                 android:id="@+id/btn_wkey9"
                 android:layout_width="0dp"
@@ -171,7 +171,7 @@
                 app:layout_constraintStart_toEndOf="@+id/btn_wkey8"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.064000" />
+                app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
                 android:id="@+id/btn_wkey10"
                 android:layout_width="0dp"
@@ -186,7 +186,7 @@
                 app:layout_constraintStart_toEndOf="@+id/btn_wkey9"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.064000" />
+                app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
                 android:id="@+id/btn_wkey11"
                 android:layout_width="0dp"
@@ -201,7 +201,7 @@
                 app:layout_constraintStart_toEndOf="@+id/btn_wkey10"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.064000" />
+                app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
                 android:id="@+id/btn_wkey12"
                 android:layout_width="0dp"
@@ -216,7 +216,7 @@
                 app:layout_constraintStart_toEndOf="@+id/btn_wkey11"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.064000" />
+                app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
                 android:id="@+id/btn_wkey13"
                 android:layout_width="0dp"
@@ -231,7 +231,7 @@
                 app:layout_constraintStart_toEndOf="@+id/btn_wkey12"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.064000" />
+                app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
                 android:id="@+id/btn_wkey14"
                 android:layout_width="0dp"
@@ -246,22 +246,157 @@
                 app:layout_constraintStart_toEndOf="@+id/btn_wkey13"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.064000" />
+                app:layout_constraintWidth_percent="0.064100" />
 
             <ImageButton
-                android:id="@+id/btn_bkey14"
+                android:id="@+id/btn_bkey0"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="2dp"
-                android:background="#000000"
+                android:background="@drawable/key_black"
+                android:src="@drawable/key_black_border"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_percent="0.60"
-                app:layout_constraintHorizontal_bias="0.044"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.037"
+                app:layout_constraintStart_toStartOf="@+id/btn_wkey0"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.046000" />
 
+            <ImageButton
+                android:id="@+id/btn_bkey1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="2dp"
+                android:background="@drawable/key_black"
+                android:src="@drawable/key_black_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.60"
+                app:layout_constraintHorizontal_bias="0.054"
+                app:layout_constraintStart_toStartOf="@+id/btn_wkey1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.046000" />
+
+            <ImageButton
+                android:id="@+id/btn_bkey2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="2dp"
+                android:background="@drawable/key_black"
+                android:src="@drawable/key_black_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.60"
+                app:layout_constraintHorizontal_bias="0.09"
+                app:layout_constraintStart_toEndOf="@+id/btn_bkey1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.046000" />
+
+            <ImageButton
+                android:id="@+id/btn_bkey3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="2dp"
+                android:background="@drawable/key_black"
+                android:src="@drawable/key_black_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.60"
+                app:layout_constraintHorizontal_bias="0.036"
+                app:layout_constraintStart_toEndOf="@+id/btn_bkey2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.046000" />
+
+            <ImageButton
+                android:id="@+id/btn_bkey4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="2dp"
+                android:background="@drawable/key_black"
+                android:src="@drawable/key_black_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.60"
+                app:layout_constraintHorizontal_bias="0.043"
+                app:layout_constraintStart_toEndOf="@+id/btn_bkey3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.046000" />
+
+            <ImageButton
+                android:id="@+id/btn_bkey5"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="2dp"
+                android:background="@drawable/key_black"
+                android:src="@drawable/key_black_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.60"
+                app:layout_constraintHorizontal_bias="0.067"
+                app:layout_constraintStart_toStartOf="@+id/btn_wkey7"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.046000" />
+
+            <ImageButton
+                android:id="@+id/btn_bkey6"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="2dp"
+                android:background="@drawable/key_black"
+                android:src="@drawable/key_black_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.60"
+                app:layout_constraintHorizontal_bias="0.088"
+                app:layout_constraintStart_toEndOf="@+id/btn_bkey5"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.046000" />
+
+            <ImageButton
+                android:id="@+id/btn_bkey7"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="2dp"
+                android:background="@drawable/key_black"
+                android:src="@drawable/key_black_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.60"
+                app:layout_constraintHorizontal_bias="0.201"
+                app:layout_constraintStart_toEndOf="@+id/btn_bkey6"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.046000" />
+
+            <ImageButton
+                android:id="@+id/btn_bkey8"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="2dp"
+                android:background="@drawable/key_black"
+                android:src="@drawable/key_black_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.60"
+                app:layout_constraintHorizontal_bias="0.145"
+                app:layout_constraintStart_toEndOf="@+id/btn_bkey7"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.046000" />
+
+            <ImageButton
+                android:id="@+id/btn_bkey9"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="2dp"
+                android:background="@drawable/key_black"
+                android:src="@drawable/key_black_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.60"
+                app:layout_constraintHorizontal_bias="0.223"
+                app:layout_constraintStart_toEndOf="@+id/btn_bkey8"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.046000" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </LinearLayout>
