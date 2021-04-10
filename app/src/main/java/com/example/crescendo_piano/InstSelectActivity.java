@@ -63,7 +63,9 @@ public class InstSelectActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(InstSelectActivity.this, KeyboardActivity.class);
+                intent.putExtra("inst", 0);
                 startActivity(intent);
+                finish();
             }
         });
 
