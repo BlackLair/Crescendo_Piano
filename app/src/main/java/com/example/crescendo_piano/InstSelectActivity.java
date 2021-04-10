@@ -15,6 +15,7 @@ public class InstSelectActivity extends AppCompatActivity {
     private ImageButton instsel_goBack;
     private Intent intent;
     private Integer selectInst;
+    ImageButton selPiano, selViolin, selHarp, selDrum;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,10 @@ public class InstSelectActivity extends AppCompatActivity {
         intent=getIntent();
         selectInst=intent.getIntExtra("selectInst", 0);
         instsel_goBack=(ImageButton)findViewById(R.id.instsel_goBack);
+        selPiano=(ImageButton)findViewById(R.id.inst_Piano);
+        selViolin=(ImageButton)findViewById(R.id.inst_Violin);
+        selHarp=(ImageButton)findViewById(R.id.inst_Harp);
+        selDrum=(ImageButton)findViewById(R.id.inst_Drum);
 
         instsel_goBack.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -51,6 +56,14 @@ public class InstSelectActivity extends AppCompatActivity {
                 Intent backToMain = new Intent(InstSelectActivity.this, MainActivity.class);
                 startActivity(backToMain);
                 finish();
+            }
+        });
+
+        selPiano.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(InstSelectActivity.this, KeyboardActivity.class);
+                startActivity(intent);
             }
         });
 
