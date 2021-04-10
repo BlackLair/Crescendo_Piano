@@ -18,6 +18,15 @@ public class KeyboardActivity extends AppCompatActivity {
     private int soundKeys[];
     private SoundPool keyboardSoundPool;
     private ImageButton goBack;
+    private ImageButton wKeys[]=new ImageButton[15];
+    private ImageButton bKeys[]=new ImageButton[10];
+    private int wButtonID[]={R.id.btn_wkey0, R.id.btn_wkey1, R.id.btn_wkey2, R.id.btn_wkey3, R.id.btn_wkey4, R.id.btn_wkey5,
+                            R.id.btn_wkey6, R.id.btn_wkey7, R.id.btn_wkey8, R.id.btn_wkey9, R.id.btn_wkey10, R.id.btn_wkey11,
+                            R.id.btn_wkey12, R.id.btn_wkey13, R.id.btn_wkey14};
+    private int bButtonID[]={R.id.btn_bkey0, R.id.btn_bkey1, R.id.btn_bkey2, R.id.btn_bkey3, R.id.btn_bkey4, R.id.btn_bkey5,
+            R.id.btn_bkey6, R.id.btn_bkey7, R.id.btn_bkey8, R.id.btn_bkey9};
+    private int octave=0;
+    private boolean sustain=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         soundmanager=new SoundResourceManager();
@@ -36,6 +45,10 @@ public class KeyboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keyboard);
         goBack=findViewById(R.id.keyboard_goBack);
+        for(int i=0; i<15;i++) wKeys[i]=findViewById(wButtonID[i]);
+        for(int i=0; i<10;i++) bKeys[i]=findViewById(bButtonID[i]);
+
+
         Intent intent = new Intent();
         intent.getIntExtra("inst", 0);
         keyboardSoundPool=soundmanager.load(soundKeys, inst,this );
@@ -58,5 +71,29 @@ public class KeyboardActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+
+        KeyBoardListener keyBoardListeners[] = new KeyBoardListener[25];
+        int wkeyid[]={27, 29, 31, 32, 34, 36, 38, 39, 41, 43, 44, 46, 48, 50, 51};
+        int bkeyid[]={28,30,33,35,37,40,42,45,47,49};
+        for(int i=0; i<15; i++){
+            keyBoardListeners[i]=new KeyBoardListener();
+            keyBoardListeners[i].setInitSound(keyboardSoundPool, soundKeys);
+            keyBoardListeners[i].setValue(wkeyid[i],sustain,octave,true);
+            wKeys[i].setOnTouchListener(keyBoardListeners[i]);
+        }
+        for(int i=0; i<10; i++){
+            keyBoardListeners[i+15]=new KeyBoardListener();
+            keyBoardListeners[i+15].setInitSound(keyboardSoundPool, soundKeys);
+            keyBoardListeners[i+15].setValue(bkeyid[i],sustain,octave,false);
+            bKeys[i].setOnTouchListener(keyBoardListeners[i+15]);
+        }
+
+
+
+
+
+
     }
 }
