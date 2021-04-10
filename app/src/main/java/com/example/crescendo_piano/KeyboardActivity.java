@@ -27,6 +27,13 @@ public class KeyboardActivity extends AppCompatActivity {
             R.id.btn_bkey6, R.id.btn_bkey7, R.id.btn_bkey8, R.id.btn_bkey9};
     private int octave=0;
     private boolean sustain=false;
+
+    @Override
+    protected void onDestroy() {
+        soundmanager.unLoad(keyboardSoundPool); // 액티비티 종료 시 사운드 리소스 언로드
+        super.onDestroy();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         soundmanager=new SoundResourceManager();
@@ -89,6 +96,7 @@ public class KeyboardActivity extends AppCompatActivity {
             keyBoardListeners[i+15].setValue(bkeyid[i],sustain,octave,false);
             bKeys[i].setOnTouchListener(keyBoardListeners[i+15]);
         }
+
 
 
 
