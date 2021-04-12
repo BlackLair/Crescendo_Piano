@@ -93,7 +93,7 @@ public class KeyboardActivity extends AppCompatActivity {
             keyBoardListeners[i].setValue(wkeyid[i],true);
             wKeys[i].setOnTouchListener(keyBoardListeners[i]);
         }
-        for(int i=15; i<25; i++){
+        for(int i=15; i<25; i++){   // 검은 건반
             keyBoardListeners[i]=new KeyBoardListener();
             keyBoardListeners[i].setInitSound(keyboardSoundPool, soundKeys);
             keyBoardListeners[i].setValue(bkeyid[i-15],false);
