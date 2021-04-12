@@ -25,13 +25,9 @@ public class KeyBoardListener implements View.OnTouchListener {
         public boolean onTouch (View view, MotionEvent motionEvent){
             pitch=pitch+KeyboardActivity.octave*12;     // 옥타브 값 적용
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                float y = motionEvent.getY();   // 터치된 y좌표 특정해서 건반 색에 따라 절대적 벨로시티 계산
-                if(isWhite)
-                    y/=745;
-                else
-                    y/=450;
-                y *= y; // 벨로시티 조절
-                y+=0.07;
+                float y = motionEvent.getY();   // 터치한 Y좌표와 건반 최대 Y좌표 이용해 벨로시티 값 계산
+                float ymax=view.getHeight();
+                y=y/ymax;
                 PlayNote.noteOff(spool, pitch);
                 PlayNote.noteOn(spool, soundkeys[pitch], pitch, y);
             } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
