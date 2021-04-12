@@ -1,5 +1,8 @@
 package com.example.crescendo_piano;
 
+// 각 건반 이미지버튼에 부여할 리스너 클래스
+// OnTouchListener 인터페이스를 구현
+
 import android.media.SoundPool;
 import android.view.MotionEvent;
 import android.view.View;
