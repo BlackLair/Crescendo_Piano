@@ -1,5 +1,7 @@
 package com.example.crescendo_piano;
 
+// 메인 메뉴 화면을 출력하는 액티비티
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         main_onmidi=(ImageButton)findViewById(R.id.main_onmidi);
         main_code=(ImageButton)findViewById(R.id.main_code);
 
-        main_onapp.setOnClickListener(new View.OnClickListener() {
+        main_onapp.setOnClickListener(new View.OnClickListener() {  // 연주하기 버튼
             @Override
             public void onClick(View view) {
                 selectedMode=0;
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-        main_onmidi.setOnClickListener(new View.OnClickListener() {
+        main_onmidi.setOnClickListener(new View.OnClickListener() { // MIDI장치 연결 버튼
             @Override
             public void onClick(View view) {
                 selectedMode=1;
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-        main_code.setOnClickListener(new View.OnClickListener() {
+        main_code.setOnClickListener(new View.OnClickListener() { // 코드 레시피 버튼
             @Override
             public void onClick(View view) {
             }

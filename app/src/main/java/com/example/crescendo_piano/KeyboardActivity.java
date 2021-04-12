@@ -20,13 +20,14 @@ public class KeyboardActivity extends AppCompatActivity {
     private ImageButton goBack;
     private ImageButton wKeys[]=new ImageButton[15];
     private ImageButton bKeys[]=new ImageButton[10];
+    // 각 건반 이미지버튼들의 id속성 저장
     private int wButtonID[]={R.id.btn_wkey0, R.id.btn_wkey1, R.id.btn_wkey2, R.id.btn_wkey3, R.id.btn_wkey4, R.id.btn_wkey5,
                             R.id.btn_wkey6, R.id.btn_wkey7, R.id.btn_wkey8, R.id.btn_wkey9, R.id.btn_wkey10, R.id.btn_wkey11,
                             R.id.btn_wkey12, R.id.btn_wkey13, R.id.btn_wkey14};
     private int bButtonID[]={R.id.btn_bkey0, R.id.btn_bkey1, R.id.btn_bkey2, R.id.btn_bkey3, R.id.btn_bkey4, R.id.btn_bkey5,
             R.id.btn_bkey6, R.id.btn_bkey7, R.id.btn_bkey8, R.id.btn_bkey9};
-    private int octave=0;
-    private boolean sustain=false;
+    private int octave=0;   // 옥타브 설정값  ( -2 ~ +3 )
+    private boolean sustain=false; // 서스테인 설정값
 
     @Override
     protected void onDestroy() {
@@ -36,8 +37,8 @@ public class KeyboardActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        soundmanager=new SoundResourceManager();
-        soundKeys=new int[88];
+        soundmanager=new SoundResourceManager();    // 음원 파일 관리 객체
+        soundKeys=new int[88];      // 건반 소리 재생을 위한 key값 저장 배열
         /////////////////////////////앱 하단바 제거///////////////////////////////
         decorView=getWindow().getDecorView();
         uiOption=getWindow().getDecorView().getSystemUiVisibility();
@@ -52,15 +53,17 @@ public class KeyboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keyboard);
         goBack=findViewById(R.id.keyboard_goBack);
+
+        // 건반 백 15개, 흑 10개
         for(int i=0; i<15;i++) wKeys[i]=findViewById(wButtonID[i]);
         for(int i=0; i<10;i++) bKeys[i]=findViewById(bButtonID[i]);
 
 
         Intent intent = new Intent();
-        intent.getIntExtra("inst", 0);
-        keyboardSoundPool=soundmanager.load(soundKeys, inst,this );
+        inst=intent.getIntExtra("inst", 0);  // 선택한 악기 가져옴
+        keyboardSoundPool=soundmanager.load(soundKeys, inst,this ); // 선택한 악기의 음원 파일 로딩
 
-        goBack.setOnTouchListener(new View.OnTouchListener() {
+        goBack.setOnTouchListener(new View.OnTouchListener() { // 뒤로가기 버튼 이미지 변환 효과
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(motionEvent.getAction()==MotionEvent.ACTION_DOWN)
@@ -70,7 +73,7 @@ public class KeyboardActivity extends AppCompatActivity {
                 return false;
             }
         });
-        goBack.setOnClickListener(new View.OnClickListener() {
+        goBack.setOnClickListener(new View.OnClickListener() {  // 뒤로가기 버튼
             @Override
             public void onClick(View view) {
                 Intent intentBack=new Intent(KeyboardActivity.this, InstSelectActivity.class);
@@ -80,7 +83,7 @@ public class KeyboardActivity extends AppCompatActivity {
         });
 
 
-
+        // 각 건반을 담당하는 버튼들에 리스너 추가
         KeyBoardListener keyBoardListeners[] = new KeyBoardListener[25];
         int wkeyid[]={27, 29, 31, 32, 34, 36, 38, 39, 41, 43, 44, 46, 48, 50, 51};
         int bkeyid[]={28,30,33,35,37,40,42,45,47,49};
