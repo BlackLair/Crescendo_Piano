@@ -26,8 +26,8 @@ public class KeyboardActivity extends AppCompatActivity {
                             R.id.btn_wkey12, R.id.btn_wkey13, R.id.btn_wkey14};
     private int bButtonID[]={R.id.btn_bkey0, R.id.btn_bkey1, R.id.btn_bkey2, R.id.btn_bkey3, R.id.btn_bkey4, R.id.btn_bkey5,
             R.id.btn_bkey6, R.id.btn_bkey7, R.id.btn_bkey8, R.id.btn_bkey9};
-    private int octave=0;   // 옥타브 설정값  ( -2 ~ +3 )
-    private boolean sustain=false; // 서스테인 설정값
+    public static int octave=0;   // 옥타브 설정값  ( -2 ~ +3 )
+    public static boolean sustain=false; // 서스테인 설정값
 
     @Override
     protected void onDestroy() {
@@ -90,21 +90,15 @@ public class KeyboardActivity extends AppCompatActivity {
         for(int i=0; i<15; i++){
             keyBoardListeners[i]=new KeyBoardListener();
             keyBoardListeners[i].setInitSound(keyboardSoundPool, soundKeys);
-            keyBoardListeners[i].setValue(wkeyid[i],sustain,octave,true);
+            keyBoardListeners[i].setValue(wkeyid[i],true);
             wKeys[i].setOnTouchListener(keyBoardListeners[i]);
         }
         for(int i=0; i<10; i++){
             keyBoardListeners[i+15]=new KeyBoardListener();
             keyBoardListeners[i+15].setInitSound(keyboardSoundPool, soundKeys);
-            keyBoardListeners[i+15].setValue(bkeyid[i],sustain,octave,false);
+            keyBoardListeners[i+15].setValue(bkeyid[i],false);
             bKeys[i].setOnTouchListener(keyBoardListeners[i+15]);
         }
-
-
-
-
-
-
-
     }
+
 }
