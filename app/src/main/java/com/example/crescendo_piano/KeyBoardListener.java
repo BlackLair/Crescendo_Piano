@@ -29,11 +29,11 @@ public class KeyBoardListener implements View.OnTouchListener {
                     y/=450;
                 y *= y; // 벨로시티 조절
                 y+=0.07;
-                PlayNote.noteOff(spool, soundkeys[pitch]);
-                PlayNote.noteOn(spool, soundkeys[pitch], y);
+                PlayNote.noteOff(spool, pitch);
+                PlayNote.noteOn(spool, soundkeys[pitch], pitch, y);
             } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                 if (KeyboardActivity.sustain == false)  // 서스테인 기능이 꺼져있을 때만 소리 정지
-                    PlayNote.noteOff(spool, soundkeys[pitch]);
+                    PlayNote.noteOff(spool, pitch);
             }
             return false;
         }
