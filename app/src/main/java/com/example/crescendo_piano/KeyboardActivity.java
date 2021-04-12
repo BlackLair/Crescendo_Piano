@@ -87,17 +87,17 @@ public class KeyboardActivity extends AppCompatActivity {
         KeyBoardListener keyBoardListeners[] = new KeyBoardListener[25];
         int wkeyid[]={27, 29, 31, 32, 34, 36, 38, 39, 41, 43, 44, 46, 48, 50, 51};
         int bkeyid[]={28,30,33,35,37,40,42,45,47,49};
-        for(int i=0; i<15; i++){
+        for(int i=0; i<15; i++){    // 흰 건반
             keyBoardListeners[i]=new KeyBoardListener();
             keyBoardListeners[i].setInitSound(keyboardSoundPool, soundKeys);
             keyBoardListeners[i].setValue(wkeyid[i],true);
             wKeys[i].setOnTouchListener(keyBoardListeners[i]);
         }
-        for(int i=0; i<10; i++){
-            keyBoardListeners[i+15]=new KeyBoardListener();
-            keyBoardListeners[i+15].setInitSound(keyboardSoundPool, soundKeys);
-            keyBoardListeners[i+15].setValue(bkeyid[i],false);
-            bKeys[i].setOnTouchListener(keyBoardListeners[i+15]);
+        for(int i=15; i<25; i++){
+            keyBoardListeners[i]=new KeyBoardListener();
+            keyBoardListeners[i].setInitSound(keyboardSoundPool, soundKeys);
+            keyBoardListeners[i].setValue(bkeyid[i-15],false);
+            bKeys[i-15].setOnTouchListener(keyBoardListeners[i]);
         }
     }
 
