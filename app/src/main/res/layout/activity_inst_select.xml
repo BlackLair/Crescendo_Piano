@@ -33,7 +33,7 @@
             android:scaleType="fitXY"
             android:layout_row="0"
             android:layout_column="0"
-            android:background="@drawable/pia" />
+            android:background="@drawable/instsel_piano" />
         <LinearLayout
             android:layout_width="35dp"
             android:layout_height="165dp"
@@ -47,7 +47,7 @@
             android:scaleType="fitXY"
             android:layout_row="0"
             android:layout_column="2"
-            android:background="@drawable/vio"/>
+            android:background="@drawable/instsel_violin"/>
         <ImageButton
             android:layout_width="316dp"
             android:layout_height="165dp"
@@ -55,7 +55,7 @@
             android:scaleType="fitXY"
             android:layout_column="0"
             android:layout_row="1"
-            android:background="@drawable/har"/>
+            android:background="@drawable/instsel_harp"/>
         <ImageButton
             android:layout_width="316dp"
             android:layout_height="165dp"
@@ -63,7 +63,7 @@
             android:scaleType="fitXY"
             android:layout_column="2"
             android:layout_row="1"
-            android:background="@drawable/dru"/>
+            android:background="@drawable/instsel_drum"/>
 
     </GridLayout>
 
