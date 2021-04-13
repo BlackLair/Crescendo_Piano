@@ -137,12 +137,12 @@ public class KeyboardActivity extends AppCompatActivity {
         int bkeypitch[]={28,30,33,35,37,40,42,45,47,49};
         for(int i=0; i<15; i++){    // 흰 건반
             keyBoardListeners[i]=new KeyBoardListener();
-            keyBoardListeners[i].setInitSound(keyboardSoundPool, soundKeys, wkeypitch[i]);
+            keyBoardListeners[i].setInitSound(keyboardSoundPool, soundKeys, wkeypitch[i], true);
             wKeys[i].setOnTouchListener(keyBoardListeners[i]);
         }
         for(int i=15; i<25; i++){   // 검은 건반
             keyBoardListeners[i]=new KeyBoardListener();
-            keyBoardListeners[i].setInitSound(keyboardSoundPool, soundKeys, bkeypitch[i-15]);
+            keyBoardListeners[i].setInitSound(keyboardSoundPool, soundKeys, bkeypitch[i-15], false);
             bKeys[i-15].setOnTouchListener(keyBoardListeners[i]);
         }
     }
