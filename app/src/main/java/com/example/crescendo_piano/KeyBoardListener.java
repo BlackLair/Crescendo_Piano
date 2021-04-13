@@ -28,7 +28,7 @@ public class KeyBoardListener implements View.OnTouchListener {
                 PlayNote.noteOn(spool, soundkeys[pitch], pitch, y);
             }
             if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                if (KeyboardActivity.sustain == false)  // 서스테인 기능이 꺼져있을 때만 소리 정지
+                if (KeyboardActivity.sustain.get() == false)  // 서스테인 기능이 꺼져있을 때만 소리 정지
                     PlayNote.noteOff(spool, pitch);
             }
             return false;

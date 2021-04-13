@@ -10,6 +10,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class KeyboardActivity extends AppCompatActivity {
     private View decorView;
     private int uiOption;
@@ -17,7 +19,7 @@ public class KeyboardActivity extends AppCompatActivity {
     private SoundResourceManager soundmanager;
     private int soundKeys[];
     private SoundPool keyboardSoundPool;
-    private ImageButton goBack;
+    private ImageButton goBack, btnSustain;
     private ImageButton wKeys[]=new ImageButton[15];
     private ImageButton bKeys[]=new ImageButton[10];
     // 각 건반 이미지버튼들의 id속성 저장
@@ -27,7 +29,7 @@ public class KeyboardActivity extends AppCompatActivity {
     private int bButtonID[]={R.id.btn_bkey0, R.id.btn_bkey1, R.id.btn_bkey2, R.id.btn_bkey3, R.id.btn_bkey4, R.id.btn_bkey5,
             R.id.btn_bkey6, R.id.btn_bkey7, R.id.btn_bkey8, R.id.btn_bkey9};
     public static int octave=0;   // 옥타브 설정값  ( -2 ~ +3 )
-    public static boolean sustain=false; // 서스테인 설정값
+    public static AtomicBoolean sustain=new AtomicBoolean(); // 서스테인 설정값
 
     @Override
     protected void onDestroy() {
@@ -53,11 +55,11 @@ public class KeyboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keyboard);
         goBack=findViewById(R.id.keyboard_goBack);
-
+        btnSustain=findViewById(R.id.btnSustain);
         // 건반 백 15개, 흑 10개
         for(int i=0; i<15;i++) wKeys[i]=findViewById(wButtonID[i]);
         for(int i=0; i<10;i++) bKeys[i]=findViewById(bButtonID[i]);
-
+        sustain.set(false);
 
         Intent intent = new Intent();
         inst=intent.getIntExtra("inst", 0);  // 선택한 악기 가져옴
@@ -81,7 +83,21 @@ public class KeyboardActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        btnSustain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!sustain.get()) {
+                    btnSustain.setBackgroundResource(R.drawable.keyboard_sustain_on);
+                    sustain.set(true);
+                }
+                else {
+                    btnSustain.setBackgroundResource(R.drawable.keyboard_sustain_off);
+                    sustain.set(false);
+                    for(int i=0; i<88; i++)
+                        PlayNote.noteOff(keyboardSoundPool, i);
+                }
+            }
+        });
 
         // 각 건반을 담당하는 버튼들에 리스너 추가
         KeyBoardListener keyBoardListeners[] = new KeyBoardListener[25];
