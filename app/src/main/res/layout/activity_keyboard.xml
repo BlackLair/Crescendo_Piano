@@ -31,6 +31,29 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/keyboard_goBack"
                 android:background="@drawable/keyboard_sustain_off" />
+            <ImageView
+                android:id="@+id/btnOctave"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/btnSustain"
+                android:background="@drawable/keyboard_octave"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@id/btnOctave"
+                android:layout_alignEnd="@id/btnOctave"
+                android:layout_alignLeft="@id/btnOctave"
+                android:layout_alignRight="@id/btnOctave"
+                android:layout_alignTop="@id/btnOctave"
+                android:layout_alignBottom="@id/btnOctave"
+                android:text="+0"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:id="@+id/octaveValue"/>
+
         </RelativeLayout>
 
 

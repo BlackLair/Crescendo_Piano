@@ -9,8 +9,11 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class KeyboardActivity extends AppCompatActivity {
     private View decorView;
@@ -20,15 +23,17 @@ public class KeyboardActivity extends AppCompatActivity {
     private int soundKeys[];
     private SoundPool keyboardSoundPool;
     private ImageButton goBack, btnSustain;
+    private ImageView btnOctave;
     private ImageButton wKeys[]=new ImageButton[15];
     private ImageButton bKeys[]=new ImageButton[10];
+    private TextView octaveValue;
     // 각 건반 이미지버튼들의 id속성 저장
     private int wButtonID[]={R.id.btn_wkey0, R.id.btn_wkey1, R.id.btn_wkey2, R.id.btn_wkey3, R.id.btn_wkey4, R.id.btn_wkey5,
                             R.id.btn_wkey6, R.id.btn_wkey7, R.id.btn_wkey8, R.id.btn_wkey9, R.id.btn_wkey10, R.id.btn_wkey11,
                             R.id.btn_wkey12, R.id.btn_wkey13, R.id.btn_wkey14};
     private int bButtonID[]={R.id.btn_bkey0, R.id.btn_bkey1, R.id.btn_bkey2, R.id.btn_bkey3, R.id.btn_bkey4, R.id.btn_bkey5,
             R.id.btn_bkey6, R.id.btn_bkey7, R.id.btn_bkey8, R.id.btn_bkey9};
-    public static int octave=0;   // 옥타브 설정값  ( -2 ~ +3 )
+    public static AtomicInteger octave=new AtomicInteger();   // 옥타브 설정값  ( -2 ~ +3 )
     public static AtomicBoolean sustain=new AtomicBoolean(); // 서스테인 설정값
 
     @Override
@@ -56,11 +61,13 @@ public class KeyboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_keyboard);
         goBack=findViewById(R.id.keyboard_goBack);
         btnSustain=findViewById(R.id.btnSustain);
+        octaveValue=findViewById(R.id.octaveValue);
+        btnOctave=findViewById(R.id.btnOctave);
         // 건반 백 15개, 흑 10개
         for(int i=0; i<15;i++) wKeys[i]=findViewById(wButtonID[i]);
         for(int i=0; i<10;i++) bKeys[i]=findViewById(bButtonID[i]);
         sustain.set(false);
-
+        octave.set(0);
         Intent intent = new Intent();
         inst=intent.getIntExtra("inst", 0);  // 선택한 악기 가져옴
         keyboardSoundPool=soundmanager.load(soundKeys, inst,this ); // 선택한 악기의 음원 파일 로딩
@@ -83,7 +90,7 @@ public class KeyboardActivity extends AppCompatActivity {
                 finish();
             }
         });
-        btnSustain.setOnClickListener(new View.OnClickListener() {
+        btnSustain.setOnClickListener(new View.OnClickListener() { //서스테인 버튼
             @Override
             public void onClick(View view) {
                 if(!sustain.get()) {
@@ -98,7 +105,32 @@ public class KeyboardActivity extends AppCompatActivity {
                 }
             }
         });
+        btnOctave.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+                    float touchedX=motionEvent.getX(); // 터치된 X좌표 받아서 작업 결정
+                    float value=touchedX/view.getWidth();   // 0.5 이상이면 + 이하면 -
+                    int currentOctave=octave.get();
+                    if(value>0.5 && currentOctave<3){
+                        octave.set(currentOctave+1);
+                        if(currentOctave+1>=0)
+                            octaveValue.setText("+"+Integer.toString(currentOctave+1));
+                        else
+                            octaveValue.setText(Integer.toString(currentOctave+1));
+                    }
+                    else if(value<0.5 && currentOctave>-2){
+                        octave.set(currentOctave-1);
+                        if(currentOctave-1>=0)
+                            octaveValue.setText("+"+Integer.toString(currentOctave-1));
+                        else
+                            octaveValue.setText(Integer.toString(currentOctave-1));
+                    }
 
+                }
+                return false;
+            }
+        });
         // 각 건반을 담당하는 버튼들에 리스너 추가
         KeyBoardListener keyBoardListeners[] = new KeyBoardListener[25];
         int wkeypitch[]={27, 29, 31, 32, 34, 36, 38, 39, 41, 43, 44, 46, 48, 50, 51};

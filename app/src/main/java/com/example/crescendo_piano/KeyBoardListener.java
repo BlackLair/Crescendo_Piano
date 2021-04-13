@@ -19,17 +19,17 @@ public class KeyBoardListener implements View.OnTouchListener {
     }
         @Override       // 건반 이미지뷰 터치리스너
         public boolean onTouch (View view, MotionEvent motionEvent){
-            pitch=pitch+KeyboardActivity.octave*12;     // 옥타브 값 적용
+            int currentpitch=pitch+KeyboardActivity.octave.get()*12;     // 옥타브 값 적용
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 float y = motionEvent.getY();   // 터치한 Y좌표와 건반 최대 Y좌표 이용해 벨로시티 값 계산
                 float ymax=view.getHeight();
                 y=y/ymax;
-                PlayNote.noteOff(spool, pitch);
-                PlayNote.noteOn(spool, soundkeys[pitch], pitch, y);
+                PlayNote.noteOff(spool, currentpitch);
+                PlayNote.noteOn(spool, soundkeys[currentpitch], currentpitch, y);
             }
             if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                 if (KeyboardActivity.sustain.get() == false)  // 서스테인 기능이 꺼져있을 때만 소리 정지
-                    PlayNote.noteOff(spool, pitch);
+                    PlayNote.noteOff(spool, currentpitch);
             }
             return false;
         }
