@@ -68,7 +68,7 @@ public class KeyboardActivity extends AppCompatActivity {
         for(int i=0; i<10;i++) bKeys[i]=findViewById(bButtonID[i]);
         sustain.set(false);
         octave.set(0);
-        Intent intent = new Intent();
+        Intent intent = getIntent();
         inst=intent.getIntExtra("inst", 0);  // 선택한 악기 가져옴
         keyboardSoundPool=soundmanager.load(soundKeys, inst,this ); // 선택한 악기의 음원 파일 로딩
 

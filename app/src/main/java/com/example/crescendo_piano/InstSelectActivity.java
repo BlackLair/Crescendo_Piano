@@ -72,6 +72,28 @@ public class InstSelectActivity extends AppCompatActivity {
                 }
             }
         });
+        selViolin.setOnClickListener(new View.OnClickListener() {    // 피아노 연주 선택
+            @Override
+            public void onClick(View view) {
+                if(selectedFunc==0) {   // 메인메뉴에서 연주하기로 접근했을 경우
+                    Intent intent = new Intent(InstSelectActivity.this, KeyboardActivity.class);
+                    intent.putExtra("inst", 1); // 선택한 악기 종류
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
+        selHarp.setOnClickListener(new View.OnClickListener() {    // 피아노 연주 선택
+            @Override
+            public void onClick(View view) {
+                if(selectedFunc==0) {   // 메인메뉴에서 연주하기로 접근했을 경우
+                    Intent intent = new Intent(InstSelectActivity.this, KeyboardActivity.class);
+                    intent.putExtra("inst", 2); // 선택한 악기 종류
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
 
     }
 }
