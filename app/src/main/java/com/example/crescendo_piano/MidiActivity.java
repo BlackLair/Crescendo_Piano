@@ -9,6 +9,8 @@ import android.media.midi.MidiDeviceInfo;
 import android.media.midi.MidiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 
 public class MidiActivity extends AppCompatActivity {
@@ -19,7 +21,7 @@ public class MidiActivity extends AppCompatActivity {
     public int[] soundKeys; // SoundPool 할당된 오디오 파일 구분 키값
     MidiManager midiManager;// MIDI 장치 연결 관리 매니저
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,8 @@ public class MidiActivity extends AppCompatActivity {
         midiManager=(MidiManager)getApplicationContext().getSystemService(Context.MIDI_SERVICE);
         MidiDeviceInfo[] deviceList=midiManager.getDevices();
 
+        MyDeviceCallback myMidiCallback=new MyDeviceCallback(this, midiManager, getApplicationContext());
+        midiManager.registerDeviceCallback(myMidiCallback, Handler.createAsync(Looper.getMainLooper()));
 
     }
 }
