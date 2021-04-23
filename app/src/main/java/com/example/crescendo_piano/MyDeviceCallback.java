@@ -23,7 +23,7 @@ public class MyDeviceCallback extends MidiManager.DeviceCallback{
     private Context context;
     private MidiOutputPort outputPort; // 미디 통신을 위한 외부 포트 설정(MIDI장치 기준 OUTPUT)
     Boolean isConnected=false; // 연결된 상태 확인
-
+    int keyboardChannel, drumChannel;
     SoundPool midiSoundPool;
     int soundKeys[];
     MyReceiver receiver;
