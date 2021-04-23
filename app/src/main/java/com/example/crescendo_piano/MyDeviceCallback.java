@@ -2,6 +2,7 @@ package com.example.crescendo_piano;
 
 import android.app.Activity;
 import android.content.Context;
+import android.media.SoundPool;
 import android.media.midi.MidiDevice;
 import android.media.midi.MidiDeviceInfo;
 import android.media.midi.MidiManager;
@@ -23,14 +24,19 @@ public class MyDeviceCallback extends MidiManager.DeviceCallback{
     private MidiOutputPort outputPort; // 미디 통신을 위한 외부 포트 설정(MIDI장치 기준 OUTPUT)
     Boolean isConnected=false; // 연결된 상태 확인
 
+    SoundPool midiSoundPool;
+    int soundKeys[];
     MyReceiver receiver;
 
 
-    public MyDeviceCallback(Activity activity, MidiManager midiManager, Context context){ // 콜백 생성자
+    public MyDeviceCallback(Activity activity, MidiManager midiManager,
+                            Context context, SoundPool midiSoundPool,int[] soundKeys){ // 콜백 생성자
         super();
         this.midiManager=midiManager;
         this.activity=activity;
         this.context=context;
+        this.soundKeys=soundKeys;
+        this.midiSoundPool=midiSoundPool;
     }
     public void onDeviceAdded(MidiDeviceInfo info){ // 장치 연결시
         Bundle properties = info.getProperties(); // 장치 정보 가져옴
@@ -43,7 +49,7 @@ public class MyDeviceCallback extends MidiManager.DeviceCallback{
 
                 }else{
                     isConnected=true;
-                    receiver=new MyReceiver(activity);
+                    receiver=new MyReceiver(activity, midiSoundPool, soundKeys);
                     myDevice=midiDevice;
                     outputPort=midiDevice.openOutputPort(0);    // 포트 열기
                     outputPort.connect(receiver);   // 통신 시작
