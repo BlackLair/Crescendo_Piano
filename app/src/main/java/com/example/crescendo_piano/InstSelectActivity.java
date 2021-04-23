@@ -70,6 +70,12 @@ public class InstSelectActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
+                else{
+                    Intent intent=new Intent(InstSelectActivity.this, MidiActivity.class);
+                    intent.putExtra("inst", 0);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
         selViolin.setOnClickListener(new View.OnClickListener() {    // 피아노 연주 선택
