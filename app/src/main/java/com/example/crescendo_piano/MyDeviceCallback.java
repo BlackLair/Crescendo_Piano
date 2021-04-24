@@ -17,40 +17,28 @@ import androidx.annotation.RequiresApi;
 
 @RequiresApi(api = Build.VERSION_CODES.M)
 public class MyDeviceCallback extends MidiManager.DeviceCallback{
-    private MidiManager midiManager;
-    private MidiDevice myDevice;
-    private Activity activity;
     private Context context;
     private MidiOutputPort outputPort; // 미디 통신을 위한 외부 포트 설정(MIDI장치 기준 OUTPUT)
     Boolean isConnected=false; // 연결된 상태 확인
-    int keyboardChannel, drumChannel;
-    SoundPool midiSoundPool;
-    int soundKeys[];
     MyReceiver receiver;
 
 
-    public MyDeviceCallback(Activity activity, MidiManager midiManager,
-                            Context context, SoundPool midiSoundPool,int[] soundKeys){ // 콜백 생성자
+    public MyDeviceCallback(Context context){ // 콜백 생성자
         super();
-        this.midiManager=midiManager;
-        this.activity=activity;
         this.context=context;
-        this.soundKeys=soundKeys;
-        this.midiSoundPool=midiSoundPool;
     }
     public void onDeviceAdded(MidiDeviceInfo info){ // 장치 연결시
         Bundle properties = info.getProperties(); // 장치 정보 가져옴
         String manufacturer=properties.getString(MidiDeviceInfo.PROPERTY_NAME);
         Toast.makeText(context, manufacturer+" 연결되었습니다.", Toast.LENGTH_SHORT).show();
-        midiManager.openDevice(info, new MidiManager.OnDeviceOpenedListener(){
+        ((MidiActivity)context).midiManager.openDevice(info, new MidiManager.OnDeviceOpenedListener(){
             @Override
             public void onDeviceOpened(MidiDevice midiDevice) {
                 if(midiDevice==null){
 
                 }else{
                     isConnected=true;
-                    receiver=new MyReceiver(activity, midiSoundPool, soundKeys);
-                    myDevice=midiDevice;
+                    receiver=new MyReceiver(context);
                     outputPort=midiDevice.openOutputPort(0);    // 포트 열기
                     outputPort.connect(receiver);   // 통신 시작
 
