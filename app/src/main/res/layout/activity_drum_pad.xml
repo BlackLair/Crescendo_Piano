@@ -46,22 +46,26 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"/>
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/drum_untouch"/>
                 <ImageButton
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"/>
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/drum_untouch"/>
                 <ImageButton
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"/>
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/drum_untouch"/>
                 <ImageButton
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"/>
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/drum_untouch"/>
 
                 <ImageButton
                     android:layout_width="0dp"
@@ -69,22 +73,26 @@
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
                     android:layout_row="1"
-                    android:layout_column="0"/>
+                    android:layout_column="0"
+                    android:background="@drawable/drum_untouch"/>
                 <ImageButton
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"/>
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/drum_untouch"/>
                 <ImageButton
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"/>
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/drum_untouch"/>
                 <ImageButton
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"/>
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/drum_untouch"/>
 
 
             </GridLayout>
