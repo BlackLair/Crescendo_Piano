@@ -12,7 +12,9 @@ public class DrumPadActivity extends AppCompatActivity {
     private View decorView;
     private int uiOption;
     ImageButton btn_goBack;
-
+    private ImageButton btnDrum[]=new ImageButton[8];
+    private int drumId[] = {R.id.drum_crush,R.id.drum_htom,R.id.drum_mtom,R.id.drum_ride,
+            R.id.drum_hihat,R.id.drum_snare,R.id.drum_kick,R.id.drum_ltom};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         /////////////////////////////앱 하단바 제거///////////////////////////////
@@ -30,6 +32,15 @@ public class DrumPadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_drum_pad);
 
         btn_goBack=(ImageButton)findViewById(R.id.drumpad_goBack);
+        for(int i=0;i<drumId.length;i++){
+            btnDrum[i]=findViewById(drumId[i]);
+            btnDrum[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+        }
         btn_goBack.setOnClickListener(new View.OnClickListener() {
             @Override       // 뒤로가기 버튼
             public void onClick(View view) {
