@@ -22,43 +22,43 @@
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/logo"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:columnCount="3"
-        android:rowCount="3">
+        android:columnCount="5"
+        android:rowCount="4">
         <ImageButton
-            android:layout_width="316dp"
-            android:layout_height="165dp"
+            android:layout_width="286dp"
+            android:layout_height="150dp"
             android:id="@+id/inst_Piano"
             android:scaleType="fitXY"
             android:layout_row="0"
             android:layout_column="0"
-            android:background="@drawable/instsel_piano" />
+            android:background="@drawable/instsel_piano"/>
         <LinearLayout
-            android:layout_width="35dp"
-            android:layout_height="165dp"
+            android:layout_width="10dp"
+            android:layout_height="150dp"
             android:layout_row="0"
             android:layout_column="1"
             android:visibility="invisible"/>
         <ImageButton
-            android:layout_width="316dp"
-            android:layout_height="165dp"
+            android:layout_width="286dp"
+            android:layout_height="150dp"
             android:id="@+id/inst_Violin"
             android:scaleType="fitXY"
             android:layout_row="0"
             android:layout_column="2"
             android:background="@drawable/instsel_violin"/>
         <ImageButton
-            android:layout_width="316dp"
-            android:layout_height="165dp"
+            android:layout_width="286dp"
+            android:layout_height="150dp"
             android:id="@+id/inst_Harp"
             android:scaleType="fitXY"
             android:layout_column="0"
             android:layout_row="1"
             android:background="@drawable/instsel_harp"/>
         <ImageButton
-            android:layout_width="316dp"
-            android:layout_height="165dp"
+            android:layout_width="286dp"
+            android:layout_height="150dp"
             android:id="@+id/inst_Drum"
             android:scaleType="fitXY"
             android:layout_column="2"

@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -27,6 +28,7 @@ public class KeyboardActivity extends AppCompatActivity {
     private ImageButton wKeys[]=new ImageButton[15];
     private ImageButton bKeys[]=new ImageButton[10];
     private TextView octaveValue;
+    private RelativeLayout keyboardTopBanner;
     // 각 건반 이미지버튼들의 id속성 저장
     private int wButtonID[]={R.id.btn_wkey0, R.id.btn_wkey1, R.id.btn_wkey2, R.id.btn_wkey3, R.id.btn_wkey4, R.id.btn_wkey5,
                             R.id.btn_wkey6, R.id.btn_wkey7, R.id.btn_wkey8, R.id.btn_wkey9, R.id.btn_wkey10, R.id.btn_wkey11,
@@ -63,6 +65,7 @@ public class KeyboardActivity extends AppCompatActivity {
         btnSustain=findViewById(R.id.btnSustain);
         octaveValue=findViewById(R.id.octaveValue);
         btnOctave=findViewById(R.id.btnOctave);
+        keyboardTopBanner=findViewById(R.id.keyboard_Toplayout);
         // 건반 백 15개, 흑 10개
         for(int i=0; i<15;i++) wKeys[i]=findViewById(wButtonID[i]);
         for(int i=0; i<10;i++) bKeys[i]=findViewById(bButtonID[i]);
@@ -71,7 +74,9 @@ public class KeyboardActivity extends AppCompatActivity {
         Intent intent = getIntent();
         inst=intent.getIntExtra("inst", 0);  // 선택한 악기 가져옴
         keyboardSoundPool=soundmanager.load(soundKeys, inst,this ); // 선택한 악기의 음원 파일 로딩
-
+        if(inst==0) keyboardTopBanner.setBackground(getResources().getDrawable(R.drawable.keyboard_backgroundpiano));
+        else if(inst==1) keyboardTopBanner.setBackground(getResources().getDrawable(R.drawable.keyboard_backgroundviolin));
+        else if(inst==2) keyboardTopBanner.setBackground(getResources().getDrawable(R.drawable.keyboard_backgroundharp));
         goBack.setOnTouchListener(new View.OnTouchListener() { // 뒤로가기 버튼 이미지 변환 효과
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
