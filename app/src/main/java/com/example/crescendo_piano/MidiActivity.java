@@ -27,7 +27,7 @@ public class MidiActivity extends AppCompatActivity {
     public MidiManager midiManager;// MIDI 장치 연결 관리 매니저
     public SoundPool midiSoundPool; // 건반 사운드 리소스 로딩 SoundPool
     public int keyboardChannel,drumChannel; // 설정할 midi channel
-    public MyDeviceCallback myMidiCallback;
+    public MidiDeviceCallback myMidiCallback;
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class MidiActivity extends AppCompatActivity {
         midiManager=(MidiManager)getApplicationContext().getSystemService(Context.MIDI_SERVICE);
         MidiDeviceInfo[] deviceList=midiManager.getDevices();   // 연결되어 있는 장치 목록 가져옴
 
-        myMidiCallback=new MyDeviceCallback(this );
+        myMidiCallback=new MidiDeviceCallback(this );
         midiManager.registerDeviceCallback(myMidiCallback, Handler.createAsync(Looper.getMainLooper())); //디바이스 콜백 등록
 
 

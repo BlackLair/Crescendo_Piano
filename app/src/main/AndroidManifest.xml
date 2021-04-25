@@ -10,14 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Crescendo_Piano">
         <activity
+            android:name=".DrumPadActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity
             android:name=".MidiActivity"
-            android:screenOrientation="landscape">
-
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".KeyboardActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".InstSelectActivity"
             android:screenOrientation="landscape" />
