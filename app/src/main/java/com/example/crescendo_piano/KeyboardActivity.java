@@ -145,7 +145,7 @@ public class KeyboardActivity extends AppCompatActivity {
                     }
 
                 }
-                return false;
+                return true; // false 리턴하면 옥타브 이미지버튼 누른 상태로 건반버튼 눌러도 반응을 안함
             }
         });
         //////////////////////////////////////////////////////////////////////////////////////////
