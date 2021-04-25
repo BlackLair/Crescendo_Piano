@@ -154,7 +154,8 @@ public class KeyboardActivity extends AppCompatActivity {
         metronome_seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                BPMText.setText(i);
+                seekBar.setProgress(i);
+                BPMText.setText(Integer.toString(i));
                 BPM.set(i);
             }
 
