@@ -115,9 +115,11 @@ public class InstSelectActivity extends AppCompatActivity {
         selDrum.setOnClickListener(new View.OnClickListener() {    // 피아노 연주 선택
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(InstSelectActivity.this, DrumPadActivity.class);
-                startActivity(intent);
-                finish();
+                if(selectedFunc==0) {
+                    Intent intent = new Intent(InstSelectActivity.this, DrumPadActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 
