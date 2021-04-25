@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -27,7 +28,8 @@ public class KeyboardActivity extends AppCompatActivity {
     private ImageView btnOctave;
     private ImageButton wKeys[]=new ImageButton[15];
     private ImageButton bKeys[]=new ImageButton[10];
-    private TextView octaveValue;
+    private TextView octaveValue, BPMText;
+    private SeekBar metronome_seekbar;
     private RelativeLayout keyboardTopBanner;
     // 각 건반 이미지버튼들의 id속성 저장
     private int wButtonID[]={R.id.btn_wkey0, R.id.btn_wkey1, R.id.btn_wkey2, R.id.btn_wkey3, R.id.btn_wkey4, R.id.btn_wkey5,
@@ -37,6 +39,7 @@ public class KeyboardActivity extends AppCompatActivity {
             R.id.btn_bkey6, R.id.btn_bkey7, R.id.btn_bkey8, R.id.btn_bkey9};
     public static AtomicInteger octave=new AtomicInteger();   // 옥타브 설정값  ( -2 ~ +3 )
     public static AtomicBoolean sustain=new AtomicBoolean(); // 서스테인 설정값
+    private AtomicInteger BPM = new AtomicInteger();  // 메트로놈을 위한 BPM값
 
     @Override
     protected void onDestroy() {
@@ -66,6 +69,11 @@ public class KeyboardActivity extends AppCompatActivity {
         octaveValue=findViewById(R.id.octaveValue);
         btnOctave=findViewById(R.id.btnOctave);
         keyboardTopBanner=findViewById(R.id.keyboard_Toplayout);
+        BPMText=findViewById(R.id.metronome_bpm);
+        metronome_seekbar=findViewById(R.id.metronome_seekbar);
+        BPM.set(120);
+
+
         // 건반 백 15개, 흑 10개
         for(int i=0; i<15;i++) wKeys[i]=findViewById(wButtonID[i]);
         for(int i=0; i<10;i++) bKeys[i]=findViewById(bButtonID[i]);
@@ -95,6 +103,8 @@ public class KeyboardActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        //////////////////////////////////서스테인 기능///////////////////////////////////////////
         btnSustain.setOnClickListener(new View.OnClickListener() { //서스테인 버튼
             @Override
             public void onClick(View view) {
@@ -110,6 +120,8 @@ public class KeyboardActivity extends AppCompatActivity {
                 }
             }
         });
+        /////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////옥타브 조절 기능///////////////////////////////////////
         btnOctave.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -136,6 +148,28 @@ public class KeyboardActivity extends AppCompatActivity {
                 return false;
             }
         });
+        //////////////////////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////메트로놈 기능////////////////////////////////////////
+        metronome_seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                BPMText.setText(i);
+                BPM.set(i);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        //////////////////////////////////////////////////////////////////////////////////////////
+
         // 각 건반을 담당하는 버튼들에 리스너 추가
         KeyBoardListener keyBoardListeners[] = new KeyBoardListener[25];
         int wkeypitch[]={27, 29, 31, 32, 34, 36, 38, 39, 41, 43, 44, 46, 48, 50, 51};
