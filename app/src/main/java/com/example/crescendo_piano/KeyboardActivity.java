@@ -24,7 +24,7 @@ public class KeyboardActivity extends AppCompatActivity {
     private SoundResourceManager soundmanager;
     private int soundKeys[];
     private SoundPool keyboardSoundPool;
-    private ImageButton goBack, btnSustain;
+    private ImageButton goBack, btnSustain, bpmUp, bpmDown;
     private ImageView btnOctave;
     private ImageButton wKeys[]=new ImageButton[15];
     private ImageButton bKeys[]=new ImageButton[10];
@@ -71,6 +71,8 @@ public class KeyboardActivity extends AppCompatActivity {
         keyboardTopBanner=findViewById(R.id.keyboard_Toplayout);
         BPMText=findViewById(R.id.metronome_bpm);
         metronome_seekbar=findViewById(R.id.metronome_seekbar);
+        bpmUp=findViewById(R.id.metronome_bpmup);
+        bpmDown=findViewById(R.id.metronome_bpmdown);
         BPM.set(120);
 
 
@@ -169,6 +171,32 @@ public class KeyboardActivity extends AppCompatActivity {
             }
         });
 
+        bpmUp.setOnClickListener(new View.OnClickListener() { // BPM을 1씩 올려주는 버튼
+            @Override
+            public void onClick(View view) {
+                Integer currentBPM=BPM.get();
+                if(currentBPM<240){
+                    currentBPM+=1;
+                    BPM.set(currentBPM);
+                    metronome_seekbar.setProgress(currentBPM);
+                    // 여기에 메트로놈 소리 다시시작하도록 구현(메트로놈 기능 켜진상태일때만)
+                }
+            }
+        });
+
+        bpmDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer currentBPM=BPM.get();
+                if(currentBPM>1){
+                    currentBPM-=1;
+                    BPM.set(currentBPM);
+                    metronome_seekbar.setProgress(currentBPM);
+                    // 여기에 메트로놈 소리 다시시작하도록 구현(메트로놈 기능 켜진상태일때만)
+                }
+            }
+        });
+
         //////////////////////////////////////////////////////////////////////////////////////////
 
         // 각 건반을 담당하는 버튼들에 리스너 추가
@@ -185,6 +213,8 @@ public class KeyboardActivity extends AppCompatActivity {
             keyBoardListeners[i].setInitSound(keyboardSoundPool, soundKeys, bkeypitch[i-15], false);
             bKeys[i-15].setOnTouchListener(keyBoardListeners[i]);
         }
+
+
     }
 
 }

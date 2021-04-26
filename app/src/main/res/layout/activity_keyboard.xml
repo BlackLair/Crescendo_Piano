@@ -54,20 +54,39 @@
                     android:gravity="center"
                     android:textColor="#ffffff"
                     android:id="@+id/octaveValue"/>
+
+            <ImageButton
+                android:id="@+id/metronome_set"
+                android:layout_width="70dp"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_toEndOf="@+id/btnOctave"
+                android:layout_toRightOf="@+id/btnOctave" />
+
+            <ImageButton
+                android:id="@+id/metronome_bpmdown"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_above="@+id/metronome_seekbar"
+                android:layout_alignLeft="@id/metronome_seekbar" />
+
             <SeekBar
                 android:id="@+id/metronome_seekbar"
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginRight="50dp"
-                android:layout_marginBottom="10dp"
-                android:progress="120"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="6dp"
+                android:layout_toEndOf="@+id/metronome_set"
+                android:layout_toRightOf="@+id/metronome_set"
                 android:max="240"
                 android:min="1"
-                android:thumb="@drawable/seekbar1_thumb"
+                android:progress="120"
                 android:progressDrawable="@drawable/seekbar1"
-                />
+                android:thumb="@drawable/seekbar1_thumb" />
 
             <TextView
                 android:id="@+id/metronome_bpm"
@@ -75,21 +94,19 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/metronome_seekbar"
                 android:layout_marginBottom="5dp"
-                android:layout_alignStart="@+id/metronome_seekbar"
-                android:layout_alignLeft="@+id/metronome_seekbar"
-                android:layout_marginLeft="70dp"
-
+                android:layout_alignLeft="@id/metronome_seekbar"
+                android:layout_alignRight="@id/metronome_seekbar"
+                android:gravity="center"
                 android:text="120"
-                android:textSize="40dp"
-                android:textColor="#01FFF8"/>
+                android:textColor="#01FFF8"
+                android:textSize="40dp" />
 
             <ImageButton
+                android:id="@+id/metronome_bpmup"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginRight="5dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="10dp"/>
+                android:layout_above="@id/metronome_seekbar"
+                android:layout_alignRight="@id/metronome_seekbar"/>
         </RelativeLayout>
 
 
