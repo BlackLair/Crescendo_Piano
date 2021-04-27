@@ -63,14 +63,16 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_toEndOf="@+id/btnOctave"
-                android:layout_toRightOf="@+id/btnOctave" />
+                android:layout_toRightOf="@+id/btnOctave"
+                android:background="@drawable/keyboard_mat_stop"/>
 
             <ImageButton
                 android:id="@+id/metronome_bpmdown"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_above="@+id/metronome_seekbar"
-                android:layout_alignLeft="@id/metronome_seekbar" />
+                android:layout_alignLeft="@id/metronome_seekbar"
+                android:background=""/>
 
             <SeekBar
                 android:id="@+id/metronome_seekbar"
