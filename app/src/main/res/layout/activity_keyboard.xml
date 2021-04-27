@@ -72,7 +72,7 @@
                 android:layout_height="50dp"
                 android:layout_above="@+id/metronome_seekbar"
                 android:layout_alignLeft="@id/metronome_seekbar"
-                android:background=""/>
+                android:background="@drawable/keyboard_mat_minus"/>
 
             <SeekBar
                 android:id="@+id/metronome_seekbar"
@@ -108,7 +108,8 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_above="@id/metronome_seekbar"
-                android:layout_alignRight="@id/metronome_seekbar"/>
+                android:layout_alignRight="@id/metronome_seekbar"
+                android:background="@drawable/keyboard_mat_plus"/>
         </RelativeLayout>
 
 
