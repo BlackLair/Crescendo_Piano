@@ -14,7 +14,7 @@ public class PlayNote {
         spool.stop(streamID[pitch]);
 
     }
-    public static void metronomeOn(SoundPool spool,int key){
-        spool.play(key, 0.8f, 0.8f, 0, 0, 1);
+    public static void metronomeOn(SoundPool spool,int key){ // 메트로놈 재생 메소드
+        spool.play(key, 0.55f, 0.55f, 0, 0, 1);
     }
 }

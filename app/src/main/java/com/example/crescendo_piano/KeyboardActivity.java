@@ -14,7 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -48,6 +51,9 @@ public class KeyboardActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         soundmanager.unLoad(keyboardSoundPool); // 액티비티 종료 시 사운드 리소스 언로드
+        if(metronome_maxcount!=0)
+            metronomeService.shutdownNow();
+        soundmanager.unLoad(metronomeSoundPool);
         super.onDestroy();
     }
 
@@ -159,16 +165,16 @@ public class KeyboardActivity extends AppCompatActivity {
         //////////////////////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////메트로놈 기능////////////////////////////////////////
-
-        Runnable metronomeRunnable=new Runnable(){
+        metronomeSoundPool=soundmanager.loadMetronomeSound(metronomesoundKeys,this);
+        Runnable metronomeRunnable=new Runnable(){ // 메트로놈 소리 1회 재생하는 runnable. bpm에 맞는 주기로 실행된다.
             @Override
             public void run() {// 메트로놈 소리를 정박에는 킥, 나머지는 하이햇 소리 냄
-                if(metronome_count==0)
+                if(metronome_count==0) // 첫 박자 킥 소리
                     PlayNote.metronomeOn(metronomeSoundPool, metronomesoundKeys[0]);
-                else
+                else                    // 나머지 박자 하이햇 소리
                     PlayNote.metronomeOn(metronomeSoundPool, metronomesoundKeys[1]);
                 metronome_count++;
-                if(metronome_count>metronome_maxcount) metronome_count=0; //설정된 메트로놈 박자에 따라 카운트조절
+                if(metronome_count>=metronome_maxcount) metronome_count=0; //설정된 메트로놈 박자에 따라 카운트조절
             }
         };
         metronome_maxcount=0;
@@ -177,12 +183,22 @@ public class KeyboardActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(metronome_maxcount==3){ //메트로놈 꺼짐
                     metronome_maxcount=0;
+                    metronome_count=0;
+                    metronomeService.shutdownNow(); //메트로놈서비스 종료
+                    view.setBackgroundResource(R.drawable.keyboard_mat_stop);
                 }
                 else if(metronome_maxcount==0){ //메트로놈 4/4로 설정
                     metronome_maxcount=4;
+                    metronomeService= Executors.newSingleThreadScheduledExecutor();
+                    metronomeService.scheduleAtFixedRate(metronomeRunnable,0,(60000/BPM.get()), TimeUnit.MILLISECONDS);
+                    view.setBackgroundResource(R.drawable.keyboard_mat_quadruple);
                 }
                 else if(metronome_maxcount==4){ //메트로놈 3/4로 설정
                     metronome_maxcount=3;
+                    metronomeService.shutdownNow();
+                    metronomeService= Executors.newSingleThreadScheduledExecutor();
+                    metronomeService.scheduleAtFixedRate(metronomeRunnable,0,(60000/BPM.get()), TimeUnit.MILLISECONDS);
+                    view.setBackgroundResource(R.drawable.keyboard_mat_triple);
                 }
             }
         });
@@ -192,15 +208,25 @@ public class KeyboardActivity extends AppCompatActivity {
                 seekBar.setProgress(i);
                 BPMText.setText(Integer.toString(i));
                 BPM.set(i);
+                if(metronome_count!=0) { // 메트로놈 재시작
+                    metronomeService.shutdownNow();
+                    metronomeService = Executors.newSingleThreadScheduledExecutor();
+                    metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000 / BPM.get()), TimeUnit.MILLISECONDS);
+                }
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                seekBar.animate();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                if(metronome_count!=0) { // 메트로놈 재시작
+                    metronomeService.shutdownNow();
+                    metronomeService = Executors.newSingleThreadScheduledExecutor();
+                    metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000 / BPM.get()), TimeUnit.MILLISECONDS);
+                }
             }
         });
 
@@ -212,7 +238,7 @@ public class KeyboardActivity extends AppCompatActivity {
                     currentBPM+=1;
                     BPM.set(currentBPM);
                     metronome_seekbar.setProgress(currentBPM);
-                    // 여기에 메트로놈 소리 다시시작하도록 구현(메트로놈 기능 켜진상태일때만)
+
                 }
             }
         });
@@ -225,7 +251,7 @@ public class KeyboardActivity extends AppCompatActivity {
                     currentBPM-=1;
                     BPM.set(currentBPM);
                     metronome_seekbar.setProgress(currentBPM);
-                    // 여기에 메트로놈 소리 다시시작하도록 구현(메트로놈 기능 켜진상태일때만)
+
                 }
             }
         });
