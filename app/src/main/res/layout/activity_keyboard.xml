@@ -84,7 +84,7 @@
                 android:layout_marginBottom="6dp"
                 android:layout_toEndOf="@+id/metronome_set"
                 android:layout_toRightOf="@+id/metronome_set"
-                android:max="240"
+                android:max="300"
                 android:min="1"
                 android:progress="120"
                 android:progressDrawable="@drawable/seekbar1"
