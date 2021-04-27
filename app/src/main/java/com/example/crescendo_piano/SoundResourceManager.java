@@ -27,9 +27,9 @@ public class SoundResourceManager {
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                     .build();
 
-            tempSoundPool = new SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(6).build();
+            tempSoundPool = new SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(64).build();
         } else {                // API 21 미만
-            tempSoundPool = new SoundPool(6, AudioManager.STREAM_MUSIC, 0);
+            tempSoundPool = new SoundPool(64, AudioManager.STREAM_MUSIC, 0);
         }
         for (int i = 0; i < 88; i++)
             keys[i] = tempSoundPool.load(context, soundIDs[i], 1);  // 사운드 리소스를 메모리에 로드하고 재생을 위한 key값 저장
@@ -43,9 +43,9 @@ public class SoundResourceManager {
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                     .build();
 
-            tempSoundPool = new SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(6).build();
+            tempSoundPool = new SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(8).build();
         } else {                // API 21 미만
-            tempSoundPool = new SoundPool(6, AudioManager.STREAM_MUSIC, 0);
+            tempSoundPool = new SoundPool(8, AudioManager.STREAM_MUSIC, 0);
         }
         keys[0] = tempSoundPool.load(context, R.raw.metronome0, 1);  // 사운드 리소스를 메모리에 로드하고 재생을 위한 key값 저장
         keys[1] = tempSoundPool.load(context, R.raw.metronome1, 1);
