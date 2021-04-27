@@ -35,7 +35,24 @@ public class SoundResourceManager {
             keys[i] = tempSoundPool.load(context, soundIDs[i], 1);  // 사운드 리소스를 메모리에 로드하고 재생을 위한 key값 저장
         return tempSoundPool;       // SoundPool 리턴
     }
+    public SoundPool loadMetronomeSound(int[] keys, Context context){
+        SoundPool tempSoundPool;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {               // API 21 이후
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_GAME)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .build();
 
+            tempSoundPool = new SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(6).build();
+        } else {                // API 21 미만
+            tempSoundPool = new SoundPool(6, AudioManager.STREAM_MUSIC, 0);
+        }
+        keys[0] = tempSoundPool.load(context, R.raw.metronome0, 1);  // 사운드 리소스를 메모리에 로드하고 재생을 위한 key값 저장
+        keys[1] = tempSoundPool.load(context, R.raw.metronome1, 1);
+        return tempSoundPool;       // SoundPool 리턴
+
+
+    }
     public void unLoad(SoundPool spools){ // soundpool 리소스 해제
         spools.release();
         spools=null;

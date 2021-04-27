@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -22,9 +23,9 @@ public class KeyboardActivity extends AppCompatActivity {
     private int uiOption;
     private int inst; // 0 : 피아노 1 : 바이올린 2 : 하프
     private SoundResourceManager soundmanager;
-    private int soundKeys[];
-    private SoundPool keyboardSoundPool;
-    private ImageButton goBack, btnSustain, bpmUp, bpmDown;
+    private int soundKeys[], metronomesoundKeys[];
+    private SoundPool keyboardSoundPool, metronomeSoundPool;
+    private ImageButton goBack, btnSustain, bpmUp, bpmDown, btn_metronome;
     private ImageView btnOctave;
     private ImageButton wKeys[]=new ImageButton[15];
     private ImageButton bKeys[]=new ImageButton[10];
@@ -40,6 +41,9 @@ public class KeyboardActivity extends AppCompatActivity {
     public static AtomicInteger octave=new AtomicInteger();   // 옥타브 설정값  ( -2 ~ +3 )
     public static AtomicBoolean sustain=new AtomicBoolean(); // 서스테인 설정값
     private AtomicInteger BPM = new AtomicInteger();  // 메트로놈을 위한 BPM값
+    private int metronome_count=0;      // 메트로놈 박자 세는 기준
+    private int metronome_maxcount=3;   // 0이면 메트로놈 꺼짐 3이면 3/4박자 4면 4/4박자
+    private ScheduledExecutorService metronomeService;
 
     @Override
     protected void onDestroy() {
@@ -51,6 +55,7 @@ public class KeyboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         soundmanager=new SoundResourceManager();    // 음원 파일 관리 객체
         soundKeys=new int[88];      // 건반 소리 재생을 위한 key값 저장 배열
+        metronomesoundKeys=new int[2];      // 메트로놈 소리 재생을 위한 key값 저장 배열
         /////////////////////////////앱 하단바 제거///////////////////////////////
         decorView=getWindow().getDecorView();
         uiOption=getWindow().getDecorView().getSystemUiVisibility();
@@ -73,6 +78,7 @@ public class KeyboardActivity extends AppCompatActivity {
         metronome_seekbar=findViewById(R.id.metronome_seekbar);
         bpmUp=findViewById(R.id.metronome_bpmup);
         bpmDown=findViewById(R.id.metronome_bpmdown);
+        btn_metronome=findViewById(R.id.metronome_set);
         BPM.set(120);
 
 
@@ -153,9 +159,36 @@ public class KeyboardActivity extends AppCompatActivity {
         //////////////////////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////메트로놈 기능////////////////////////////////////////
+
+        Runnable metronomeRunnable=new Runnable(){
+            @Override
+            public void run() {// 메트로놈 소리를 정박에는 킥, 나머지는 하이햇 소리 냄
+                if(metronome_count==0)
+                    PlayNote.metronomeOn(metronomeSoundPool, metronomesoundKeys[0]);
+                else
+                    PlayNote.metronomeOn(metronomeSoundPool, metronomesoundKeys[1]);
+                metronome_count++;
+                if(metronome_count>metronome_maxcount) metronome_count=0; //설정된 메트로놈 박자에 따라 카운트조절
+            }
+        };
+        metronome_maxcount=0;
+        btn_metronome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(metronome_maxcount==3){ //메트로놈 꺼짐
+                    metronome_maxcount=0;
+                }
+                else if(metronome_maxcount==0){ //메트로놈 4/4로 설정
+                    metronome_maxcount=4;
+                }
+                else if(metronome_maxcount==4){ //메트로놈 3/4로 설정
+                    metronome_maxcount=3;
+                }
+            }
+        });
         metronome_seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) { //Seekbar가 이동할경우
                 seekBar.setProgress(i);
                 BPMText.setText(Integer.toString(i));
                 BPM.set(i);

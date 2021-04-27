@@ -14,4 +14,7 @@ public class PlayNote {
         spool.stop(streamID[pitch]);
 
     }
+    public static void metronomeOn(SoundPool spool,int key){
+        spool.play(key, 0.8f, 0.8f, 0, 0, 1);
+    }
 }
