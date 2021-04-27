@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -43,7 +44,7 @@ public class KeyboardActivity extends AppCompatActivity {
             R.id.btn_bkey6, R.id.btn_bkey7, R.id.btn_bkey8, R.id.btn_bkey9};
     public static AtomicInteger octave=new AtomicInteger();   // 옥타브 설정값  ( -2 ~ +3 )
     public static AtomicBoolean sustain=new AtomicBoolean(); // 서스테인 설정값
-    private AtomicInteger BPM = new AtomicInteger();  // 메트로놈을 위한 BPM값
+    private int BPM;  // 메트로놈을 위한 BPM값
     private int metronome_count=0;      // 메트로놈 박자 세는 기준
     private int metronome_maxcount=3;   // 0이면 메트로놈 꺼짐 3이면 3/4박자 4면 4/4박자
     private ScheduledExecutorService metronomeService;
@@ -85,7 +86,7 @@ public class KeyboardActivity extends AppCompatActivity {
         bpmUp=findViewById(R.id.metronome_bpmup);
         bpmDown=findViewById(R.id.metronome_bpmdown);
         btn_metronome=findViewById(R.id.metronome_set);
-        BPM.set(120);
+        BPM=120;
 
 
         // 건반 백 15개, 흑 10개
@@ -190,14 +191,14 @@ public class KeyboardActivity extends AppCompatActivity {
                 else if(metronome_maxcount==0){ //메트로놈 4/4로 설정
                     metronome_maxcount=4;
                     metronomeService= Executors.newSingleThreadScheduledExecutor();
-                    metronomeService.scheduleAtFixedRate(metronomeRunnable,0,(60000/BPM.get()), TimeUnit.MILLISECONDS);
+                    metronomeService.scheduleAtFixedRate(metronomeRunnable,0,(60000000/BPM), TimeUnit.MICROSECONDS);
                     view.setBackgroundResource(R.drawable.keyboard_mat_quadruple);
                 }
                 else if(metronome_maxcount==4){ //메트로놈 3/4로 설정
                     metronome_maxcount=3;
                     metronomeService.shutdownNow();
                     metronomeService= Executors.newSingleThreadScheduledExecutor();
-                    metronomeService.scheduleAtFixedRate(metronomeRunnable,0,(60000/BPM.get()), TimeUnit.MILLISECONDS);
+                    metronomeService.scheduleAtFixedRate(metronomeRunnable,0,(60000000/BPM), TimeUnit.MICROSECONDS);
                     view.setBackgroundResource(R.drawable.keyboard_mat_triple);
                 }
             }
@@ -205,27 +206,28 @@ public class KeyboardActivity extends AppCompatActivity {
         metronome_seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) { //Seekbar가 이동할경우
-                seekBar.setProgress(i);
+                BPM=i;
                 BPMText.setText(Integer.toString(i));
-                BPM.set(i);
                 if(metronome_count!=0) { // 메트로놈 재시작
                     metronomeService.shutdownNow();
                     metronomeService = Executors.newSingleThreadScheduledExecutor();
-                    metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000 / BPM.get()), TimeUnit.MILLISECONDS);
+                    metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000000 / BPM), TimeUnit.MICROSECONDS);
                 }
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                seekBar.animate();
+
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                BPMText.setText(Integer.toString(seekBar.getProgress()));
+                BPM=seekBar.getProgress();
                 if(metronome_count!=0) { // 메트로놈 재시작
                     metronomeService.shutdownNow();
                     metronomeService = Executors.newSingleThreadScheduledExecutor();
-                    metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000 / BPM.get()), TimeUnit.MILLISECONDS);
+                    metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000000 / BPM), TimeUnit.MICROSECONDS);
                 }
             }
         });
@@ -233,12 +235,11 @@ public class KeyboardActivity extends AppCompatActivity {
         bpmUp.setOnClickListener(new View.OnClickListener() { // BPM을 1씩 올려주는 버튼
             @Override
             public void onClick(View view) {
-                Integer currentBPM=BPM.get();
-                if(currentBPM<240){
+                Integer currentBPM=BPM;
+                if(currentBPM<300){
                     currentBPM+=1;
-                    BPM.set(currentBPM);
+                    BPM=currentBPM;
                     metronome_seekbar.setProgress(currentBPM);
-
                 }
             }
         });
@@ -246,12 +247,11 @@ public class KeyboardActivity extends AppCompatActivity {
         bpmDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer currentBPM=BPM.get();
+                Integer currentBPM=BPM;
                 if(currentBPM>1){
                     currentBPM-=1;
-                    BPM.set(currentBPM);
+                    BPM=currentBPM;
                     metronome_seekbar.setProgress(currentBPM);
-
                 }
             }
         });
