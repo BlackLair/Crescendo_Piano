@@ -26,7 +26,6 @@ public class SoundResourceManager {
                     .setUsage(AudioAttributes.USAGE_GAME)
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                     .build();
-
             tempSoundPool = new SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(64).build();
         } else {                // API 21 미만
             tempSoundPool = new SoundPool(64, AudioManager.STREAM_MUSIC, 0);
@@ -35,6 +34,23 @@ public class SoundResourceManager {
             keys[i] = tempSoundPool.load(context, soundIDs[i], 1);  // 사운드 리소스를 메모리에 로드하고 재생을 위한 key값 저장
         return tempSoundPool;       // SoundPool 리턴
     }
+    public SoundPool loadDrumSound(int[] keys, Context context){ // 드럼(8개짜리) 사운드 로딩
+        SoundPool tempSoundPool;
+        int drumSoundIDs[]={R.raw.d_crash, R.raw.d_tom1, R.raw.d_tom2, R.raw.d_ride, R.raw.d_closedhat, R.raw.d_snare, R.raw.d_kick, R.raw.d_tom3};
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {               // API 21 이후
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_GAME)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .build();
+            tempSoundPool = new SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(64).build();
+        } else {                // API 21 미만
+            tempSoundPool = new SoundPool(64, AudioManager.STREAM_MUSIC, 0);
+        }
+        for (int i = 0; i < 8; i++)
+            keys[i] = tempSoundPool.load(context, drumSoundIDs[i], 1);  // 사운드 리소스를 메모리에 로드하고 재생을 위한 key값 저장
+        return tempSoundPool;       // SoundPool 리턴
+    }
+
     public SoundPool loadMetronomeSound(int[] keys, Context context){
         SoundPool tempSoundPool;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {               // API 21 이후
