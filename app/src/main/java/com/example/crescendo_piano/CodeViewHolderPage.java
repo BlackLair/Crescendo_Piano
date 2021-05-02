@@ -2,6 +2,7 @@ package com.example.crescendo_piano;
 
 import android.content.Intent;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -21,13 +22,71 @@ public class CodeViewHolderPage extends RecyclerView.ViewHolder {
     public void onBind(CodeDataPage data){
         this.data=data;
         codeButton.setBackgroundResource(data.getCodeImageBackground());
+        int selectedCode=data.getCodeIndex();   // 선택한 버튼
         codeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {    // 코드 레시피 버튼 클릭 시
-                int selectedCode=data.getCodeIndex();   // 선택한 버튼
+
                 //Intent intent=new Intent();
                 //intent.putExtra("selectedCode", selectedCode);
             }
         });
+        codeButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+                    switch (selectedCode){
+                        case 0:
+                            codeButton.setBackgroundResource(R.drawable.code_cresc_one_p);
+                            break;
+                        case 1:
+                            codeButton.setBackgroundResource(R.drawable.code_cresc_two_p);
+                            break;
+                        case 2:
+                            codeButton.setBackgroundResource(R.drawable.code_cresc_three_p);
+                            break;
+                        case 3:
+                            codeButton.setBackgroundResource(R.drawable.code_london_p);
+                            break;
+                        case 4:
+                            codeButton.setBackgroundResource(R.drawable.code_paris_p);
+                            break;
+                        case 5:
+                            codeButton.setBackgroundResource(R.drawable.code_tokyo_p);
+                            break;
+                        case 6:
+                            codeButton.setBackgroundResource(R.drawable.code_la_p);
+                            break;
+                    }
+                }  else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    switch (selectedCode){
+                        case 0:
+                            codeButton.setBackgroundResource(R.drawable.code_cresc_one);
+                            break;
+                        case 1:
+                            codeButton.setBackgroundResource(R.drawable.code_cresc_two);
+                            break;
+                        case 2:
+                            codeButton.setBackgroundResource(R.drawable.code_cresc_three);
+                            break;
+                        case 3:
+                            codeButton.setBackgroundResource(R.drawable.code_london);
+                            break;
+                        case 4:
+                            codeButton.setBackgroundResource(R.drawable.code_paris);
+                            break;
+                        case 5:
+                            codeButton.setBackgroundResource(R.drawable.code_tokyo);
+                            break;
+                        case 6:
+                            codeButton.setBackgroundResource(R.drawable.code_la);
+                            break;
+                    }
+                }
+
+                return false;
+            }
+        });
     }
+
 }
