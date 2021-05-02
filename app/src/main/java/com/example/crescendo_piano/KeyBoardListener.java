@@ -5,6 +5,7 @@ package com.example.crescendo_piano;
 
 import android.graphics.Color;
 import android.media.SoundPool;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 

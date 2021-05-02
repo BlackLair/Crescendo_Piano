@@ -34,7 +34,6 @@ public class CodeViewHolderPage extends RecyclerView.ViewHolder {
         codeButton.setOnTouchListener(new View.OnTouchListener() { // 코드 레시피 버튼 누를 때, 뗄 때 이미지 바뀌는 효과 넣기
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                Log.i("정보", "감지모션 : "+Integer.toString(motionEvent.getAction()));
                 if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
                     switch (selectedCode){
                         case 0:
