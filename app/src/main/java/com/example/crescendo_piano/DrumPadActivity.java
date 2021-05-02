@@ -86,5 +86,15 @@ public class DrumPadActivity extends AppCompatActivity {
                 finish();
             }
         });
+        btn_goBack.setOnTouchListener(new View.OnTouchListener() { // 뒤로가기 버튼 이미지 변환 효과
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction()==MotionEvent.ACTION_DOWN)
+                    btn_goBack.setBackgroundResource(R.drawable.backgray);
+                else if(motionEvent.getAction()==MotionEvent.ACTION_UP)
+                    btn_goBack.setBackgroundResource(R.drawable.back);
+                return false;
+            }
+        });
     }
 }
