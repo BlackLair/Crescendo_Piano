@@ -23,11 +23,12 @@ public class MidiActivity extends AppCompatActivity {
     ImageButton btn_goBack;
 
     private SoundResourceManager soundManager;
-    public int[] soundKeys; // SoundPool 할당된 오디오 파일 구분 키값
+    public int[] soundKeys, drumsoundKeys; // SoundPool 할당된 오디오 파일 구분 키값
     public MidiManager midiManager;// MIDI 장치 연결 관리 매니저
-    public SoundPool midiSoundPool; // 건반 사운드 리소스 로딩 SoundPool
+    public SoundPool midiSoundPool,midiDrumSoundPool; // 건반 사운드 리소스 로딩 SoundPool
     public int keyboardChannel,drumChannel; // 설정할 midi channel
     public MidiDeviceCallback myMidiCallback;
+    public int inst;
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,10 @@ public class MidiActivity extends AppCompatActivity {
         keyboardChannel=1; drumChannel=10;  // 채널 기본값 설정
         soundManager=new SoundResourceManager();    // 사운드매니저 객체생성
         soundKeys=new int[88];
-        midiSoundPool=soundManager.load(soundKeys, getInst.getIntExtra("inst", 0), getApplicationContext()); // 악기 음원 로딩
+        drumsoundKeys=new int[8];
+        inst=getInst.getIntExtra("inst", 0);
+        midiSoundPool=soundManager.load(soundKeys, inst, getApplicationContext()); // 악기 음원 로딩
+        midiDrumSoundPool=soundManager.loadDrumSound(drumsoundKeys, getApplicationContext());
         midiManager=(MidiManager)getApplicationContext().getSystemService(Context.MIDI_SERVICE);
         MidiDeviceInfo[] deviceList=midiManager.getDevices();   // 연결되어 있는 장치 목록 가져옴
 
