@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -33,6 +35,7 @@ public class KeyboardActivity extends AppCompatActivity {
     private ImageView btnOctave;
     private ImageButton wKeys[]=new ImageButton[15];
     private ImageButton bKeys[]=new ImageButton[10];
+    private ImageView shadow[]=new ImageView[10];
     private TextView octaveValue, BPMText;
     private SeekBar metronome_seekbar;
     private RelativeLayout keyboardTopBanner;
@@ -42,6 +45,8 @@ public class KeyboardActivity extends AppCompatActivity {
                             R.id.btn_wkey12, R.id.btn_wkey13, R.id.btn_wkey14};
     private int bButtonID[]={R.id.btn_bkey0, R.id.btn_bkey1, R.id.btn_bkey2, R.id.btn_bkey3, R.id.btn_bkey4, R.id.btn_bkey5,
             R.id.btn_bkey6, R.id.btn_bkey7, R.id.btn_bkey8, R.id.btn_bkey9};
+    private int shadowID[]={R.id.shadow0, R.id.shadow1, R.id.shadow2, R.id.shadow3, R.id.shadow4, R.id.shadow5,
+            R.id.shadow6, R.id.shadow7, R.id.shadow8, R.id.shadow9};
     public static AtomicInteger octave=new AtomicInteger();   // 옥타브 설정값  ( -2 ~ +3 )
     public static AtomicBoolean sustain=new AtomicBoolean(); // 서스테인 설정값
     private int BPM;  // 메트로놈을 위한 BPM값
@@ -87,11 +92,28 @@ public class KeyboardActivity extends AppCompatActivity {
         bpmDown=findViewById(R.id.metronome_bpmdown);
         btn_metronome=findViewById(R.id.metronome_set);
         BPM=120;
+        Animation animation[]= new Animation[25];
+        for(int i=0; i<25; i++) {
+            animation[i] = new AlphaAnimation(0, 1);
+            animation[i].setDuration(100 + i * 90);
+        }
+
 
 
         // 건반 백 15개, 흑 10개
-        for(int i=0; i<15;i++) wKeys[i]=findViewById(wButtonID[i]);
-        for(int i=0; i<10;i++) bKeys[i]=findViewById(bButtonID[i]);
+        for(int i=0; i<15;i++) {
+            wKeys[i] = findViewById(wButtonID[i]);
+            wKeys[i].setVisibility(View.VISIBLE);
+            wKeys[i].setAnimation(animation[i]);
+        }
+        for(int i=0; i<10;i++){
+            bKeys[i]=findViewById(bButtonID[i]);
+            shadow[i]=findViewById(shadowID[i]);
+            bKeys[i].setVisibility(View.VISIBLE);
+            shadow[i].setVisibility(View.VISIBLE);
+            bKeys[i].setAnimation(animation[i+15]);
+            shadow[i].setAnimation(animation[i+15]);
+        }
         sustain.set(false);
         octave.set(0);
         Intent intent = getIntent();

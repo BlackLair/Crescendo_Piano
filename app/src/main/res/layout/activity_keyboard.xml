@@ -124,6 +124,7 @@
             android:layout_height="match_parent">
 
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_wkey0"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -140,6 +141,7 @@
                 app:layout_constraintWidth_percent="0.064100" />
 
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_wkey1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -155,6 +157,7 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_wkey2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -170,6 +173,7 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_wkey3"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -185,6 +189,7 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_wkey4"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -200,6 +205,7 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_wkey5"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -215,6 +221,7 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_wkey6"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -230,6 +237,7 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_wkey7"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -245,6 +253,7 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_wkey8"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -260,6 +269,7 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_wkey9"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -275,6 +285,7 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_wkey10"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -290,6 +301,7 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_wkey11"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -305,6 +317,7 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_wkey12"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -320,6 +333,7 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_wkey13"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -335,6 +349,7 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.064100" />
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_wkey14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -351,6 +366,7 @@
                 app:layout_constraintWidth_percent="0.064100" />
 
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_bkey0"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -366,6 +382,7 @@
                 app:layout_constraintWidth_percent="0.046000" />
 
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_bkey1"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -381,6 +398,7 @@
                 app:layout_constraintWidth_percent="0.046000" />
 
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_bkey2"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -396,6 +414,7 @@
                 app:layout_constraintWidth_percent="0.046000" />
 
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_bkey3"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -411,6 +430,7 @@
                 app:layout_constraintWidth_percent="0.046000" />
 
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_bkey4"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -426,6 +446,7 @@
                 app:layout_constraintWidth_percent="0.046000" />
 
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_bkey5"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -441,6 +462,7 @@
                 app:layout_constraintWidth_percent="0.046000" />
 
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_bkey6"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -456,6 +478,7 @@
                 app:layout_constraintWidth_percent="0.046000" />
 
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_bkey7"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -471,6 +494,7 @@
                 app:layout_constraintWidth_percent="0.046000" />
 
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_bkey8"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -486,6 +510,7 @@
                 app:layout_constraintWidth_percent="0.046000" />
 
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/btn_bkey9"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -500,6 +525,8 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.046000" />
             <ImageView
+                android:visibility="invisible"
+                android:id="@+id/shadow0"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/key_black_shadow"
@@ -511,6 +538,8 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.01200" />
             <ImageView
+                android:visibility="invisible"
+                android:id="@+id/shadow1"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/key_black_shadow"
@@ -522,6 +551,8 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.01200" />
             <ImageView
+                android:visibility="invisible"
+                android:id="@+id/shadow2"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/key_black_shadow"
@@ -533,6 +564,8 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.01200" />
             <ImageView
+                android:visibility="invisible"
+                android:id="@+id/shadow3"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/key_black_shadow"
@@ -544,6 +577,8 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.01200" />
             <ImageView
+                android:visibility="invisible"
+                android:id="@+id/shadow4"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/key_black_shadow"
@@ -555,6 +590,8 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.01200" />
             <ImageView
+                android:visibility="invisible"
+                android:id="@+id/shadow5"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/key_black_shadow"
@@ -566,6 +603,8 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.01200" />
             <ImageView
+                android:visibility="invisible"
+                android:id="@+id/shadow6"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/key_black_shadow"
@@ -577,6 +616,8 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.01200" />
             <ImageView
+                android:visibility="invisible"
+                android:id="@+id/shadow7"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/key_black_shadow"
@@ -588,6 +629,8 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.01200" />
             <ImageView
+                android:visibility="invisible"
+                android:id="@+id/shadow8"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/key_black_shadow"
@@ -599,6 +642,8 @@
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent="0.01200" />
             <ImageView
+                android:visibility="invisible"
+                android:id="@+id/shadow9"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/key_black_shadow"
