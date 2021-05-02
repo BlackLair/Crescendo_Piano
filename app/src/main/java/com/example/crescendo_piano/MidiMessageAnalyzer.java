@@ -29,6 +29,7 @@ public class MidiMessageAnalyzer {
 
         if(mChannel==((MidiActivity)context).keyboardChannel && (pitch>=0 && pitch<88)){ // 입력 신호 채널이 설정한 건반채널일 때
             if(receivedDataString.substring(2,3).equals("9")){ //건반 누른 신호일 때
+                if(((MidiActivity)context).inst==1) velocity=velocity*0.65f; //바이올린 소리 너무커서 줄임
                 PlayNote.noteOff(((MidiActivity)context).midiSoundPool, pitch);
                 PlayNote.noteOn(((MidiActivity)context).midiSoundPool, ((MidiActivity)context).soundKeys[pitch], pitch, velocity);
                 isKeyOn[pitch]=1;
@@ -55,8 +56,14 @@ public class MidiMessageAnalyzer {
                 }
             }
         }
-        else if(mChannel==((MidiActivity)context).drumChannel){
-            // 드럼 연주 기능
+        else if(mChannel==((MidiActivity)context).drumChannel&& pitch>=0 && pitch<=7 ){
+            if(receivedDataString.substring(2,3).equals("9")) {
+
+                // 드럼 연주 기능
+                if (pitch == 0 || pitch == 3)
+                    PlayNote.drumNoteOff(((MidiActivity) context).midiDrumSoundPool, pitch);
+                PlayNote.drumNoteOn(((MidiActivity) context).midiDrumSoundPool, ((MidiActivity) context).drumsoundKeys[pitch], pitch, velocity);
+            }
         }
 
 
