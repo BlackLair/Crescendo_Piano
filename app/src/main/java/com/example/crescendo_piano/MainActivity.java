@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
         main_code.setOnClickListener(new View.OnClickListener() { // 코드 레시피 버튼
             @Override
             public void onClick(View view) {
+                intent=new Intent(MainActivity.this, CodeSelectActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
