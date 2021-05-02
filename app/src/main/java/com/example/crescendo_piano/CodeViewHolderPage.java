@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,14 +27,14 @@ public class CodeViewHolderPage extends RecyclerView.ViewHolder {
         codeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {    // 코드 레시피 버튼 클릭 시
-
                 //Intent intent=new Intent();
                 //intent.putExtra("selectedCode", selectedCode);
             }
         });
-        codeButton.setOnTouchListener(new View.OnTouchListener() {
+        codeButton.setOnTouchListener(new View.OnTouchListener() { // 코드 레시피 버튼 누를 때, 뗄 때 이미지 바뀌는 효과 넣기
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                Log.i("정보", "감지모션 : "+Integer.toString(motionEvent.getAction()));
                 if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
                     switch (selectedCode){
                         case 0:
@@ -58,8 +59,8 @@ public class CodeViewHolderPage extends RecyclerView.ViewHolder {
                             codeButton.setBackgroundResource(R.drawable.code_la_p);
                             break;
                     }
-                }  else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                    switch (selectedCode){
+                }  else if(motionEvent.getAction()==MotionEvent.ACTION_UP || motionEvent.getAction()==MotionEvent.ACTION_CANCEL){
+                    switch (selectedCode){                      // ACTION_UP은 손가락 뗐을 때, ACTION_CANCEL은 스크롤 했을 때
                         case 0:
                             codeButton.setBackgroundResource(R.drawable.code_cresc_one);
                             break;
