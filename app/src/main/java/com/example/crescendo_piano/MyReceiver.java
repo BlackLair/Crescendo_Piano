@@ -7,6 +7,7 @@ import android.content.Context;
 import android.media.SoundPool;
 import android.media.midi.MidiReceiver;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
@@ -19,16 +20,13 @@ public class MyReceiver extends MidiReceiver {
         super();
         mAnalyzer=new MidiMessageAnalyzer(context);
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override   // MIDI 원시데이터 수신
     public void onSend(byte[] data, int offset, int count, long timestamp) throws IOException {
-        StringBuilder hexString=new StringBuilder();
-        for(byte b : data){ // 들어온 원시 데이터를 연속적 16진수 문자열로 변환환
-           hexString.append(String.format("%02x", b&0xff));
-            if(hexString.toString().length()>=8) // 4바이트만 받고 종료
-                break;
-        }
-        String receivedDataString=hexString.toString();
-        mAnalyzer.AnalyzeNote(receivedDataString); // 분석 가능한 midi 데이터로 분석 및 소리 재생
-
+        int state=(Byte.toUnsignedInt(data[1])&0xf0)>>4;
+        int channel=(Byte.toUnsignedInt(data[1])&0x0f) +1;
+        int pitch=Byte.toUnsignedInt(data[2])-21;
+        float velocity=(float)Byte.toUnsignedInt(data[3])/127;
+        mAnalyzer.AnalyzeNote(state, channel, pitch, velocity); // 분석 가능한 midi 데이터로 분석 및 소리 재생
     }
 }
