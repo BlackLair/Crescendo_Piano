@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.SoundPool;
+import android.media.midi.MidiDevice;
 import android.media.midi.MidiDeviceInfo;
 import android.media.midi.MidiManager;
+import android.media.midi.MidiOutputPort;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,7 +27,7 @@ public class MidiActivity extends AppCompatActivity {
     private int uiOption;
 
     ImageButton btn_goBack;
-
+    private Context context=this;
     private SoundResourceManager soundManager;
     public int[] soundKeys, drumsoundKeys; // SoundPool 할당된 오디오 파일 구분 키값
     public MidiManager midiManager;// MIDI 장치 연결 관리 매니저
@@ -33,6 +36,7 @@ public class MidiActivity extends AppCompatActivity {
     public MidiDeviceCallback myMidiCallback;
     public int inst;    // 0 : 피아노 1 : 바이올린 3 : 하프
     public TextView deviceName;
+    public Boolean isConnected=false;
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +64,31 @@ public class MidiActivity extends AppCompatActivity {
         midiManager=(MidiManager)getApplicationContext().getSystemService(Context.MIDI_SERVICE);
         MidiDeviceInfo[] deviceList=midiManager.getDevices();   // 연결되어 있는 장치 목록 가져옴
 
+
         deviceName=(TextView)findViewById(R.id.deviceName); // 장치 이름 표시 텍스트뷰
         myMidiCallback=new MidiDeviceCallback(this, deviceName );
         midiManager.registerDeviceCallback(myMidiCallback, Handler.createAsync(Looper.getMainLooper())); //디바이스 콜백 등록
 
+        /////////////////////////////////////////액티비티 진입 시 이미 연결되어 있을 경우//////////////////////////////////
+        if(deviceList.length>0){
+            Bundle properties = deviceList[0].getProperties(); // 장치 정보 가져옴
+            String manufacturer=properties.getString(MidiDeviceInfo.PROPERTY_NAME); // 장치 이름 가져옴
+            deviceName.setText("MIDI 장치 : "+manufacturer);
+            deviceName.setTextColor(Color.parseColor("#00FF00"));
+            midiManager.openDevice(deviceList[0], new MidiManager.OnDeviceOpenedListener() {
+                @Override
+                public void onDeviceOpened(MidiDevice midiDevice) {
+                    if(midiDevice==null){
+                    }else {
+                        isConnected = true;
+                        myMidiCallback.receiver = new MyReceiver(context);
+                        myMidiCallback.outputPort = midiDevice.openOutputPort(0);    // 포트 열기
+                        myMidiCallback.outputPort.connect(myMidiCallback.receiver);   // 통신 시작
+                    }
+                }
+            }, new Handler(Looper.getMainLooper()));
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         btn_goBack=(ImageButton)findViewById(R.id.midi_goBack);
         btn_goBack.setOnTouchListener(new View.OnTouchListener() { // 뒤로가기 버튼 이미지 변환 효과
