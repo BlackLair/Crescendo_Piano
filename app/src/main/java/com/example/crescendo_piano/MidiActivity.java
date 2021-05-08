@@ -15,6 +15,9 @@ import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class MidiActivity extends AppCompatActivity {
     private View decorView; // 전체화면 출력을 위한 멤버 변수
@@ -28,7 +31,8 @@ public class MidiActivity extends AppCompatActivity {
     public SoundPool midiSoundPool,midiDrumSoundPool; // 건반 사운드 리소스 로딩 SoundPool
     public int keyboardChannel,drumChannel; // 설정할 midi channel
     public MidiDeviceCallback myMidiCallback;
-    public int inst;
+    public int inst;    // 0 : 피아노 1 : 바이올린 3 : 하프
+    public TextView deviceName;
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +60,8 @@ public class MidiActivity extends AppCompatActivity {
         midiManager=(MidiManager)getApplicationContext().getSystemService(Context.MIDI_SERVICE);
         MidiDeviceInfo[] deviceList=midiManager.getDevices();   // 연결되어 있는 장치 목록 가져옴
 
-        myMidiCallback=new MidiDeviceCallback(this );
+        deviceName=(TextView)findViewById(R.id.deviceName); // 장치 이름 표시 텍스트뷰
+        myMidiCallback=new MidiDeviceCallback(this, deviceName );
         midiManager.registerDeviceCallback(myMidiCallback, Handler.createAsync(Looper.getMainLooper())); //디바이스 콜백 등록
 
 
