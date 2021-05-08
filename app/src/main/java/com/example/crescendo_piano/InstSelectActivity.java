@@ -78,6 +78,18 @@ public class InstSelectActivity extends AppCompatActivity {
                 }
             }
         });
+        selPiano.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    selPiano.setBackgroundResource(R.drawable.instsel_piano_p);
+                }
+                else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    selPiano.setBackgroundResource(R.drawable.instsel_piano);
+                }
+                return false;
+            }
+        });
         selViolin.setOnClickListener(new View.OnClickListener() {    // 피아노 연주 선택
             @Override
             public void onClick(View view) {
@@ -93,6 +105,18 @@ public class InstSelectActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
+            }
+        });
+        selViolin.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    selViolin.setBackgroundResource(R.drawable.instsel_violin_p);
+                }
+                else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    selViolin.setBackgroundResource(R.drawable.instsel_violin);
+                }
+                return false;
             }
         });
         selHarp.setOnClickListener(new View.OnClickListener() {    // 피아노 연주 선택
@@ -112,6 +136,18 @@ public class InstSelectActivity extends AppCompatActivity {
                 }
             }
         });
+        selHarp.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    selHarp.setBackgroundResource(R.drawable.instsel_harp_p);
+                }
+                else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    selHarp.setBackgroundResource(R.drawable.instsel_harp);
+                }
+                return false;
+            }
+        });
         selDrum.setOnClickListener(new View.OnClickListener() {    // 피아노 연주 선택
             @Override
             public void onClick(View view) {
@@ -122,6 +158,17 @@ public class InstSelectActivity extends AppCompatActivity {
                 }
             }
         });
-
+        selDrum.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    selDrum.setBackgroundResource(R.drawable.instsel_drum_p);
+                }
+                else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    selDrum.setBackgroundResource(R.drawable.instsel_drum);
+                }
+                return false;
+            }
+        });
     }
 }

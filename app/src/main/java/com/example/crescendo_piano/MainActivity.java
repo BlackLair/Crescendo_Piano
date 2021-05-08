@@ -9,6 +9,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -54,6 +55,18 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+        main_onapp.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    main_onapp.setBackgroundResource(R.drawable.main_onapp_p);
+                }
+                else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    main_onapp.setBackgroundResource(R.drawable.main_onapp);
+                }
+                return false;
+            }
+        });
         main_onmidi.setOnClickListener(new View.OnClickListener() { // MIDI장치 연결 버튼
             @Override
             public void onClick(View view) {
@@ -64,6 +77,18 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+        main_onmidi.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    main_onmidi.setBackgroundResource(R.drawable.main_onmidi_p);
+                }
+                else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    main_onmidi.setBackgroundResource(R.drawable.main_onmidi);
+                }
+                return false;
+            }
+        });
         main_code.setOnClickListener(new View.OnClickListener() { // 코드 레시피 버튼
             @Override
             public void onClick(View view) {
@@ -72,7 +97,18 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        main_code.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    main_code.setBackgroundResource(R.drawable.main_code_p);
+                }
+                else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    main_code.setBackgroundResource(R.drawable.main_code);
+                }
+                return false;
+            }
+        });
 
     }
 
