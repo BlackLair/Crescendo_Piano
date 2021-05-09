@@ -56,7 +56,7 @@ public class CodeSelectActivity extends AppCompatActivity {
         // 페이지 넘어갈 때 배경색 바꾸기
         code_background=findViewById(R.id.code_background);
         ValueAnimator colorAnimation;
-        int colorfrom, colorto, count=0;
+        int colorfrom, colorto;
         colorfrom=((ColorDrawable)code_background.getBackground()).getColor();
         colorto= Color.parseColor("#33FF33");
         colorAnimation=ValueAnimator.ofObject(new ArgbEvaluator(), colorfrom, colorto);

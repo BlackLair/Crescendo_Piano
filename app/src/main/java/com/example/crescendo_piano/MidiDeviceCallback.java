@@ -3,6 +3,7 @@ package com.example.crescendo_piano;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.SoundPool;
 import android.media.midi.MidiDevice;
 import android.media.midi.MidiDeviceInfo;
@@ -36,13 +37,15 @@ public class MidiDeviceCallback extends MidiManager.DeviceCallback{
         String manufacturer=properties.getString(MidiDeviceInfo.PROPERTY_NAME); // 장치 이름 가져옴
         deviceName.setText("MIDI 장치 : "+manufacturer);
         deviceName.setTextColor(Color.parseColor("#00FF00"));
+        ((MidiActivity)context).colorAnimation.setObjectValues(((ColorDrawable)((MidiActivity)context).midi_layout.getBackground()).getColor(), Color.parseColor("#008886"));
+        ((MidiActivity)context).colorAnimation.setDuration(500);
+        ((MidiActivity)context).colorAnimation.start(); // 장치 연결되면 배경색 변경
         ((MidiActivity)context).midiManager.openDevice(info, new MidiManager.OnDeviceOpenedListener(){
             @Override
             public void onDeviceOpened(MidiDevice midiDevice) {
                 if(midiDevice==null){
 
                 }else{
-
                     ((MidiActivity)context).isConnected=true;
                     receiver=new MyReceiver(context);
                     outputPort=midiDevice.openOutputPort(0);    // 포트 열기
@@ -56,6 +59,10 @@ public class MidiDeviceCallback extends MidiManager.DeviceCallback{
 
     @Override
     public void onDeviceRemoved(MidiDeviceInfo device) {    // 장치 연결이 해제되었을 경우
+
+        ((MidiActivity)context).colorAnimation.setObjectValues(((ColorDrawable)((MidiActivity)context).midi_layout.getBackground()).getColor(), Color.parseColor("#490019"));
+        ((MidiActivity)context).colorAnimation.setDuration(500);
+        ((MidiActivity)context).colorAnimation.start();
         ((MidiActivity)context).isConnected=false;
         deviceName.setText("MIDI 장치 : 연결된 장치 없음");
         deviceName.setTextColor(Color.parseColor("#FF0000"));

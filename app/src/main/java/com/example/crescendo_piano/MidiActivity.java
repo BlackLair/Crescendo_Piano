@@ -3,9 +3,12 @@ package com.example.crescendo_piano;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.SoundPool;
 import android.media.midi.MidiDevice;
 import android.media.midi.MidiDeviceInfo;
@@ -18,6 +21,7 @@ import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -37,6 +41,8 @@ public class MidiActivity extends AppCompatActivity {
     public int inst;    // 0 : 피아노 1 : 바이올린 3 : 하프
     public TextView deviceName;
     public Boolean isConnected=false;
+    public RelativeLayout midi_layout;
+    public ValueAnimator colorAnimation;
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +71,21 @@ public class MidiActivity extends AppCompatActivity {
         MidiDeviceInfo[] deviceList=midiManager.getDevices();   // 연결되어 있는 장치 목록 가져옴
 
 
+
+        int colorfrom, colorto;
+        midi_layout=(RelativeLayout)findViewById(R.id.midi_layout);
+        colorfrom=((ColorDrawable)midi_layout.getBackground()).getColor();
+        colorto= Color.parseColor("#008886");
+        colorAnimation=ValueAnimator.ofObject(new ArgbEvaluator(), colorfrom, colorto);
+        colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                midi_layout.setBackgroundColor((int)valueAnimator.getAnimatedValue());
+            }
+        });
+
+
+
         deviceName=(TextView)findViewById(R.id.deviceName); // 장치 이름 표시 텍스트뷰
         myMidiCallback=new MidiDeviceCallback(this, deviceName );
         midiManager.registerDeviceCallback(myMidiCallback, Handler.createAsync(Looper.getMainLooper())); //디바이스 콜백 등록
@@ -75,6 +96,9 @@ public class MidiActivity extends AppCompatActivity {
             String manufacturer=properties.getString(MidiDeviceInfo.PROPERTY_NAME); // 장치 이름 가져옴
             deviceName.setText("MIDI 장치 : "+manufacturer);
             deviceName.setTextColor(Color.parseColor("#00FF00"));
+            colorAnimation.setObjectValues(((ColorDrawable)midi_layout.getBackground()).getColor(), Color.parseColor("#008886"));
+            colorAnimation.setDuration(500);
+            colorAnimation.start();  // 장치 열고 배경 색 변경
             midiManager.openDevice(deviceList[0], new MidiManager.OnDeviceOpenedListener() {
                 @Override
                 public void onDeviceOpened(MidiDevice midiDevice) {

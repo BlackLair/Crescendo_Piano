@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MidiActivity"
-    android:background="#01F8FF">
+    android:background="#490019"
+    android:id="@+id/midi_layout">
 
     <ImageButton
         android:layout_width="100dp"
