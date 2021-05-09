@@ -82,10 +82,10 @@ public class InstSelectActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-                    selPiano.setBackgroundResource(R.drawable.instsel_piano_p);
+                    selPiano.setBackgroundResource(R.drawable.app_sel_piano_p);
                 }
                 else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                    selPiano.setBackgroundResource(R.drawable.instsel_piano);
+                    selPiano.setBackgroundResource(R.drawable.app_sel_piano);
                 }
                 return false;
             }
@@ -111,10 +111,10 @@ public class InstSelectActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-                    selViolin.setBackgroundResource(R.drawable.instsel_violin_p);
+                    selViolin.setBackgroundResource(R.drawable.app_sel_violin_p);
                 }
                 else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                    selViolin.setBackgroundResource(R.drawable.instsel_violin);
+                    selViolin.setBackgroundResource(R.drawable.app_sel_violin);
                 }
                 return false;
             }
@@ -140,10 +140,10 @@ public class InstSelectActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-                    selHarp.setBackgroundResource(R.drawable.instsel_harp_p);
+                    selHarp.setBackgroundResource(R.drawable.app_sel_harp_p);
                 }
                 else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                    selHarp.setBackgroundResource(R.drawable.instsel_harp);
+                    selHarp.setBackgroundResource(R.drawable.app_sel_harp);
                 }
                 return false;
             }
@@ -162,10 +162,10 @@ public class InstSelectActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-                    selDrum.setBackgroundResource(R.drawable.instsel_drum_p);
+                    selDrum.setBackgroundResource(R.drawable.app_sel_drum_p);
                 }
                 else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                    selDrum.setBackgroundResource(R.drawable.instsel_drum);
+                    selDrum.setBackgroundResource(R.drawable.app_sel_drum);
                 }
                 return false;
             }
