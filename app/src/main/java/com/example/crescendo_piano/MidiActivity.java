@@ -18,6 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -44,8 +45,23 @@ public class MidiActivity extends AppCompatActivity {
     public RelativeLayout midi_layout;
     public ValueAnimator colorAnimation;
 
+    public MidiMessageAnalyzer mAnalyzer;
 
+    public native void initNative();
+    public native void startReadingMidi(MidiDevice receiveDevice, int portNumber);
+    public native void stopReadingMidi();
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void onNativeMessageReceive(final byte[] message) {
 
+        Log.i("네이티브1", Integer.toString(Byte.toUnsignedInt(message[0])));
+        Log.i("네이티브2", Integer.toString(Byte.toUnsignedInt(message[1])));
+        Log.i("네이티브3", Integer.toString(Byte.toUnsignedInt(message[2])));
+        int state=(Byte.toUnsignedInt(message[0])&0xf0)>>4;
+        int channel=(Byte.toUnsignedInt(message[0])&0x0f) +1;
+        int pitch=Byte.toUnsignedInt(message[1])-21;
+        float velocity=(float)Byte.toUnsignedInt(message[2])/127;
+        mAnalyzer.AnalyzeNote(state, channel, pitch, velocity); // 분석 가능한 midi 데이터로 분석 및 소리 재생
+    }
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +111,8 @@ public class MidiActivity extends AppCompatActivity {
 
         /////////////////////////////////////////액티비티 진입 시 이미 연결되어 있을 경우//////////////////////////////////
         if(deviceList.length>0){
+            initNative();
+            mAnalyzer=new MidiMessageAnalyzer(context);
             Bundle properties = deviceList[0].getProperties(); // 장치 정보 가져옴
             String manufacturer=properties.getString(MidiDeviceInfo.PROPERTY_NAME); // 장치 이름 가져옴
             deviceName.setText("MIDI 장치 : "+manufacturer);
@@ -108,9 +126,7 @@ public class MidiActivity extends AppCompatActivity {
                     if(midiDevice==null){
                     }else {
                         isConnected = true;
-                        myMidiCallback.receiver = new MyReceiver(context);
-                        myMidiCallback.outputPort = midiDevice.openOutputPort(0);    // 포트 열기
-                        myMidiCallback.outputPort.connect(myMidiCallback.receiver);   // 통신 시작
+                        startReadingMidi(midiDevice, 0);
                     }
                 }
             }, new Handler(Looper.getMainLooper()));
@@ -131,9 +147,10 @@ public class MidiActivity extends AppCompatActivity {
         btn_goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                myMidiCallback.disConnect();    // 연결 해제
                 Intent intent=new Intent(MidiActivity.this, InstSelectActivity.class);
                 intent.putExtra("selectInst", 1); // midi연주모드
-                myMidiCallback.disConnect();    // Port Receiver 연결 해제
+
                 midiManager.unregisterDeviceCallback(myMidiCallback);   //콜백 해제
                 startActivity(intent);
                 finish();
