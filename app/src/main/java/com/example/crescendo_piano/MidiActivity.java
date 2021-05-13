@@ -43,6 +43,9 @@ public class MidiActivity extends AppCompatActivity {
     public Boolean isConnected=false;
     public RelativeLayout midi_layout;
     public ValueAnimator colorAnimation;
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +141,7 @@ public class MidiActivity extends AppCompatActivity {
         });
 
     }
+
 
 
     @Override

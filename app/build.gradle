@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.crescendo_piano"
-        minSdkVersion 16
+        minSdkVersion 29
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -25,6 +25,12 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    ndkVersion '23.0.7196353 rc2'
+    externalNativeBuild {
+        cmake {
+            path file('src/main/cpp/CMakeLists.txt')
+        }
     }
 }
 
