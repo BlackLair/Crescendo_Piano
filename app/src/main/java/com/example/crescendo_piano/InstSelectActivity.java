@@ -3,6 +3,7 @@ package com.example.crescendo_piano;
 // 악기를 선택하기 위한 화면 액티비티.
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Build;
@@ -11,13 +12,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 
+import java.util.ArrayList;
+
 public class InstSelectActivity extends AppCompatActivity {
     private View decorView; // 전체화면 출력을 위한 멤버 변수
     private int uiOption;
     private ImageButton instsel_goBack; // 뒤로가기 버튼
     private Intent intent;  // 메인메뉴에서 연주하기/MIDI연결 중 어떤 것을 선택했는지 받아오기 위한 인텐트
     private Integer selectedFunc; // 0 : 연주하기 1 : MIDI장치 연결
-    ImageButton selPiano, selViolin, selHarp, selDrum;
+    ViewPager2 instViewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,10 +40,7 @@ public class InstSelectActivity extends AppCompatActivity {
         intent=getIntent();
         selectedFunc=intent.getIntExtra("selectInst", 0); // 메인메뉴에서 어떤 메뉴 선택했는지 읽음
         instsel_goBack=(ImageButton)findViewById(R.id.instsel_goBack);
-        selPiano=(ImageButton)findViewById(R.id.inst_Piano);
-        selViolin=(ImageButton)findViewById(R.id.inst_Violin);
-        selHarp=(ImageButton)findViewById(R.id.inst_Harp);
-        selDrum=(ImageButton)findViewById(R.id.inst_Drum);
+
 
         instsel_goBack.setOnTouchListener(new View.OnTouchListener() {  // 뒤로가기 버튼의 이미지 변환 효과
             @Override
@@ -61,114 +61,15 @@ public class InstSelectActivity extends AppCompatActivity {
             }
         });
 
-        selPiano.setOnClickListener(new View.OnClickListener() {    // 피아노 연주 선택
-            @Override
-            public void onClick(View view) {
-                if(selectedFunc==0) {   // 메인메뉴에서 연주하기로 접근했을 경우
-                    Intent intent = new Intent(InstSelectActivity.this, KeyboardActivity.class);
-                    intent.putExtra("inst", 0); // 선택한 악기 종류
-                    startActivity(intent);
-                    finish();
-                }
-                else{
-                    Intent intent=new Intent(InstSelectActivity.this, MidiActivity.class);
-                    intent.putExtra("inst", 0);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-        });
-        selPiano.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-                    selPiano.setBackgroundResource(R.drawable.app_sel_piano_p);
-                }
-                else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                    selPiano.setBackgroundResource(R.drawable.app_sel_piano);
-                }
-                return false;
-            }
-        });
-        selViolin.setOnClickListener(new View.OnClickListener() {    // 피아노 연주 선택
-            @Override
-            public void onClick(View view) {
-                if(selectedFunc==0) {   // 메인메뉴에서 연주하기로 접근했을 경우
-                    Intent intent = new Intent(InstSelectActivity.this, KeyboardActivity.class);
-                    intent.putExtra("inst", 1); // 선택한 악기 종류
-                    startActivity(intent);
-                    finish();
-                }
-                else{
-                    Intent intent=new Intent(InstSelectActivity.this, MidiActivity.class);
-                    intent.putExtra("inst", 1);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-        });
-        selViolin.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-                    selViolin.setBackgroundResource(R.drawable.app_sel_violin_p);
-                }
-                else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                    selViolin.setBackgroundResource(R.drawable.app_sel_violin);
-                }
-                return false;
-            }
-        });
-        selHarp.setOnClickListener(new View.OnClickListener() {    // 피아노 연주 선택
-            @Override
-            public void onClick(View view) {
-                if(selectedFunc==0) {   // 메인메뉴에서 연주하기로 접근했을 경우
-                    Intent intent = new Intent(InstSelectActivity.this, KeyboardActivity.class);
-                    intent.putExtra("inst", 2); // 선택한 악기 종류
-                    startActivity(intent);
-                    finish();
-                }
-                else{
-                    Intent intent=new Intent(InstSelectActivity.this, MidiActivity.class);
-                    intent.putExtra("inst", 2);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-        });
-        selHarp.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-                    selHarp.setBackgroundResource(R.drawable.app_sel_harp_p);
-                }
-                else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                    selHarp.setBackgroundResource(R.drawable.app_sel_harp);
-                }
-                return false;
-            }
-        });
-        selDrum.setOnClickListener(new View.OnClickListener() {    // 피아노 연주 선택
-            @Override
-            public void onClick(View view) {
-                if(selectedFunc==0) {
-                    Intent intent = new Intent(InstSelectActivity.this, DrumPadActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-        });
-        selDrum.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-                    selDrum.setBackgroundResource(R.drawable.app_sel_drum_p);
-                }
-                else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                    selDrum.setBackgroundResource(R.drawable.app_sel_drum);
-                }
-                return false;
-            }
-        });
+        instViewPager=(ViewPager2)findViewById(R.id.instsel_viewPager);
+        ArrayList<InstDataPage> list=new ArrayList<>();
+        // 리스트에 버튼 정보 추가
+        list.add(new InstDataPage(selectedFunc, 0, this));
+        list.add(new InstDataPage(selectedFunc, 1, this));
+        list.add(new InstDataPage(selectedFunc, 2, this));
+        if(selectedFunc==0)
+            list.add(new InstDataPage(selectedFunc, 3, this));
+
+        instViewPager.setAdapter(new InstViewPagerAdapter(list));
     }
 }

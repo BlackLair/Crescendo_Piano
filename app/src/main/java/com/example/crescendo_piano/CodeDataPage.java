@@ -1,8 +1,5 @@
 package com.example.crescendo_piano;
 
-import android.graphics.drawable.Drawable;
-import android.widget.ImageButton;
-
 public class CodeDataPage {
     int CodeImageBackground;
     int codeIndex;
