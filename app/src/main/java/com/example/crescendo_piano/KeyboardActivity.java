@@ -135,8 +135,6 @@ public class KeyboardActivity extends AppCompatActivity {
         goBack.setOnClickListener(new View.OnClickListener() {  // 뒤로가기 버튼
             @Override
             public void onClick(View view) {
-                Intent intentBack=new Intent(KeyboardActivity.this, InstSelectActivity.class);
-                startActivity(intentBack);
                 finish();
             }
         });

@@ -80,9 +80,6 @@ public class DrumPadActivity extends AppCompatActivity {
         btn_goBack.setOnClickListener(new View.OnClickListener() {
             @Override       // 뒤로가기 버튼
             public void onClick(View view) {
-                Intent intent = new Intent(DrumPadActivity.this, InstSelectActivity.class);
-                intent.putExtra("selectInst", 0);
-                startActivity(intent);
                 finish();
             }
         });
