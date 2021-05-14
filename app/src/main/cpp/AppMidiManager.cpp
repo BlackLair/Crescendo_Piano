@@ -12,6 +12,8 @@
 
 #include <amidi/AMidi.h>
 #include "MidiSpec.h"
+#include <android/log.h>
+#include <oboe/Oboe.h>
 
 static AMidiDevice* sNativeReceiveDevice = NULL;
 static AMidiOutputPort* sMidiOutputPort = NULL;
@@ -33,7 +35,7 @@ static void SendTheReceivedData(uint8_t* data, int numBytes) {
     }
     jbyteArray ret = env->NewByteArray(numBytes);
     env->SetByteArrayRegion (ret, 0, numBytes, (jbyte*)data);
-    
+
     // 자바 콜백으로 데이터 전송
     env->CallVoidMethod(dataCallbackObj, midDataCallback, ret);
 }
@@ -48,27 +50,38 @@ static void* readThreadRoutine(void * context){
     
     const size_t MAX_BYTES_TO_RECEIVE = 128;
     uint8_t incomingMessage[MAX_BYTES_TO_RECEIVE];
-    
+    static uint8_t past_incomingMessage[MAX_BYTES_TO_RECEIVE];
+    memset(incomingMessage, 0, MAX_BYTES_TO_RECEIVE);
     while(sReading){
-        usleep(2000);
+        usleep(1);
         
         int32_t opcode;
         size_t numBytesReceived;
         int64_t timestamp;
         ssize_t numMessagesReceived = AMidiOutputPort_receive(outputPort, &opcode, incomingMessage, MAX_BYTES_TO_RECEIVE,
                 &numBytesReceived, &timestamp);
-        
+
         if(numMessagesReceived<0){
             sReading=false;
         }
-        if(numMessagesReceived>0 && numBytesReceived>=0){
+        if(numMessagesReceived>0 && numBytesReceived>=0) {
             if(opcode == AMIDI_OPCODE_DATA && (incomingMessage[0]&kMIDISysCmdChan) != kMIDISysCmdChan){
-                SendTheReceivedData(incomingMessage, numBytesReceived);
+                /*
+                for(int i=0; i<(int)numBytesReceived/3; i++){
+                    SendTheReceivedData(&incomingMessage[i*3], 3);
+                }*/
+                uint8_t numAddedData[46];
+                numAddedData[0]=numBytesReceived/3;
+                memcpy(&numAddedData[1], incomingMessage, numBytesReceived);
+                SendTheReceivedData(numAddedData, numBytesReceived+1);
+
             }else if (opcode == AMIDI_OPCODE_FLUSH){
                 // 무시
             }
         }
+
     }
+    memcpy(past_incomingMessage, incomingMessage, 128);
     return NULL;
 }
 
