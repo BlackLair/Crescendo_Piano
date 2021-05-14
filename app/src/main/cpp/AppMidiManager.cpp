@@ -13,7 +13,7 @@
 #include <amidi/AMidi.h>
 #include "MidiSpec.h"
 #include <android/log.h>
-#include <oboe/Oboe.h>
+
 
 static AMidiDevice* sNativeReceiveDevice = NULL;
 static AMidiOutputPort* sMidiOutputPort = NULL;
