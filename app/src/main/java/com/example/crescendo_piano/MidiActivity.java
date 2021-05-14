@@ -147,11 +147,8 @@ public class MidiActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 myMidiCallback.disConnect();    // 연결 해제
-                Intent intent=new Intent(MidiActivity.this, InstSelectActivity.class);
-                intent.putExtra("selectInst", 1); // midi연주모드
-
                 midiManager.unregisterDeviceCallback(myMidiCallback);   //콜백 해제
-                startActivity(intent);
+
                 finish();
             }
         });

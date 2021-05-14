@@ -58,7 +58,6 @@ public class InstViewHolderPage extends RecyclerView.ViewHolder {
                     Intent intent=new Intent(context, MidiActivity.class);
                     intent.putExtra("inst", selectedInst);
                     context.startActivity(intent);
-                    ((InstSelectActivity)context).finish();
                 }
             }
         });
