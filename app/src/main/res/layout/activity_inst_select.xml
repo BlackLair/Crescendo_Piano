@@ -19,7 +19,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"/>
     </RelativeLayout>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.85">
@@ -29,6 +29,12 @@
             android:id="@+id/instsel_viewPager"
             android:orientation="horizontal"
             android:scaleY="1.1"/>
-    </LinearLayout>
+        <ImageView
+            android:layout_width="256dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:background="@drawable/logo" />
+    </RelativeLayout>
 
 </LinearLayout>
