@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         main_onapp=(ImageButton)findViewById(R.id.main_onapp);
         main_onmidi=(ImageButton)findViewById(R.id.main_onmidi);
         main_code=(ImageButton)findViewById(R.id.main_code);

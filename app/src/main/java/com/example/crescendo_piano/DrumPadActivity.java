@@ -22,12 +22,7 @@ public class DrumPadActivity extends AppCompatActivity {
     private SoundPool drumPadSoundPool;
     private int drumId[] = {R.id.drum_crush,R.id.drum_htom,R.id.drum_mtom,R.id.drum_ride,
             R.id.drum_hihat,R.id.drum_snare,R.id.drum_kick,R.id.drum_ltom};
-    private int drumImageId[]={R.drawable.drum_crash_up, R.drawable.drum_crash_down,
-            R.drawable.drum_htom_up,R.drawable.drum_htom_down, R.drawable.drum_mtom_up,
-            R.drawable.drum_mtom_down, R.drawable.drum_ride_up, R.drawable.drum_ride_down,
-            R.drawable.drum_hihat_up, R.drawable.drum_hihat_down, R.drawable.drum_snare_up,
-            R.drawable.drum_snare_down, R.drawable.drum_kick_up, R.drawable.drum_kick_down,
-            R.drawable.drum_ltom_up, R.drawable.drum_ltom_down};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         /////////////////////////////앱 하단바 제거///////////////////////////////
@@ -66,10 +61,10 @@ public class DrumPadActivity extends AppCompatActivity {
                         if(index==0 || index==3) // 크래시, 라이드 이전 소리 끊고 다시재생
                             PlayNote.drumNoteOff(drumPadSoundPool,index);
                         PlayNote.drumNoteOn(drumPadSoundPool,soundKeys[index],index,0.8f+drumVolumnOffset);
-                        view.setBackgroundResource(drumImageId[index*2+1]); // 터치 시 누른 이미지로 교체
+                        view.setBackgroundResource(R.drawable.drumpad_p); // 터치 시 누른 이미지로 교체
                     }
                     else if(motionEvent.getAction()==MotionEvent.ACTION_UP){ // 손 떼면 이미지 원상복귀
-                        view.setBackgroundResource(drumImageId[index*2]);
+                        view.setBackgroundResource(R.drawable.drumpad);
                     }
                     return true;
                 }

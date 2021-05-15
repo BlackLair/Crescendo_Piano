@@ -46,11 +46,13 @@ public class InstViewHolderPage extends RecyclerView.ViewHolder {
                         Intent intent = new Intent(context, KeyboardActivity.class);
                         intent.putExtra("inst", selectedInst);
                         context.startActivity(intent);
+                        ((InstSelectActivity)context).overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit);
                     }
                     else{
                         Intent intent = new Intent(context, DrumPadActivity.class);
                         intent.putExtra("inst", selectedInst);
                         context.startActivity(intent);
+                        ((InstSelectActivity)context).overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit);
                     }
 
                 }
