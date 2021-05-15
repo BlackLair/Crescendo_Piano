@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#01F8FF">
+    android:background="#000000">
 
     <GridLayout
         android:layout_width="wrap_content"
@@ -14,6 +14,8 @@
             android:scaleType="fitXY"
             android:background="@drawable/main_onapp"
             android:soundEffectsEnabled="false"/>
+        <TextView
+            android:layout_width="5dp"/>
         <ImageButton
             android:id="@+id/main_onmidi"
             android:layout_width="237dp"
@@ -21,6 +23,8 @@
             android:scaleType="fitXY"
             android:background="@drawable/main_onmidi"
             android:soundEffectsEnabled="false"/>
+        <TextView
+            android:layout_width="5dp"/>
         <ImageButton
             android:id="@+id/main_code"
             android:layout_width="237dp"
