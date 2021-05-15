@@ -27,8 +27,9 @@ public class CodeViewHolderPage extends RecyclerView.ViewHolder {
         codeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {    // 코드 레시피 버튼 클릭 시
-                //Intent intent=new Intent();
-                //intent.putExtra("selectedCode", selectedCode);
+                Intent intent=new Intent(data.getContext(), CodeRecipeActivity.class);
+                intent.putExtra("selectedCode", selectedCode);
+                data.getContext().startActivity(intent);
             }
         });
         codeButton.setOnTouchListener(new View.OnTouchListener() { // 코드 레시피 버튼 누를 때, 뗄 때 이미지 바뀌는 효과 넣기
