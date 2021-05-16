@@ -1,8 +1,7 @@
 package com.example.crescendo_piano;
 // 들어온 MIDI 신호를 분석하여 알맞는 소리 출력
+
 import android.content.Context;
-import android.media.SoundPool;
-import android.widget.Toast;
 
 import java.util.Stack;
 

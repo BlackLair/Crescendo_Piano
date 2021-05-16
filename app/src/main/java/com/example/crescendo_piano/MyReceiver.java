@@ -2,25 +2,17 @@ package com.example.crescendo_piano;
 
 // MIDI장치에서 전송받은 원시적 MIDI 메시지를 분석할 수 있는 형태로 변환
 
-import android.app.Activity;
 import android.content.Context;
-import android.media.SoundPool;
 import android.media.midi.MidiReceiver;
-import android.os.Build;
-import android.util.Log;
-
-import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
 
-@RequiresApi(api = Build.VERSION_CODES.M)
 public class MyReceiver extends MidiReceiver {
     private MidiMessageAnalyzer mAnalyzer;
     public MyReceiver(Context context){
         super();
         mAnalyzer=new MidiMessageAnalyzer(context);
     }
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override   // MIDI 원시데이터 수신
     public void onSend(byte[] data, int offset, int count, long timestamp) throws IOException {
         int state=(Byte.toUnsignedInt(data[1])&0xf0)>>4;

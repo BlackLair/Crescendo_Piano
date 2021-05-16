@@ -1,8 +1,6 @@
 package com.example.crescendo_piano;
 // 화면 상에서 드럼 연주하는 액티비티
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +9,8 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class DrumPadActivity extends AppCompatActivity {
     private View decorView;

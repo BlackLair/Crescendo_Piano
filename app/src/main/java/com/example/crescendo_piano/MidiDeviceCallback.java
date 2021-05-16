@@ -1,27 +1,17 @@
 package com.example.crescendo_piano;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.SoundPool;
 import android.media.midi.MidiDevice;
 import android.media.midi.MidiDeviceInfo;
 import android.media.midi.MidiManager;
 import android.media.midi.MidiOutputPort;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
-
-import org.w3c.dom.Text;
-
-@RequiresApi(api = Build.VERSION_CODES.M)
 public class MidiDeviceCallback extends MidiManager.DeviceCallback{
     private Context context;
     public MidiOutputPort outputPort; // 미디 통신을 위한 외부 포트 설정(MIDI장치 기준 OUTPUT)
@@ -32,7 +22,6 @@ public class MidiDeviceCallback extends MidiManager.DeviceCallback{
     static{
         System.loadLibrary("Crescendo_Piano");
     }
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private void onNativeMessageReceive(final byte[] message) { //MIDI데이터 파싱 (C++측에서 호출)
         Integer numMessage=Byte.toUnsignedInt(message[0]);
         for(int i=0; i<numMessage; i++) {

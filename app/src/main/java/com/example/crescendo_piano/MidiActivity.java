@@ -1,8 +1,5 @@
 package com.example.crescendo_piano;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -13,19 +10,17 @@ import android.media.SoundPool;
 import android.media.midi.MidiDevice;
 import android.media.midi.MidiDeviceInfo;
 import android.media.midi.MidiManager;
-import android.media.midi.MidiOutputPort;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MidiActivity extends AppCompatActivity {
     private View decorView; // 전체화면 출력을 위한 멤버 변수
@@ -50,7 +45,7 @@ public class MidiActivity extends AppCompatActivity {
     public native void initNative();
     public native void startReadingMidi(MidiDevice receiveDevice, int portNumber);
     public native void stopReadingMidi();
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     private void onNativeMessageReceive(final byte[] message) { //MIDI데이터 파싱 (C++측에서 호출)
         Integer numMessage=Byte.toUnsignedInt(message[0]);
         for(int i=0; i<numMessage; i++) {
@@ -61,7 +56,6 @@ public class MidiActivity extends AppCompatActivity {
             mAnalyzer.AnalyzeNote(state, channel, pitch, velocity); // 분석 가능한 midi 데이터로 분석 및 소리 재생
         }
     }
-    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
