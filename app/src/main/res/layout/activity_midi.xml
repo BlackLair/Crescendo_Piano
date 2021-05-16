@@ -5,9 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MidiActivity"
-    android:background="#490019"
+    android:background="#DD000000"
     android:id="@+id/midi_layout">
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MIDI 장치 : "
+        android:layout_toRightOf="@+id/midi_goBack"
+        android:layout_marginLeft="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:textColor="#FFFFFF"
+        android:id="@+id/deviceName" />
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:realtimeBlurRadius="5dp"
+        app:realtimeOverlayColor="#73C00000"
+        android:id="@+id/midi_blur"/>
+    <ImageView
+        android:layout_width="458dp"
+        android:layout_height="170.8dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:id="@+id/midi_unplugged"
+        android:background="@drawable/unplugged"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="USB MIDI 장치를 연결하세요."
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"
+        android:layout_below="@id/midi_unplugged"
+        android:layout_marginTop="30dp"
+        android:id="@+id/midi_unplugged_tv"
+        />
     <ImageButton
         android:layout_width="100dp"
         android:layout_height="34dp"
@@ -17,16 +53,4 @@
         android:background="@drawable/back"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MIDI 장치 : 연결된 장치 없음"
-        android:layout_toRightOf="@+id/midi_goBack"
-        android:layout_marginLeft="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"
-        android:textSize="30dp"
-        android:textColor="#FF0000"
-        android:id="@+id/deviceName"/>
-
 </RelativeLayout>

@@ -16,11 +16,16 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.github.mmin18.widget.RealtimeBlurView;
 
 public class MidiActivity extends AppCompatActivity {
     private View decorView; // 전체화면 출력을 위한 멤버 변수
@@ -38,7 +43,12 @@ public class MidiActivity extends AppCompatActivity {
     public TextView deviceName;
     public Boolean isConnected=false;
     public RelativeLayout midi_layout;
-    public ValueAnimator colorAnimation;
+    public ValueAnimator colorAnimation; // 색 변경 애니메이션
+
+    public RealtimeBlurView midi_blur; // 미연결 시 붉은 블러
+    public TextView midi_unplugged_tv;
+    public ImageView midi_unplugged; // 미연결 시 이미지
+    public Animation showblur, hideblur; // 블러 애니메이션
 
     public MidiMessageAnalyzer mAnalyzer;
 
@@ -83,7 +93,7 @@ public class MidiActivity extends AppCompatActivity {
         MidiDeviceInfo[] deviceList=midiManager.getDevices();   // 연결되어 있는 장치 목록 가져옴
 
 
-
+/*                   색 변경 애니메이션
         int colorfrom, colorto;
         midi_layout=(RelativeLayout)findViewById(R.id.midi_layout);
         colorfrom=((ColorDrawable)midi_layout.getBackground()).getColor();
@@ -95,9 +105,15 @@ public class MidiActivity extends AppCompatActivity {
                 midi_layout.setBackgroundColor((int)valueAnimator.getAnimatedValue());
             }
         });
+*/
+        showblur=new AlphaAnimation(0f,1.0f);
+        hideblur=new AlphaAnimation(1.0f,0.001f);
+        showblur.setDuration(800);
+        hideblur.setDuration(800);
 
-
-
+        midi_unplugged_tv=(TextView)findViewById(R.id.midi_unplugged_tv);
+        midi_blur=(RealtimeBlurView)findViewById(R.id.midi_blur); // 장치 미연결 시 화면 블러 처리
+        midi_unplugged=(ImageView)findViewById(R.id.midi_unplugged);
         deviceName=(TextView)findViewById(R.id.deviceName); // 장치 이름 표시 텍스트뷰
         myMidiCallback=new MidiDeviceCallback(this, deviceName );
         midiManager.registerDeviceCallback(myMidiCallback, Handler.createAsync(Looper.getMainLooper())); //디바이스 콜백 등록
@@ -108,11 +124,16 @@ public class MidiActivity extends AppCompatActivity {
             mAnalyzer=new MidiMessageAnalyzer(context);
             Bundle properties = deviceList[0].getProperties(); // 장치 정보 가져옴
             String manufacturer=properties.getString(MidiDeviceInfo.PROPERTY_NAME); // 장치 이름 가져옴
+            midi_blur.setVisibility(View.GONE);
+            midi_blur.startAnimation(hideblur);
+            midi_unplugged.setVisibility(View.GONE);
+            midi_unplugged.startAnimation(hideblur);
+            midi_unplugged_tv.setVisibility(View.GONE);
+            midi_unplugged_tv.startAnimation(hideblur);
             deviceName.setText("MIDI 장치 : "+manufacturer);
-            deviceName.setTextColor(Color.parseColor("#00FF00"));
-            colorAnimation.setObjectValues(((ColorDrawable)midi_layout.getBackground()).getColor(), Color.parseColor("#008886"));
+/*            colorAnimation.setObjectValues(((ColorDrawable)midi_layout.getBackground()).getColor(), Color.parseColor("#008886"));
             colorAnimation.setDuration(500);
-            colorAnimation.start();  // 장치 열고 배경 색 변경
+            colorAnimation.start();  // 장치 열고 배경 색 변경*/
             midiManager.openDevice(deviceList[0], new MidiManager.OnDeviceOpenedListener() {
                 @Override
                 public void onDeviceOpened(MidiDevice midiDevice) {
