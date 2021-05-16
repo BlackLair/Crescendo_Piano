@@ -1,11 +1,7 @@
 package com.example.crescendo_piano;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.media.SoundPool;
 import android.media.midi.MidiDevice;
 import android.media.midi.MidiDeviceInfo;
@@ -18,14 +14,17 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mmin18.widget.RealtimeBlurView;
+
+import java.util.ArrayList;
 
 public class MidiActivity extends AppCompatActivity {
     private View decorView; // 전체화면 출력을 위한 멤버 변수
@@ -42,13 +41,15 @@ public class MidiActivity extends AppCompatActivity {
     public int inst;    // 0 : 피아노 1 : 바이올린 3 : 하프
     public TextView deviceName;
     public Boolean isConnected=false;
-    public RelativeLayout midi_layout;
-    public ValueAnimator colorAnimation; // 색 변경 애니메이션
 
     public RealtimeBlurView midi_blur; // 미연결 시 붉은 블러
     public TextView midi_unplugged_tv;
     public ImageView midi_unplugged; // 미연결 시 이미지
     public Animation showblur, hideblur; // 블러 애니메이션
+
+
+    public Spinner channel_key_spinner, channel_drum_spinner;
+    AdapterChannelSpinner adapterDrumSpinner, adapterKeySpinner;
 
     public MidiMessageAnalyzer mAnalyzer;
 
@@ -82,7 +83,6 @@ public class MidiActivity extends AppCompatActivity {
         decorView.setSystemUiVisibility(uiOption);
         /////////////////////////////앱 하단바 제거///////////////////////////////
         Intent getInst=getIntent();     // 선택한 악기 정보를 가져오기 위한 인텐트
-        keyboardChannel=1; drumChannel=10;  // 채널 기본값 설정
         soundManager=new SoundResourceManager();    // 사운드매니저 객체생성
         soundKeys=new int[88];
         drumsoundKeys=new int[8];
@@ -93,28 +93,64 @@ public class MidiActivity extends AppCompatActivity {
         MidiDeviceInfo[] deviceList=midiManager.getDevices();   // 연결되어 있는 장치 목록 가져옴
 
 
-/*                   색 변경 애니메이션
-        int colorfrom, colorto;
-        midi_layout=(RelativeLayout)findViewById(R.id.midi_layout);
-        colorfrom=((ColorDrawable)midi_layout.getBackground()).getColor();
-        colorto= Color.parseColor("#008886");
-        colorAnimation=ValueAnimator.ofObject(new ArgbEvaluator(), colorfrom, colorto);
-        colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+        ///////////////////////////MIDI 수신 채널 설정 스피너//////////////////////////////////////
+        channel_drum_spinner=findViewById(R.id.channel_drum_spinner);
+        channel_key_spinner=findViewById(R.id.channel_key_spinner);
+        ArrayList<String> channelString=new ArrayList<>();
+        for(int i=1; i<17; i++){
+            channelString.add("channel "+i);
+        }
+        adapterDrumSpinner = new AdapterChannelSpinner(this, channelString);
+        adapterKeySpinner = new AdapterChannelSpinner(this, channelString);
+        channel_drum_spinner.setAdapter(adapterDrumSpinner);
+        channel_key_spinner.setAdapter(adapterKeySpinner);
+
+        channel_drum_spinner.setEnabled(false);
+        channel_key_spinner.setEnabled(false);
+        channel_key_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                midi_layout.setBackgroundColor((int)valueAnimator.getAnimatedValue());
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                keyboardChannel=i+1;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
-*/
+        channel_drum_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                drumChannel=i+1;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        channel_key_spinner.setSelection(0);
+        channel_drum_spinner.setSelection(9);
+        /////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+        // 장치 연결 해제 시 애니메이션
         showblur=new AlphaAnimation(0f,1.0f);
         hideblur=new AlphaAnimation(1.0f,0.001f);
-        showblur.setDuration(800);
-        hideblur.setDuration(800);
+        showblur.setDuration(500);
+        hideblur.setDuration(500);
 
         midi_unplugged_tv=(TextView)findViewById(R.id.midi_unplugged_tv);
         midi_blur=(RealtimeBlurView)findViewById(R.id.midi_blur); // 장치 미연결 시 화면 블러 처리
         midi_unplugged=(ImageView)findViewById(R.id.midi_unplugged);
+        midi_unplugged_tv.setVisibility(View.VISIBLE);
+        midi_unplugged.setVisibility(View.VISIBLE);
+        midi_blur.setVisibility(View.VISIBLE);
         deviceName=(TextView)findViewById(R.id.deviceName); // 장치 이름 표시 텍스트뷰
+
+
         myMidiCallback=new MidiDeviceCallback(this, deviceName );
         midiManager.registerDeviceCallback(myMidiCallback, Handler.createAsync(Looper.getMainLooper())); //디바이스 콜백 등록
 
@@ -130,10 +166,9 @@ public class MidiActivity extends AppCompatActivity {
             midi_unplugged.startAnimation(hideblur);
             midi_unplugged_tv.setVisibility(View.GONE);
             midi_unplugged_tv.startAnimation(hideblur);
+            channel_key_spinner.setEnabled(true);
+            channel_drum_spinner.setEnabled(true);
             deviceName.setText("MIDI 장치 : "+manufacturer);
-/*            colorAnimation.setObjectValues(((ColorDrawable)midi_layout.getBackground()).getColor(), Color.parseColor("#008886"));
-            colorAnimation.setDuration(500);
-            colorAnimation.start();  // 장치 열고 배경 색 변경*/
             midiManager.openDevice(deviceList[0], new MidiManager.OnDeviceOpenedListener() {
                 @Override
                 public void onDeviceOpened(MidiDevice midiDevice) {

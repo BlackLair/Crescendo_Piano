@@ -1,8 +1,6 @@
 package com.example.crescendo_piano;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.media.midi.MidiDevice;
 import android.media.midi.MidiDeviceInfo;
 import android.media.midi.MidiManager;
@@ -27,7 +25,7 @@ public class MidiDeviceCallback extends MidiManager.DeviceCallback{
         Integer numMessage=Byte.toUnsignedInt(message[0]);
         for(int i=0; i<numMessage; i++) {
             int state = (Byte.toUnsignedInt(message[1+i * 3]) & 0xf0) >> 4;
-            int channel = (Byte.toUnsignedInt(message[1+i * 3]) & 0x0f) + 1;
+            int channel = (Byte.toUnsignedInt(message[1+i * 3]) & 0x0f)+1;
             int pitch = Byte.toUnsignedInt(message[2 + i * 3]) - 21;
             float velocity = (float) Byte.toUnsignedInt(message[3 + i * 3]) / 127;
             mAnalyzer.AnalyzeNote(state, channel, pitch, velocity); // 분석 가능한 midi 데이터로 분석 및 소리 재생
@@ -63,26 +61,23 @@ public class MidiDeviceCallback extends MidiManager.DeviceCallback{
         ((MidiActivity)context).midi_unplugged.startAnimation(((MidiActivity)context).hideblur);
         ((MidiActivity)context).midi_unplugged_tv.setVisibility(View.GONE);
         ((MidiActivity)context).midi_unplugged_tv.startAnimation(((MidiActivity)context).hideblur);
- /*       ((MidiActivity)context).colorAnimation.setObjectValues(((ColorDrawable)((MidiActivity)context).midi_layout.getBackground()).getColor(), Color.parseColor("#008886"));
-        ((MidiActivity)context).colorAnimation.setDuration(500);
-        ((MidiActivity)context).colorAnimation.start(); // 장치 연결되면 배경색 변경
-*/ // 색 변경 애니메이션
+        ((MidiActivity)context).channel_key_spinner.setEnabled(true);
+        ((MidiActivity)context).channel_drum_spinner.setEnabled(true);
     }
 
     @Override
     public void onDeviceRemoved(MidiDeviceInfo device) {    // 장치 연결이 해제되었을 경우
         stopReadingMidi();
- /*       ((MidiActivity)context).colorAnimation.setObjectValues(((ColorDrawable)((MidiActivity)context).midi_layout.getBackground()).getColor(), Color.parseColor("#490019"));
-        ((MidiActivity)context).colorAnimation.setDuration(500);
-        ((MidiActivity)context).colorAnimation.start();*/
         ((MidiActivity)context).isConnected=false;
- // 색변경 애니메이션
         ((MidiActivity)context).midi_blur.setVisibility(View.VISIBLE);
         ((MidiActivity)context).midi_blur.startAnimation(((MidiActivity)context).showblur);
         ((MidiActivity)context).midi_unplugged.setVisibility(View.VISIBLE);
         ((MidiActivity)context).midi_unplugged.startAnimation(((MidiActivity)context).showblur);
         ((MidiActivity)context).midi_unplugged_tv.setVisibility(View.VISIBLE);
         ((MidiActivity)context).midi_unplugged_tv.startAnimation(((MidiActivity)context).showblur);
+        ((MidiActivity)context).channel_drum_spinner.setEnabled(false);
+        ((MidiActivity)context).channel_key_spinner.setEnabled(false);
+
         deviceName.setText("MIDI 장치 : ");
     }
     public void disConnect(){   // 장치 연결 끊기
