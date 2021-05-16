@@ -60,6 +60,7 @@ public class InstViewHolderPage extends RecyclerView.ViewHolder {
                     Intent intent=new Intent(context, MidiActivity.class);
                     intent.putExtra("inst", selectedInst);
                     context.startActivity(intent);
+                    ((InstSelectActivity)context).overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit);
                 }
             }
         });

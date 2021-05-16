@@ -64,15 +64,15 @@ static void* readThreadRoutine(void * context){
         if(numMessagesReceived<0){
             sReading=false;
         }
-        if(numMessagesReceived>0 && numBytesReceived>=0) {
+        if(numMessagesReceived>0 && numBytesReceived>=0 && numBytesReceived<46) {
             if(opcode == AMIDI_OPCODE_DATA && (incomingMessage[0]&kMIDISysCmdChan) != kMIDISysCmdChan){
                 /*
                 for(int i=0; i<(int)numBytesReceived/3; i++){
                     SendTheReceivedData(&incomingMessage[i*3], 3);
                 }*/
-                uint8_t numAddedData[46];
-                numAddedData[0]=numBytesReceived/3;
-                memcpy(&numAddedData[1], incomingMessage, numBytesReceived);
+                uint8_t numAddedData[46]; // 최대 15개 신호 동시 입력 가능 !!
+                numAddedData[0]=numBytesReceived/3; // 동시 입력된 신호의 개수
+                memcpy(&numAddedData[1], incomingMessage, numBytesReceived); // 수신된 신호 복사
                 SendTheReceivedData(numAddedData, numBytesReceived+1);
 
             }else if (opcode == AMIDI_OPCODE_FLUSH){
