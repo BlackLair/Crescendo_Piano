@@ -32,7 +32,7 @@ public class MidiMessageAnalyzer {
                     isKeyOn[pitch]=2;
                     relNote.push(pitch);
                 }
-            }else if(state==11){ // 페달 신호일 경우
+            }else if(state==11 && pitch==43){ // 페달 신호일 경우   CC 64  -21 = 43
                 if(velocity==1){ // 페달 밟을 경우
                     pedalFlag=1;
                 }else{  // 페달에서 발을 뗐을 경우
