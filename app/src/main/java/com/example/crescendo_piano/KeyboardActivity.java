@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -153,6 +154,21 @@ public class KeyboardActivity extends AppCompatActivity {
                 }
             }
         });
+        btnSustain.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+                    if(!sustain.get())  btnSustain.setBackgroundResource(R.drawable.keyboard_sustain_off_p);
+                    else btnSustain.setBackgroundResource(R.drawable.keyboard_sustain_on_p);
+                }
+                else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    if(!sustain.get())  btnSustain.setBackgroundResource(R.drawable.keyboard_sustain_off);
+                    else btnSustain.setBackgroundResource(R.drawable.keyboard_sustain_on);
+                }
+                return false;
+            }
+        });
+
         /////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////옥타브 조절 기능///////////////////////////////////////
         btnOctave.setOnTouchListener(new View.OnTouchListener() {
