@@ -30,7 +30,8 @@ public class KeyboardActivity extends AppCompatActivity {
     private SoundResourceManager soundmanager;
     private int soundKeys[], metronomesoundKeys[];
     private SoundPool keyboardSoundPool, metronomeSoundPool;
-    private ImageButton goBack, btnSustain, bpmUp, bpmDown, btn_metronome;
+    private ImageButton goBack, btnSustain, bpmUp, bpmDown, btn_metronome_button;
+    private ImageView btn_metronome_mode, btn_metronome_icon;
     private ImageView btnOctave;
     private ImageButton wKeys[]=new ImageButton[15];
     private ImageButton bKeys[]=new ImageButton[10];
@@ -51,6 +52,7 @@ public class KeyboardActivity extends AppCompatActivity {
     private int BPM;  // 메트로놈을 위한 BPM값
     private int metronome_count=0;      // 메트로놈 박자 세는 기준
     private int metronome_maxcount=3;   // 0이면 메트로놈 꺼짐 3이면 3/4박자 4면 4/4박자
+    public boolean isIconLeft=true; // 메트로놈 아이콘 좌우 변경 플래그
     private ScheduledExecutorService metronomeService;
 
     @Override
@@ -89,7 +91,9 @@ public class KeyboardActivity extends AppCompatActivity {
         metronome_seekbar=findViewById(R.id.metronome_seekbar);
         bpmUp=findViewById(R.id.metronome_bpmup);
         bpmDown=findViewById(R.id.metronome_bpmdown);
-        btn_metronome=findViewById(R.id.metronome_set);
+        btn_metronome_button=findViewById(R.id.metronome_button);
+        btn_metronome_icon=findViewById(R.id.metronome_icon);
+        btn_metronome_mode=findViewById(R.id.metronome_mode);
         BPM=120;
         Animation animation[]= new Animation[25];
         for(int i=0; i<25; i++) {
@@ -205,6 +209,9 @@ public class KeyboardActivity extends AppCompatActivity {
         //////////////////////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////메트로놈 기능////////////////////////////////////////
+
+        btn_metronome_icon.setBackgroundResource(R.drawable.metronome_icon_l);
+        isIconLeft=true;
         metronomeSoundPool=soundmanager.loadMetronomeSound(metronomesoundKeys,this);
         Runnable metronomeRunnable=new Runnable(){ // 메트로놈 소리 1회 재생하는 runnable. bpm에 맞는 주기로 실행된다.
             @Override
@@ -215,24 +222,63 @@ public class KeyboardActivity extends AppCompatActivity {
                     PlayNote.metronomeOn(metronomeSoundPool, metronomesoundKeys[1]);
                 metronome_count++;
                 if(metronome_count>=metronome_maxcount) metronome_count=0; //설정된 메트로놈 박자에 따라 카운트조절
+                if(isIconLeft){ // 메트로놈 울릴 때마다 아이콘 가리키는 좌우 방향 변경
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    btn_metronome_icon.setBackgroundResource(R.drawable.metronome_icon_r);
+                                }
+                            });
+                        }
+                    }).start();
+                    isIconLeft=false;
+                }else{
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    btn_metronome_icon.setBackgroundResource(R.drawable.metronome_icon_l);
+                                }
+                            });
+                        }
+                    }).start();
+                    isIconLeft=true;
+                }
+
             }
         };
         metronome_maxcount=0;
-        btn_metronome.setOnClickListener(new View.OnClickListener() {
+        btn_metronome_button.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+                    btn_metronome_button.setBackgroundResource(R.drawable.metronome_button_p);
+                }else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    btn_metronome_button.setBackgroundResource(R.drawable.metronome_button);
+                }
+                return false;
+            }
+        });
+        btn_metronome_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(metronome_maxcount==3){ //메트로놈 꺼짐
                     metronome_maxcount=0;
                     metronome_count=0;
                     metronomeService.shutdownNow(); //메트로놈서비스 종료
-                    view.setBackgroundResource(R.drawable.keyboard_met_stop);
+                    btn_metronome_mode.setBackgroundResource(R.drawable.metronome_stop);
                     metronome_seekbar.setEnabled(true);
                 }
                 else if(metronome_maxcount==0){ //메트로놈 4/4로 설정
                     metronome_maxcount=4;
                     metronomeService= Executors.newSingleThreadScheduledExecutor();
                     metronomeService.scheduleAtFixedRate(metronomeRunnable,0,(60000000/BPM), TimeUnit.MICROSECONDS);
-                    view.setBackgroundResource(R.drawable.keyboard_met_quadruple);
+                    btn_metronome_mode.setBackgroundResource(R.drawable.metronome_quad);
                     metronome_seekbar.setEnabled(false);
                 }
                 else if(metronome_maxcount==4){ //메트로놈 3/4로 설정
@@ -240,7 +286,7 @@ public class KeyboardActivity extends AppCompatActivity {
                     metronomeService.shutdownNow();
                     metronomeService= Executors.newSingleThreadScheduledExecutor();
                     metronomeService.scheduleAtFixedRate(metronomeRunnable,0,(60000000/BPM), TimeUnit.MICROSECONDS);
-                    view.setBackgroundResource(R.drawable.keyboard_met_triple);
+                    btn_metronome_mode.setBackgroundResource(R.drawable.metronome_triple);
                 }
             }
         });

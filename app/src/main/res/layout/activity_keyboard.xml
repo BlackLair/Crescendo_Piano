@@ -56,7 +56,7 @@
                     android:id="@+id/octaveValue"/>
 
             <ImageButton
-                android:id="@+id/metronome_set"
+                android:id="@+id/metronome_button"
                 android:layout_width="70dp"
                 android:layout_height="60dp"
                 android:layout_centerVertical="true"
@@ -64,7 +64,36 @@
                 android:layout_marginLeft="30dp"
                 android:layout_toEndOf="@+id/btnOctave"
                 android:layout_toRightOf="@+id/btnOctave"
-                android:background="@drawable/keyboard_met_stop"/>
+                android:background="@drawable/metronome_button"/>
+
+            <ImageView
+                android:id="@+id/metronome_icon"
+                android:layout_width="26dp"
+                android:layout_height="51dp"
+                android:layout_alignStart="@+id/metronome_button"
+                android:layout_alignTop="@+id/metronome_button"
+                android:layout_alignEnd="@+id/metronome_button"
+                android:layout_alignBottom="@+id/metronome_button"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="36dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/metronome_icon_l"/>
+
+
+            <ImageView
+                android:id="@+id/metronome_mode"
+                android:layout_width="33dp"
+                android:layout_height="51dp"
+                android:layout_alignStart="@+id/metronome_button"
+                android:layout_alignTop="@+id/metronome_button"
+                android:layout_alignEnd="@+id/metronome_button"
+                android:layout_alignBottom="@+id/metronome_button"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/metronome_stop"/>
 
             <ImageButton
                 android:id="@+id/metronome_bpmdown"
@@ -82,8 +111,8 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginLeft="25dp"
                 android:layout_marginBottom="6dp"
-                android:layout_toEndOf="@+id/metronome_set"
-                android:layout_toRightOf="@+id/metronome_set"
+                android:layout_toEndOf="@+id/metronome_button"
+                android:layout_toRightOf="@+id/metronome_button"
                 android:max="300"
                 android:min="1"
                 android:progress="120"
