@@ -163,6 +163,7 @@ public class KeyboardActivity extends AppCompatActivity {
                     float value=touchedX/view.getWidth();   // 0.5 이상이면 + 이하면 -
                     int currentOctave=octave.get();
                     if(value>0.5 && currentOctave<3){
+                        btnOctave.setBackgroundResource(R.drawable.keyboard_octave_plus_p);
                         octave.set(currentOctave+1);
                         if(currentOctave+1>=0)
                             octaveValue.setText("+"+Integer.toString(currentOctave+1));
@@ -170,6 +171,7 @@ public class KeyboardActivity extends AppCompatActivity {
                             octaveValue.setText(Integer.toString(currentOctave+1));
                     }
                     else if(value<0.5 && currentOctave>-2){
+                        btnOctave.setBackgroundResource(R.drawable.keyboard_octave_minus_p);
                         octave.set(currentOctave-1);
                         if(currentOctave-1>=0)
                             octaveValue.setText("+"+Integer.toString(currentOctave-1));
@@ -177,6 +179,9 @@ public class KeyboardActivity extends AppCompatActivity {
                             octaveValue.setText(Integer.toString(currentOctave-1));
                     }
 
+                }
+                else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    btnOctave.setBackgroundResource(R.drawable.keyboard_octave);
                 }
                 return true; // false 리턴하면 옥타브 이미지버튼 누른 상태로 건반버튼 눌러도 반응을 안함
             }
@@ -204,20 +209,22 @@ public class KeyboardActivity extends AppCompatActivity {
                     metronome_maxcount=0;
                     metronome_count=0;
                     metronomeService.shutdownNow(); //메트로놈서비스 종료
-                    view.setBackgroundResource(R.drawable.keyboard_mat_stop);
+                    view.setBackgroundResource(R.drawable.keyboard_met_stop);
+                    metronome_seekbar.setEnabled(true);
                 }
                 else if(metronome_maxcount==0){ //메트로놈 4/4로 설정
                     metronome_maxcount=4;
                     metronomeService= Executors.newSingleThreadScheduledExecutor();
                     metronomeService.scheduleAtFixedRate(metronomeRunnable,0,(60000000/BPM), TimeUnit.MICROSECONDS);
-                    view.setBackgroundResource(R.drawable.keyboard_mat_quadruple);
+                    view.setBackgroundResource(R.drawable.keyboard_met_quadruple);
+                    metronome_seekbar.setEnabled(false);
                 }
                 else if(metronome_maxcount==4){ //메트로놈 3/4로 설정
                     metronome_maxcount=3;
                     metronomeService.shutdownNow();
                     metronomeService= Executors.newSingleThreadScheduledExecutor();
                     metronomeService.scheduleAtFixedRate(metronomeRunnable,0,(60000000/BPM), TimeUnit.MICROSECONDS);
-                    view.setBackgroundResource(R.drawable.keyboard_mat_triple);
+                    view.setBackgroundResource(R.drawable.keyboard_met_triple);
                 }
             }
         });
@@ -261,7 +268,17 @@ public class KeyboardActivity extends AppCompatActivity {
                 }
             }
         });
-
+        bpmUp.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+                    bpmUp.setBackgroundResource(R.drawable.keyboard_met_plus_p);
+                }else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    bpmUp.setBackgroundResource(R.drawable.keyboard_met_plus);
+                }
+                return false;
+            }
+        });
         bpmDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -271,6 +288,17 @@ public class KeyboardActivity extends AppCompatActivity {
                     BPM=currentBPM;
                     metronome_seekbar.setProgress(currentBPM);
                 }
+            }
+        });
+        bpmDown.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+                    bpmDown.setBackgroundResource(R.drawable.keyboard_met_minus_p);
+                }else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    bpmDown.setBackgroundResource(R.drawable.keyboard_met_minus);
+                }
+                return false;
             }
         });
 
