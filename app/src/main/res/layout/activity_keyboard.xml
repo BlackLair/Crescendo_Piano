@@ -117,7 +117,7 @@
                 android:min="1"
                 android:progress="120"
                 android:progressDrawable="@drawable/seekbar1"
-                android:thumb="@drawable/seekbar1_thumb" />
+                android:thumb="@drawable/seekbar_thumb" />
 
             <TextView
                 android:id="@+id/metronome_bpm"
