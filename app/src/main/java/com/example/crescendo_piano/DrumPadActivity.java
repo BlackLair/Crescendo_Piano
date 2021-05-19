@@ -82,7 +82,7 @@ public class DrumPadActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(motionEvent.getAction()==MotionEvent.ACTION_DOWN)
-                    btn_goBack.setBackgroundResource(R.drawable.backgray);
+                    btn_goBack.setBackgroundResource(R.drawable.back_p);
                 else if(motionEvent.getAction()==MotionEvent.ACTION_UP)
                     btn_goBack.setBackgroundResource(R.drawable.back);
                 return false;

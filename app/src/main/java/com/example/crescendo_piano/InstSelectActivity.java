@@ -46,7 +46,7 @@ public class InstSelectActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(motionEvent.getAction()==MotionEvent.ACTION_DOWN)
-                    instsel_goBack.setBackgroundResource(R.drawable.backgray);
+                    instsel_goBack.setBackgroundResource(R.drawable.back_p);
                 else if(motionEvent.getAction()==MotionEvent.ACTION_UP)
                     instsel_goBack.setBackgroundResource(R.drawable.back);
                 return false;

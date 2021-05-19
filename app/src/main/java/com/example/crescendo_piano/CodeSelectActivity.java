@@ -117,7 +117,7 @@ public class CodeSelectActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(motionEvent.getAction()==MotionEvent.ACTION_DOWN)
-                    goBack.setBackgroundResource(R.drawable.backgray);
+                    goBack.setBackgroundResource(R.drawable.back_p);
                 else if(motionEvent.getAction()==MotionEvent.ACTION_UP)
                     goBack.setBackgroundResource(R.drawable.back);
                 return false;

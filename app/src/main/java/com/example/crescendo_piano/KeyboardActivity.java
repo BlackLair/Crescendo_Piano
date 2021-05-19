@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -125,7 +124,7 @@ public class KeyboardActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(motionEvent.getAction()==MotionEvent.ACTION_DOWN)
-                    goBack.setBackgroundResource(R.drawable.backgray);
+                    goBack.setBackgroundResource(R.drawable.back_p);
                 else if(motionEvent.getAction()==MotionEvent.ACTION_UP)
                     goBack.setBackgroundResource(R.drawable.back);
                 return false;
