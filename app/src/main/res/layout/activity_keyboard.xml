@@ -64,7 +64,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_toEndOf="@+id/btnOctave"
                 android:layout_toRightOf="@+id/btnOctave"
-                android:background="@drawable/keyboard_mat_stop"/>
+                android:background="@drawable/keyboard_met_stop"/>
 
             <ImageButton
                 android:id="@+id/metronome_bpmdown"
@@ -72,7 +72,7 @@
                 android:layout_height="50dp"
                 android:layout_above="@+id/metronome_seekbar"
                 android:layout_alignLeft="@id/metronome_seekbar"
-                android:background="@drawable/keyboard_mat_minus"/>
+                android:background="@drawable/keyboard_met_minus"/>
 
             <SeekBar
                 android:id="@+id/metronome_seekbar"
@@ -109,7 +109,7 @@
                 android:layout_height="50dp"
                 android:layout_above="@id/metronome_seekbar"
                 android:layout_alignRight="@id/metronome_seekbar"
-                android:background="@drawable/keyboard_mat_plus"/>
+                android:background="@drawable/keyboard_met_plus"/>
         </RelativeLayout>
 
 
