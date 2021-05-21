@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
@@ -82,6 +83,8 @@ public class MidiActivity extends AppCompatActivity {
             uiOption|=View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         decorView.setSystemUiVisibility(uiOption);
         /////////////////////////////앱 하단바 제거///////////////////////////////
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // 화면 안꺼지게 유지
+
         Intent getInst=getIntent();     // 선택한 악기 정보를 가져오기 위한 인텐트
         soundManager=new SoundResourceManager();    // 사운드매니저 객체생성
         soundKeys=new int[88];
