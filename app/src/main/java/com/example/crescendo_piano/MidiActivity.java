@@ -216,7 +216,7 @@ public class MidiActivity extends AppCompatActivity {
     protected void onDestroy() {    // 액티비티 종료시
 
         soundManager.unLoad(midiSoundPool); // 사운드 리소스 메모리 해제
-
+        soundManager.unLoad(midiDrumSoundPool);
         super.onDestroy();
     }
 }
