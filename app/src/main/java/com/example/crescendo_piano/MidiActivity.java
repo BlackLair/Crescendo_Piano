@@ -34,7 +34,9 @@ public class MidiActivity extends AppCompatActivity {
     ImageButton btn_goBack;
     private Context context=this;
     private SoundResourceManager soundManager;
-    public int[] soundKeys, drumsoundKeys; // SoundPool 할당된 오디오 파일 구분 키값
+    public int[] soundKeys;
+    public int[][] drumsoundKeys; // SoundPool 할당된 오디오 파일 구분 키값
+    public int drumPreset=0;
     public MidiManager midiManager;// MIDI 장치 연결 관리 매니저
     public SoundPool midiSoundPool,midiDrumSoundPool; // 건반 사운드 리소스 로딩 SoundPool
     public int keyboardChannel,drumChannel; // 설정할 midi channel
@@ -88,7 +90,7 @@ public class MidiActivity extends AppCompatActivity {
         Intent getInst=getIntent();     // 선택한 악기 정보를 가져오기 위한 인텐트
         soundManager=new SoundResourceManager();    // 사운드매니저 객체생성
         soundKeys=new int[88];
-        drumsoundKeys=new int[8];
+        drumsoundKeys=new int[2][8];
         inst=getInst.getIntExtra("inst", 0);
         midiSoundPool=soundManager.load(soundKeys, inst, getApplicationContext()); // 악기 음원 로딩
         midiDrumSoundPool=soundManager.loadDrumSound(drumsoundKeys, getApplicationContext());

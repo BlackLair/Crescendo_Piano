@@ -53,7 +53,7 @@ public class MidiMessageAnalyzer {
                 // 드럼 연주 기능
                 if (pitch == 0 || pitch == 3)
                     PlayNote.drumNoteOff(((MidiActivity) context).midiDrumSoundPool, pitch);
-                PlayNote.drumNoteOn(((MidiActivity) context).midiDrumSoundPool, ((MidiActivity) context).drumsoundKeys[pitch], pitch, velocity);
+                PlayNote.drumNoteOn(((MidiActivity) context).midiDrumSoundPool, ((MidiActivity) context).drumsoundKeys[((MidiActivity)context).drumPreset][pitch], pitch, velocity);
             }
         }
 
