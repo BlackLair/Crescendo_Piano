@@ -48,6 +48,7 @@ public class MidiActivity extends AppCompatActivity {
     public int inst;    // 0 : 피아노 1 : 바이올린 3 : 하프
     public TextView deviceName;
     public Boolean isConnected=false;
+    private ImageView midi_inst;
 
     public RealtimeBlurView midi_blur; // 미연결 시 붉은 블러
     public TextView midi_unplugged_tv;
@@ -118,6 +119,13 @@ public class MidiActivity extends AppCompatActivity {
         midiManager=(MidiManager)getApplicationContext().getSystemService(Context.MIDI_SERVICE);
         MidiDeviceInfo[] deviceList=midiManager.getDevices();   // 연결되어 있는 장치 목록 가져옴
 
+        midi_inst=findViewById(R.id.midi_inst);
+        if(inst==0)
+            midi_inst.setBackgroundResource(R.drawable.midi_piano);
+        else if(inst==1)
+            midi_inst.setBackgroundResource(R.drawable.midi_violin);
+        else if(inst==2)
+            midi_inst.setBackgroundResource(R.drawable.midi_harp);
 
 
         ///////////////////////////MIDI 수신 채널 설정 스피너//////////////////////////////////////
