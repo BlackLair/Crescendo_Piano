@@ -27,14 +27,15 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:id="@+id/instsel_viewPager"
-            android:orientation="horizontal"
-            android:scaleY="1.1"/>
+            android:layout_centerVertical="true"
+            android:layout_above="@+id/inst_sel_logo"/>
         <ImageView
             android:layout_width="256dp"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
             android:layout_centerInParent="true"
-            android:background="@drawable/logo" />
+            android:background="@drawable/logo"
+            android:id="@+id/inst_sel_logo"/>
     </RelativeLayout>
 
 </LinearLayout>

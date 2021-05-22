@@ -23,9 +23,8 @@
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="55dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         >
         <Spinner
             android:layout_width="245dp"
@@ -35,7 +34,7 @@
         <RelativeLayout
             android:layout_row="0"
             android:layout_width="190dp"
-            android:layout_height="300dp"
+            android:layout_height="250dp"
             android:layout_rowSpan="3">
 
             <ImageButton
