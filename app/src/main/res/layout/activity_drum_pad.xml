@@ -31,8 +31,8 @@
             android:id="@+id/drum_presetbutton"
             android:background="@drawable/drum_presetbutton"/>
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="15dp"
             android:layout_alignTop="@+id/drum_presetbutton"
             android:layout_alignEnd="@+id/drum_presetbutton"
             android:layout_alignStart="@+id/drum_presetbutton"
