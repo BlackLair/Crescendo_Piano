@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#3301FFF8"
+    android:background="#5001FFF8"
     android:id="@+id/code_background">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
             android:layout_centerInParent="true"
-            android:background="@drawable/logo2" />
+            android:background="@drawable/logo" />
     </RelativeLayout>
 
 </LinearLayout>

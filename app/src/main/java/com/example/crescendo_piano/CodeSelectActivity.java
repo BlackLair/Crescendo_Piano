@@ -58,7 +58,7 @@ public class CodeSelectActivity extends AppCompatActivity {
         ValueAnimator colorAnimation;
         int colorfrom, colorto;
         colorfrom=((ColorDrawable)code_background.getBackground()).getColor();
-        colorto= Color.parseColor("#33FF33");
+        colorto= Color.parseColor("#5033FF33");
         colorAnimation=ValueAnimator.ofObject(new ArgbEvaluator(), colorfrom, colorto);
         colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -72,37 +72,37 @@ public class CodeSelectActivity extends AppCompatActivity {
                 super.onPageSelected(position);
                 switch(position){
                     case 0:
-                        colorAnimation.setObjectValues(((ColorDrawable)code_background.getBackground()).getColor(), Color.parseColor("#3301FFF8"));
+                        colorAnimation.setObjectValues(((ColorDrawable)code_background.getBackground()).getColor(), Color.parseColor("#5001FFF8"));
                         colorAnimation.setDuration(500);
                         colorAnimation.start();
                         break;
                     case 1:
-                        colorAnimation.setObjectValues(((ColorDrawable)code_background.getBackground()).getColor(), Color.parseColor("#3333FF33"));
+                        colorAnimation.setObjectValues(((ColorDrawable)code_background.getBackground()).getColor(), Color.parseColor("#5033FF33"));
                         colorAnimation.setDuration(500);
                         colorAnimation.start();
                         break;
                     case 2:
-                        colorAnimation.setObjectValues(((ColorDrawable)code_background.getBackground()).getColor(), Color.parseColor("#33FFFF00"));
+                        colorAnimation.setObjectValues(((ColorDrawable)code_background.getBackground()).getColor(), Color.parseColor("#50FFFF00"));
                         colorAnimation.setDuration(500);
                         colorAnimation.start();
                         break;
                     case 3:
-                        colorAnimation.setObjectValues(((ColorDrawable)code_background.getBackground()).getColor(), Color.parseColor("#33FF21FF"));
+                        colorAnimation.setObjectValues(((ColorDrawable)code_background.getBackground()).getColor(), Color.parseColor("#50FF21FF"));
                         colorAnimation.setDuration(500);
                         colorAnimation.start();
                         break;
                     case 4:
-                        colorAnimation.setObjectValues(((ColorDrawable)code_background.getBackground()).getColor(), Color.parseColor("#334444FF"));
+                        colorAnimation.setObjectValues(((ColorDrawable)code_background.getBackground()).getColor(), Color.parseColor("#504444FF"));
                         colorAnimation.setDuration(500);
                         colorAnimation.start();
                         break;
                     case 5:
-                        colorAnimation.setObjectValues(((ColorDrawable)code_background.getBackground()).getColor(), Color.parseColor("#33FF4444"));
+                        colorAnimation.setObjectValues(((ColorDrawable)code_background.getBackground()).getColor(), Color.parseColor("#50FF4444"));
                         colorAnimation.setDuration(500);
                         colorAnimation.start();
                         break;
                     case 6:
-                        colorAnimation.setObjectValues(((ColorDrawable)code_background.getBackground()).getColor(), Color.parseColor("#22FFAA33"));
+                        colorAnimation.setObjectValues(((ColorDrawable)code_background.getBackground()).getColor(), Color.parseColor("#50FFAA33"));
                         colorAnimation.setDuration(500);
                         colorAnimation.start();
                         break;
