@@ -40,7 +40,89 @@
             android:id="@+id/drum_presetview"
             android:background="@drawable/drum_presetview_a"
             android:layout_marginTop="5dp"/>
+        <ImageButton
+            android:id="@+id/dmetronome_button"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_toEndOf="@+id/drum_presetbutton"
+            android:background="@drawable/metronome_button"/>
 
+        <ImageView
+            android:id="@+id/dmetronome_icon"
+            android:layout_width="26dp"
+            android:layout_height="51dp"
+            android:layout_alignStart="@+id/dmetronome_button"
+            android:layout_alignTop="@+id/dmetronome_button"
+            android:layout_alignEnd="@+id/dmetronome_button"
+            android:layout_alignBottom="@+id/dmetronome_button"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/metronome_icon_l"/>
+
+
+        <ImageView
+            android:id="@+id/dmetronome_mode"
+            android:layout_width="33dp"
+            android:layout_height="51dp"
+            android:layout_alignStart="@+id/dmetronome_button"
+            android:layout_alignTop="@+id/dmetronome_button"
+            android:layout_alignEnd="@+id/dmetronome_button"
+            android:layout_alignBottom="@+id/dmetronome_button"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/metronome_stop"/>
+
+        <ImageButton
+            android:id="@+id/dmetronome_bpmdown"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_above="@+id/dmetronome_seekbar"
+            android:layout_alignLeft="@id/dmetronome_seekbar"
+            android:background="@drawable/keyboard_met_minus"/>
+
+        <SeekBar
+            android:id="@+id/dmetronome_seekbar"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="6dp"
+            android:layout_toEndOf="@+id/dmetronome_button"
+            android:layout_toRightOf="@+id/dmetronome_button"
+            android:max="300"
+            android:min="1"
+            android:progress="120"
+            android:progressDrawable="@drawable/seekbar1"
+            android:thumb="@drawable/seekbar_thumb" />
+
+        <TextView
+            android:id="@+id/dmetronome_bpm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/dmetronome_seekbar"
+            android:layout_marginBottom="5dp"
+            android:layout_alignLeft="@id/dmetronome_seekbar"
+            android:layout_alignRight="@id/dmetronome_seekbar"
+            android:gravity="center"
+            android:text="120"
+            android:textColor="#01FFF8"
+            android:textSize="40dp" />
+
+        <ImageButton
+            android:id="@+id/dmetronome_bpmup"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_above="@id/dmetronome_seekbar"
+            android:layout_alignRight="@id/dmetronome_seekbar"
+            android:background="@drawable/keyboard_met_plus"/>
 
 
     </RelativeLayout>

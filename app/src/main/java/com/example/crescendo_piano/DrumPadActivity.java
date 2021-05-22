@@ -11,8 +11,14 @@ import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class DrumPadActivity extends AppCompatActivity {
     private View decorView;
@@ -28,9 +34,24 @@ public class DrumPadActivity extends AppCompatActivity {
     private ImageButton drum_presetbutton;
     private ImageView drum_presetview;
     private RelativeLayout drumpad_topbanner;
+
+    private TextView BPMText;
+    private SeekBar metronome_seekbar;
+    private ImageButton bpmUp, bpmDown, btn_metronome_button;
+    private ImageView btn_metronome_mode, btn_metronome_icon;
+    private SoundPool metronomeSoundPool;
+    private int metronomesoundKeys[];
+    private int BPM;  // 메트로놈을 위한 BPM값
+    private int metronome_count=0;      // 메트로놈 박자 세는 기준
+    private int metronome_maxcount=3;   // 0이면 메트로놈 꺼짐 3이면 3/4박자 4면 4/4박자
+    private ScheduledExecutorService metronomeService;
+    public boolean isIconLeft=true;
+
+
     @Override
     protected void onDestroy() { // 메모리 리소스 해제
         soundManager.unLoad(drumPadSoundPool);
+        soundManager.unLoad(metronomeSoundPool);
         super.onDestroy();
     }
 
@@ -122,7 +143,7 @@ public class DrumPadActivity extends AppCompatActivity {
             }
         });
         ////////////////////////////////////////////////////////////////////////////////
-
+        metronomesoundKeys=new int[2];
         btn_goBack=(ImageButton)findViewById(R.id.drumpad_goBack);
         btn_goBack.setOnClickListener(new View.OnClickListener() {
             @Override       // 뒤로가기 버튼
@@ -140,5 +161,170 @@ public class DrumPadActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        ////////////////////////////////////////메트로놈 기능////////////////////////////////////////
+        BPMText=findViewById(R.id.dmetronome_bpm);
+        metronome_seekbar=findViewById(R.id.dmetronome_seekbar);
+        bpmUp=findViewById(R.id.dmetronome_bpmup);
+        bpmDown=findViewById(R.id.dmetronome_bpmdown);
+        btn_metronome_button=findViewById(R.id.dmetronome_button);
+        btn_metronome_icon=findViewById(R.id.dmetronome_icon);
+        btn_metronome_mode=findViewById(R.id.dmetronome_mode);
+        BPM=120;
+        btn_metronome_icon.setBackgroundResource(R.drawable.metronome_icon_l);
+        isIconLeft=true;
+        metronomeSoundPool=soundManager.loadMetronomeSound(metronomesoundKeys,this);
+        Runnable metronomeRunnable=new Runnable(){ // 메트로놈 소리 1회 재생하는 runnable. bpm에 맞는 주기로 실행된다.
+            @Override
+            public void run() {// 메트로놈 소리를 정박에는 킥, 나머지는 하이햇 소리 냄
+                if(metronome_count==0) // 첫 박자 킥 소리
+                    PlayNote.metronomeOn(metronomeSoundPool, metronomesoundKeys[0]);
+                else                    // 나머지 박자 하이햇 소리
+                    PlayNote.metronomeOn(metronomeSoundPool, metronomesoundKeys[1]);
+                metronome_count++;
+                if(metronome_count>=metronome_maxcount) metronome_count=0; //설정된 메트로놈 박자에 따라 카운트조절
+                if(isIconLeft){ // 메트로놈 울릴 때마다 아이콘 가리키는 좌우 방향 변경
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    btn_metronome_icon.setBackgroundResource(R.drawable.metronome_icon_r);
+                                }
+                            });
+                        }
+                    }).start();
+                    isIconLeft=false;
+                }else{
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    btn_metronome_icon.setBackgroundResource(R.drawable.metronome_icon_l);
+                                }
+                            });
+                        }
+                    }).start();
+                    isIconLeft=true;
+                }
+
+            }
+        };
+        metronome_maxcount=0;
+        btn_metronome_button.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+                    btn_metronome_button.setBackgroundResource(R.drawable.metronome_button_p);
+                }else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    btn_metronome_button.setBackgroundResource(R.drawable.metronome_button);
+                }
+                return false;
+            }
+        });
+        btn_metronome_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(metronome_maxcount==3){ //메트로놈 꺼짐
+                    metronome_maxcount=0;
+                    metronome_count=0;
+                    metronomeService.shutdownNow(); //메트로놈서비스 종료
+                    btn_metronome_mode.setBackgroundResource(R.drawable.metronome_stop);
+                    metronome_seekbar.setEnabled(true);
+                }
+                else if(metronome_maxcount==0){ //메트로놈 4/4로 설정
+                    metronome_maxcount=4;
+                    metronomeService= Executors.newSingleThreadScheduledExecutor();
+                    metronomeService.scheduleAtFixedRate(metronomeRunnable,0,(60000000/BPM), TimeUnit.MICROSECONDS);
+                    btn_metronome_mode.setBackgroundResource(R.drawable.metronome_quad);
+                    metronome_seekbar.setEnabled(false);
+                }
+                else if(metronome_maxcount==4){ //메트로놈 3/4로 설정
+                    metronome_maxcount=3;
+                    metronomeService.shutdownNow();
+                    metronomeService= Executors.newSingleThreadScheduledExecutor();
+                    metronomeService.scheduleAtFixedRate(metronomeRunnable,0,(60000000/BPM), TimeUnit.MICROSECONDS);
+                    btn_metronome_mode.setBackgroundResource(R.drawable.metronome_triple);
+                }
+            }
+        });
+        metronome_seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) { //Seekbar가 이동할경우
+                BPM=i;
+                BPMText.setText(Integer.toString(i));
+                if(metronome_count!=0) { // 메트로놈 재시작
+                    metronomeService.shutdownNow();
+                    metronomeService = Executors.newSingleThreadScheduledExecutor();
+                    metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000000 / BPM), TimeUnit.MICROSECONDS);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                BPMText.setText(Integer.toString(seekBar.getProgress()));
+                BPM=seekBar.getProgress();
+                if(metronome_count!=0) { // 메트로놈 재시작
+                    metronomeService.shutdownNow();
+                    metronomeService = Executors.newSingleThreadScheduledExecutor();
+                    metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000000 / BPM), TimeUnit.MICROSECONDS);
+                }
+            }
+        });
+
+        bpmUp.setOnClickListener(new View.OnClickListener() { // BPM을 1씩 올려주는 버튼
+            @Override
+            public void onClick(View view) {
+                Integer currentBPM=BPM;
+                if(currentBPM<300){
+                    currentBPM+=1;
+                    BPM=currentBPM;
+                    metronome_seekbar.setProgress(currentBPM);
+                }
+            }
+        });
+        bpmUp.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+                    bpmUp.setBackgroundResource(R.drawable.keyboard_met_plus_p);
+                }else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    bpmUp.setBackgroundResource(R.drawable.keyboard_met_plus);
+                }
+                return false;
+            }
+        });
+        bpmDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer currentBPM=BPM;
+                if(currentBPM>1){
+                    currentBPM-=1;
+                    BPM=currentBPM;
+                    metronome_seekbar.setProgress(currentBPM);
+                }
+            }
+        });
+        bpmDown.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+                    bpmDown.setBackgroundResource(R.drawable.keyboard_met_minus_p);
+                }else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    bpmDown.setBackgroundResource(R.drawable.keyboard_met_minus);
+                }
+                return false;
+            }
+        });
+
+        /////////////////////////////////////////////
     }
 }
