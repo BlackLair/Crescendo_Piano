@@ -10,8 +10,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
@@ -24,7 +27,7 @@ public class CodeSelectActivity extends AppCompatActivity {
     ViewPager2 codeViewPager;
     private ImageButton goBack;
     private LinearLayout code_background;
-
+    private TextView text_swipe;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         /////////////////////////////앱 하단바 제거///////////////////////////////
@@ -52,6 +55,13 @@ public class CodeSelectActivity extends AppCompatActivity {
         list.add(new CodeDataPage(R.drawable.code_la,6, this));           // los angeles style
 
         codeViewPager.setAdapter(new CodeViewPagerAdapter(list));
+
+        Animation animation=new AlphaAnimation(1,0); // 처음 시작 시 드럼패드 천천히 나타나는 애니메이션
+        animation.setDuration(3200);
+        text_swipe=findViewById(R.id.text_swipe);
+        text_swipe.setAnimation(animation);
+        text_swipe.setVisibility(View.INVISIBLE);
+
 
         // 페이지 넘어갈 때 배경색 바꾸기
         code_background=findViewById(R.id.code_background);

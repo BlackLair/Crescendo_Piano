@@ -18,6 +18,15 @@
             android:background="@drawable/back"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="&lt;&lt; 좌우로 스와이프 &gt;&gt;"
+            android:textColor="#fff"
+            android:textSize="25dp"
+            android:id="@+id/text_swipe"
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"

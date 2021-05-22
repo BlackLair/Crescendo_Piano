@@ -10,7 +10,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -20,12 +23,18 @@ public class InstSelectActivity extends AppCompatActivity {
     private ImageButton instsel_goBack; // 뒤로가기 버튼
     private Intent intent;  // 메인메뉴에서 연주하기/MIDI연결 중 어떤 것을 선택했는지 받아오기 위한 인텐트
     private Integer selectedFunc; // 0 : 연주하기 1 : MIDI장치 연결
+    private TextView text_swipe;
     ViewPager2 instViewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inst_select);
 
+        Animation animation=new AlphaAnimation(1,0); // 처음 시작 시 드럼패드 천천히 나타나는 애니메이션
+        animation.setDuration(3200);
+        text_swipe=findViewById(R.id.text_swipe);
+        text_swipe.setAnimation(animation);
+        text_swipe.setVisibility(View.INVISIBLE);
         /////////////////////////////앱 하단바 제거///////////////////////////////
         decorView=getWindow().getDecorView();
         uiOption=getWindow().getDecorView().getSystemUiVisibility();
