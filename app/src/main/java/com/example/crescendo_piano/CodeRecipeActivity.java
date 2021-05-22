@@ -43,8 +43,8 @@ public class CodeRecipeActivity extends AppCompatActivity {
         coderecipe_layout=(ConstraintLayout)findViewById(R.id.coderecipe_layout);
         Intent getCodeIntent=getIntent();
         selectedCode=getCodeIntent.getIntExtra("selectedCode", 0);
-        String backColors[]={"#2D017770", "#2D007700", "#2D777700", "#2D780059", "#2D000077", "#2D770000", "#2D764C00"};
-        String youTubeCode[]={"hFqt3KUZfKc","SxtUCmcqPi4","Gz5d61L6uBA","NkUCPB1EpBo","MMDppuUuImY","voujm_iqDIw","nmqMGHbHQQU"};
+        String backColors[]={"#40017770", "#40007700", "#40777700", "#40780059", "#40000077", "#40770000", "#40764C00"};
+        String youTubeCode[]={"LXRKJog2lsw","xzOwKDuQRmg","q-l74XhEObk","R6yPeFv5vsc","FGjXqwE0CyY","mUUuqnHvAcU","zK2FzgzZ6Bg"};
         coderecipe_layout.setBackgroundColor(Color.parseColor(backColors[selectedCode]));
 
         youTubePlayerView=findViewById(R.id.youtubeView);
