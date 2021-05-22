@@ -56,18 +56,18 @@ public class MidiActivity extends AppCompatActivity {
     public Animation showblur, hideblur; // 블러 애니메이션
 
     private TextView BPMText;
-    private SeekBar metronome_seekbar;
-    private ImageButton bpmUp, bpmDown, btn_metronome_button;
-    private ImageView btn_metronome_mode, btn_metronome_icon;
+    public SeekBar metronome_seekbar;
+    public ImageButton bpmUp, bpmDown, btn_metronome_button;
+    public ImageView btn_metronome_mode, btn_metronome_icon;
     private SoundPool metronomeSoundPool;
     private int metronomesoundKeys[];
     private int BPM;  // 메트로놈을 위한 BPM값
     private int metronome_count=0;      // 메트로놈 박자 세는 기준
-    private int metronome_maxcount=3;   // 0이면 메트로놈 꺼짐 3이면 3/4박자 4면 4/4박자
-    private ScheduledExecutorService metronomeService;
+    public int metronome_maxcount=3;   // 0이면 메트로놈 꺼짐 3이면 3/4박자 4면 4/4박자
+    public ScheduledExecutorService metronomeService;
     public boolean isIconLeft=true;
 
-    private ImageButton drum_presetbutton;
+    public ImageButton drum_presetbutton;
     private ImageView drum_presetview;
 
 
@@ -128,6 +128,7 @@ public class MidiActivity extends AppCompatActivity {
             midi_inst.setBackgroundResource(R.drawable.midi_harp);
 
 
+
         ///////////////////////////MIDI 수신 채널 설정 스피너//////////////////////////////////////
         channel_drum_spinner=findViewById(R.id.channel_drum_spinner);
         channel_key_spinner=findViewById(R.id.channel_key_spinner);
@@ -139,6 +140,8 @@ public class MidiActivity extends AppCompatActivity {
         adapterKeySpinner = new AdapterChannelSpinner(this, channelString);
         channel_drum_spinner.setAdapter(adapterDrumSpinner);
         channel_key_spinner.setAdapter(adapterKeySpinner);
+
+
 
         channel_drum_spinner.setEnabled(false);
         channel_key_spinner.setEnabled(false);
@@ -188,33 +191,7 @@ public class MidiActivity extends AppCompatActivity {
         myMidiCallback=new MidiDeviceCallback(this, deviceName );
         midiManager.registerDeviceCallback(myMidiCallback, Handler.createAsync(Looper.getMainLooper())); //디바이스 콜백 등록
 
-        /////////////////////////////////////////액티비티 진입 시 이미 연결되어 있을 경우//////////////////////////////////
-        if(deviceList.length>0){
-            initNative();
-            mAnalyzer=new MidiMessageAnalyzer(context);
-            Bundle properties = deviceList[0].getProperties(); // 장치 정보 가져옴
-            String manufacturer=properties.getString(MidiDeviceInfo.PROPERTY_NAME); // 장치 이름 가져옴
-            midi_blur.setVisibility(View.GONE);
-            midi_blur.startAnimation(hideblur);
-            midi_unplugged.setVisibility(View.GONE);
-            midi_unplugged.startAnimation(hideblur);
-            midi_unplugged_tv.setVisibility(View.GONE);
-            midi_unplugged_tv.startAnimation(hideblur);
-            channel_key_spinner.setEnabled(true);
-            channel_drum_spinner.setEnabled(true);
-            deviceName.setText("MIDI 장치 : "+manufacturer);
-            midiManager.openDevice(deviceList[0], new MidiManager.OnDeviceOpenedListener() {
-                @Override
-                public void onDeviceOpened(MidiDevice midiDevice) {
-                    if(midiDevice==null){
-                    }else {
-                        isConnected = true;
-                        startReadingMidi(midiDevice, 0);
-                    }
-                }
-            }, new Handler(Looper.getMainLooper()));
-        }
-        ////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
         ////////////////////////////////////뒤로가기 버튼////////////////////////////////////////////////////
         btn_goBack=(ImageButton)findViewById(R.id.midi_goBack);
@@ -311,14 +288,12 @@ public class MidiActivity extends AppCompatActivity {
                     metronome_count=0;
                     metronomeService.shutdownNow(); //메트로놈서비스 종료
                     btn_metronome_mode.setBackgroundResource(R.drawable.metronome_stop);
-                    metronome_seekbar.setEnabled(true);
                 }
                 else if(metronome_maxcount==0){ //메트로놈 4/4로 설정
                     metronome_maxcount=4;
                     metronomeService= Executors.newSingleThreadScheduledExecutor();
                     metronomeService.scheduleAtFixedRate(metronomeRunnable,0,(60000000/BPM), TimeUnit.MICROSECONDS);
                     btn_metronome_mode.setBackgroundResource(R.drawable.metronome_quad);
-                    metronome_seekbar.setEnabled(false);
                 }
                 else if(metronome_maxcount==4){ //메트로놈 3/4로 설정
                     metronome_maxcount=3;
@@ -334,7 +309,7 @@ public class MidiActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) { //Seekbar가 이동할경우
                 BPM=i;
                 BPMText.setText(Integer.toString(i));
-                if(metronome_count!=0) { // 메트로놈 재시작
+                if(metronome_maxcount!=0) { // 메트로놈 재시작
                     metronomeService.shutdownNow();
                     metronomeService = Executors.newSingleThreadScheduledExecutor();
                     metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000000 / BPM), TimeUnit.MICROSECONDS);
@@ -350,7 +325,7 @@ public class MidiActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 BPMText.setText(Integer.toString(seekBar.getProgress()));
                 BPM=seekBar.getProgress();
-                if(metronome_count!=0) { // 메트로놈 재시작
+                if(metronome_maxcount!=0) { // 메트로놈 재시작
                     metronomeService.shutdownNow();
                     metronomeService = Executors.newSingleThreadScheduledExecutor();
                     metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000000 / BPM), TimeUnit.MICROSECONDS);
@@ -402,6 +377,10 @@ public class MidiActivity extends AppCompatActivity {
                 return false;
             }
         });
+        bpmDown.setEnabled(false);
+        bpmUp.setEnabled(false);
+        metronome_seekbar.setEnabled(false);
+        btn_metronome_button.setEnabled(false);
 
         ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -431,8 +410,40 @@ public class MidiActivity extends AppCompatActivity {
                 }
             }
         });
-
+        drum_presetbutton.setEnabled(false);
         /////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////액티비티 진입 시 이미 연결되어 있을 경우//////////////////////////////////
+        if(deviceList.length>0){
+            initNative();
+            mAnalyzer=new MidiMessageAnalyzer(context);
+            Bundle properties = deviceList[0].getProperties(); // 장치 정보 가져옴
+            String manufacturer=properties.getString(MidiDeviceInfo.PROPERTY_NAME); // 장치 이름 가져옴
+            midi_blur.setVisibility(View.GONE);
+            midi_blur.startAnimation(hideblur);
+            midi_unplugged.setVisibility(View.GONE);
+            midi_unplugged.startAnimation(hideblur);
+            midi_unplugged_tv.setVisibility(View.GONE);
+            midi_unplugged_tv.startAnimation(hideblur);
+            channel_key_spinner.setEnabled(true);
+            channel_drum_spinner.setEnabled(true);
+            bpmDown.setEnabled(true);
+            bpmUp.setEnabled(true);
+            metronome_seekbar.setEnabled(true);
+            btn_metronome_button.setEnabled(true);
+            drum_presetbutton.setEnabled(true);
+            deviceName.setText("MIDI 장치 : "+manufacturer);
+            midiManager.openDevice(deviceList[0], new MidiManager.OnDeviceOpenedListener() {
+                @Override
+                public void onDeviceOpened(MidiDevice midiDevice) {
+                    if(midiDevice==null){
+                    }else {
+                        isConnected = true;
+                        startReadingMidi(midiDevice, 0);
+                    }
+                }
+            }, new Handler(Looper.getMainLooper()));
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
     }
 

@@ -63,11 +63,26 @@ public class MidiDeviceCallback extends MidiManager.DeviceCallback{
         ((MidiActivity)context).midi_unplugged_tv.startAnimation(((MidiActivity)context).hideblur);
         ((MidiActivity)context).channel_key_spinner.setEnabled(true);
         ((MidiActivity)context).channel_drum_spinner.setEnabled(true);
+        ((MidiActivity)context).bpmDown.setEnabled(true);
+        ((MidiActivity)context).bpmUp.setEnabled(true);
+        ((MidiActivity)context).metronome_seekbar.setEnabled(true);
+        ((MidiActivity)context).btn_metronome_button.setEnabled(true);
+        ((MidiActivity)context).drum_presetbutton.setEnabled(true);
+
     }
 
     @Override
     public void onDeviceRemoved(MidiDeviceInfo device) {    // 장치 연결이 해제되었을 경우
         stopReadingMidi();
+        if(((MidiActivity)context).metronome_maxcount!=0){
+            ((MidiActivity)context).metronomeService.shutdownNow();
+        }
+        ((MidiActivity)context).bpmDown.setBackgroundResource(R.drawable.keyboard_met_minus);
+        ((MidiActivity)context).bpmUp.setBackgroundResource(R.drawable.keyboard_met_plus);
+        ((MidiActivity)context).btn_metronome_button.setBackgroundResource(R.drawable.metronome_button);
+        ((MidiActivity)context).drum_presetbutton.setBackgroundResource(R.drawable.drum_presetbutton);
+        ((MidiActivity)context).btn_metronome_mode.setBackgroundResource(R.drawable.metronome_stop);
+        ((MidiActivity)context).metronome_maxcount=0;
         ((MidiActivity)context).isConnected=false;
         ((MidiActivity)context).midi_blur.setVisibility(View.VISIBLE);
         ((MidiActivity)context).midi_blur.startAnimation(((MidiActivity)context).showblur);
@@ -77,6 +92,11 @@ public class MidiDeviceCallback extends MidiManager.DeviceCallback{
         ((MidiActivity)context).midi_unplugged_tv.startAnimation(((MidiActivity)context).showblur);
         ((MidiActivity)context).channel_drum_spinner.setEnabled(false);
         ((MidiActivity)context).channel_key_spinner.setEnabled(false);
+        ((MidiActivity)context).bpmDown.setEnabled(false);
+        ((MidiActivity)context).bpmUp.setEnabled(false);
+        ((MidiActivity)context).metronome_seekbar.setEnabled(false);
+        ((MidiActivity)context).btn_metronome_button.setEnabled(false);
+        ((MidiActivity)context).drum_presetbutton.setEnabled(false);
 
         deviceName.setText("MIDI 장치 : ");
     }
