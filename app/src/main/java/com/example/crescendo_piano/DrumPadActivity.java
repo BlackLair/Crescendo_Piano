@@ -74,8 +74,8 @@ public class DrumPadActivity extends AppCompatActivity {
         soundManager=new SoundResourceManager();
         soundKeys=new int[2][8];   // 드럼소리의 종류는 8가지
         drumPadSoundPool=soundManager.loadDrumSound(soundKeys,getApplicationContext()); // 드럼 사운드 로딩
-        float drumVolumnOffset[][]={{0.6f, 0.8f, 0.8f, 0.9f, 0.4f, 0.6f, 0.9f, 0.8f},
-                                    {0.65f, 0.85f, 1f, 0.75f, 0.85f, 1f, 0.85f, 0.85f}};
+        float drumVolumnOffset[][]={{0.6f, 0.7f, 0.7f, 0.9f, 0.4f, 0.55f, 0.9f, 0.7f},
+                                    {0.55f, 0.7f, 1f, 0.6f, 0.85f, 1f, 0.85f, 0.7f}};
         for(int i=0;i<drumId.length;i++){
             int index=i;
             btnDrum[i]=findViewById(drumId[i]);
