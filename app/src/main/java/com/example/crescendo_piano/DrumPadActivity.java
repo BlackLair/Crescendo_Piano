@@ -74,13 +74,10 @@ public class DrumPadActivity extends AppCompatActivity {
         soundManager=new SoundResourceManager();
         soundKeys=new int[2][8];   // 드럼소리의 종류는 8가지
         drumPadSoundPool=soundManager.loadDrumSound(soundKeys,getApplicationContext()); // 드럼 사운드 로딩
-
+        float drumVolumnOffset[][]={{0.6f, 0.8f, 0.8f, 0.9f, 0.4f, 0.6f, 0.9f, 0.8f},
+                                    {0.65f, 0.85f, 1f, 0.75f, 0.85f, 1f, 0.85f, 0.85f}};
         for(int i=0;i<drumId.length;i++){
             int index=i;
-            float drumVolumnOffset;
-            if(i==6) drumVolumnOffset=0.15f; //킥 소리 증폭
-            else if(i==4 || i==0) drumVolumnOffset=-0.15f; // 하이햇,크래시 소리 감소
-            else drumVolumnOffset=0;
             btnDrum[i]=findViewById(drumId[i]);
             Animation animation=new AlphaAnimation(0,1); // 처음 시작 시 드럼패드 천천히 나타나는 애니메이션
             animation.setDuration(1800);
@@ -92,7 +89,7 @@ public class DrumPadActivity extends AppCompatActivity {
                     if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
                         if(index==0 || index==3) // 크래시, 라이드 이전 소리 끊고 다시재생
                             PlayNote.drumNoteOff(drumPadSoundPool,index);
-                        PlayNote.drumNoteOn(drumPadSoundPool,soundKeys[drumPreset][index],index,0.8f+drumVolumnOffset);
+                        PlayNote.drumNoteOn(drumPadSoundPool,soundKeys[drumPreset][index],index,drumVolumnOffset[drumPreset][index]);
                         if(drumPreset==0)
                             view.setBackgroundResource(R.drawable.drumpad_p); // 터치 시 누른 이미지로 교체
                         else

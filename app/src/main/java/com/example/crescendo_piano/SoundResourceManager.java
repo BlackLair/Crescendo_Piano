@@ -37,7 +37,7 @@ public class SoundResourceManager {
     public SoundPool loadDrumSound(int[][] keys, Context context){ // 드럼(8개짜리) 사운드 로딩
         SoundPool tempSoundPool;
         int drumSoundIDs[][]={{R.raw.d_crash, R.raw.d_tom1, R.raw.d_tom2, R.raw.d_ride, R.raw.d_closedhat, R.raw.d_snare, R.raw.d_kick, R.raw.d_tom3}
-                            , {R.raw.dd_crash, R.raw.dd_sfx, R.raw.dd_littlesnare, R.raw.dd_ride, R.raw.dd_hihat, R.raw.dd_snare, R.raw.dd_kick, R.raw.dd_snaph}};
+                            , {R.raw.dd_crash, R.raw.dd_middle, R.raw.dd_tom, R.raw.dd_stick, R.raw.dd_handtom, R.raw.dd_snare, R.raw.dd_impact, R.raw.dd_big}};
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {               // API 21 이후
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_GAME)
