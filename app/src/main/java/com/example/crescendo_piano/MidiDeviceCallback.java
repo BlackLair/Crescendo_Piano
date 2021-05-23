@@ -14,7 +14,7 @@ import android.widget.TextView;
 public class MidiDeviceCallback extends MidiManager.DeviceCallback{
     private Context context;
     public MidiOutputPort outputPort; // 미디 통신을 위한 외부 포트 설정(MIDI장치 기준 OUTPUT)
-    public MyReceiver receiver;
+//    public MyReceiver receiver; // android.media.midi 이용하여 java로 통신할때 사용 ( 이제 NDK로 교체됨 )
     TextView deviceName;
 
     MidiMessageAnalyzer mAnalyzer;
