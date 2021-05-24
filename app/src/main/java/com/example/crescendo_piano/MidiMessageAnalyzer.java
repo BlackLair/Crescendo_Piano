@@ -10,6 +10,10 @@ public class MidiMessageAnalyzer {
     private int[] isKeyOn;      // 0 : 건반 똄  0 : 건반 누름
     private Stack<Integer> relNote=new Stack<>(); // 페달 밟는도중 떼어진 건반 정보
     private Context context;
+
+    private final float drumVolumnOffset[][]={{0.6f, 0.7f, 0.7f, 0.9f, 0.4f, 0.55f, 0.9f, 0.7f},
+            {0.55f, 0.7f, 1f, 0.6f, 0.85f, 1f, 0.85f, 0.7f}}; // 드럼소리크기 조절
+
     public MidiMessageAnalyzer(Context context){
         this.context=context;
         isKeyOn=new int[88];
@@ -20,7 +24,7 @@ public class MidiMessageAnalyzer {
     public void AnalyzeNote(int state, int mChannel, int pitch, float velocity){
         if(mChannel==((MidiActivity)context).keyboardChannel && (pitch>=0 && pitch<88)){ // 입력 신호 채널이 설정한 건반채널일 때
             if(state==9){ //건반 누른 신호일 때
-                if(((MidiActivity)context).inst==1) velocity=velocity*0.65f; //바이올린 소리 너무커서 줄임
+                if(((MidiActivity)context).inst==1) velocity=velocity*0.4f; //바이올린 소리 너무커서 줄임
                 PlayNote.noteOff(((MidiActivity)context).midiSoundPool, pitch);
                 PlayNote.noteOn(((MidiActivity)context).midiSoundPool, ((MidiActivity)context).soundKeys[pitch], pitch, velocity);
                 isKeyOn[pitch]=1;
@@ -51,9 +55,9 @@ public class MidiMessageAnalyzer {
             if(state==9) {
 
                 // 드럼 연주 기능
-                if (pitch == 0 || pitch == 3)
-                    PlayNote.drumNoteOff(((MidiActivity) context).midiDrumSoundPool, pitch);
-                PlayNote.drumNoteOn(((MidiActivity) context).midiDrumSoundPool, ((MidiActivity) context).drumsoundKeys[((MidiActivity)context).drumPreset][pitch], pitch, velocity);
+                PlayNote.drumNoteOff(((MidiActivity) context).midiDrumSoundPool, pitch);
+                PlayNote.drumNoteOn(((MidiActivity) context).midiDrumSoundPool,
+                        ((MidiActivity) context).drumsoundKeys[((MidiActivity)context).drumPreset][pitch], pitch, velocity*drumVolumnOffset[((MidiActivity)context).drumPreset][pitch]);
             }
         }
 
