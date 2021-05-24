@@ -53,7 +53,7 @@ static void* readThreadRoutine(void * context){
     static uint8_t past_incomingMessage[MAX_BYTES_TO_RECEIVE];
     memset(incomingMessage, 0, MAX_BYTES_TO_RECEIVE);
     while(sReading){
-        usleep(1);
+        usleep(1000); // 폴링 주기
         
         int32_t opcode;
         size_t numBytesReceived;

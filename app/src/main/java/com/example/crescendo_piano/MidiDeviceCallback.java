@@ -24,10 +24,11 @@ public class MidiDeviceCallback extends MidiManager.DeviceCallback{
     private void onNativeMessageReceive(final byte[] message) { //MIDI데이터 파싱 (C++측에서 호출)
         Integer numMessage=Byte.toUnsignedInt(message[0]);
         for(int i=0; i<numMessage; i++) {
-            int state = (Byte.toUnsignedInt(message[1+i * 3]) & 0xf0) >> 4;
-            int channel = (Byte.toUnsignedInt(message[1+i * 3]) & 0x0f)+1;
-            int pitch = Byte.toUnsignedInt(message[2 + i * 3]) - 21;
-            float velocity = (float) Byte.toUnsignedInt(message[3 + i * 3]) / 127;
+            int i3=i*3;
+            int state = (Byte.toUnsignedInt(message[1+i3]) & 0xf0) >> 4;
+            int channel = (Byte.toUnsignedInt(message[1+i3]) & 0x0f)+1;
+            int pitch = Byte.toUnsignedInt(message[2 + i3]) - 21;
+            float velocity = (float) Byte.toUnsignedInt(message[3 + i3]) / 127;
             mAnalyzer.AnalyzeNote(state, channel, pitch, velocity); // 분석 가능한 midi 데이터로 분석 및 소리 재생
         }
     }
