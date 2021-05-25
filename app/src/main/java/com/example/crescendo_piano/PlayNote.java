@@ -20,6 +20,6 @@ public class PlayNote {
         spool.stop(drumStreamID[index]);
     }
     public static void metronomeOn(SoundPool spool,int key){ // 메트로놈 재생 메소드
-        spool.play(key, 0.55f, 0.55f, 0, 0, 1);
+        spool.play(key, 0.25f, 0.25f, 0, 0, 1);
     }
 }
