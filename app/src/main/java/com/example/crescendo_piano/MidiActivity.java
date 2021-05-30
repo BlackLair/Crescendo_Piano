@@ -105,6 +105,8 @@ public class MidiActivity extends AppCompatActivity {
             uiOption|=View.SYSTEM_UI_FLAG_FULLSCREEN;
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT)
             uiOption|=View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT) // 스피너 열렸을 때 네비게이션바 열려도 레이아웃 밀리지 않음
+            uiOption|=View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
         decorView.setSystemUiVisibility(uiOption);
         /////////////////////////////앱 하단바 제거///////////////////////////////
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // 화면 안꺼지게 유지
@@ -297,6 +299,7 @@ public class MidiActivity extends AppCompatActivity {
                 }
                 else if(metronome_maxcount==4){ //메트로놈 3/4로 설정
                     metronome_maxcount=3;
+                    metronome_count=0;
                     metronomeService.shutdownNow();
                     metronomeService= Executors.newSingleThreadScheduledExecutor();
                     metronomeService.scheduleAtFixedRate(metronomeRunnable,0,(60000000/BPM), TimeUnit.MICROSECONDS);
@@ -309,11 +312,7 @@ public class MidiActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) { //Seekbar가 이동할경우
                 BPM=i;
                 BPMText.setText(Integer.toString(i));
-                if(metronome_maxcount!=0) { // 메트로놈 재시작
-                    metronomeService.shutdownNow();
-                    metronomeService = Executors.newSingleThreadScheduledExecutor();
-                    metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000000 / BPM), TimeUnit.MICROSECONDS);
-                }
+
             }
 
             @Override
@@ -326,6 +325,7 @@ public class MidiActivity extends AppCompatActivity {
                 BPMText.setText(Integer.toString(seekBar.getProgress()));
                 BPM=seekBar.getProgress();
                 if(metronome_maxcount!=0) { // 메트로놈 재시작
+                    metronome_count=0;
                     metronomeService.shutdownNow();
                     metronomeService = Executors.newSingleThreadScheduledExecutor();
                     metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000000 / BPM), TimeUnit.MICROSECONDS);
@@ -341,6 +341,12 @@ public class MidiActivity extends AppCompatActivity {
                     currentBPM+=1;
                     BPM=currentBPM;
                     metronome_seekbar.setProgress(currentBPM);
+                }
+                if(metronome_maxcount!=0) { // 메트로놈 재시작
+                    metronome_count=0;
+                    metronomeService.shutdownNow();
+                    metronomeService = Executors.newSingleThreadScheduledExecutor();
+                    metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000000 / BPM), TimeUnit.MICROSECONDS);
                 }
             }
         });
@@ -363,6 +369,12 @@ public class MidiActivity extends AppCompatActivity {
                     currentBPM-=1;
                     BPM=currentBPM;
                     metronome_seekbar.setProgress(currentBPM);
+                }
+                if(metronome_maxcount!=0) { // 메트로놈 재시작
+                    metronome_count=0;
+                    metronomeService.shutdownNow();
+                    metronomeService = Executors.newSingleThreadScheduledExecutor();
+                    metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000000 / BPM), TimeUnit.MICROSECONDS);
                 }
             }
         });

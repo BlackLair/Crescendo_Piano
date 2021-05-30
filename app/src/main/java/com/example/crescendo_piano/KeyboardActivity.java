@@ -280,6 +280,7 @@ public class KeyboardActivity extends AppCompatActivity {
                 }
                 else if(metronome_maxcount==4){ //메트로놈 3/4로 설정
                     metronome_maxcount=3;
+                    metronome_count=0;
                     metronomeService.shutdownNow();
                     metronomeService= Executors.newSingleThreadScheduledExecutor();
                     metronomeService.scheduleAtFixedRate(metronomeRunnable,0,(60000000/BPM), TimeUnit.MICROSECONDS);
@@ -292,11 +293,7 @@ public class KeyboardActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) { //Seekbar가 이동할경우
                 BPM=i;
                 BPMText.setText(Integer.toString(i));
-                if(metronome_maxcount!=0) { // 메트로놈 재시작
-                    metronomeService.shutdownNow();
-                    metronomeService = Executors.newSingleThreadScheduledExecutor();
-                    metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000000 / BPM), TimeUnit.MICROSECONDS);
-                }
+
             }
 
             @Override
@@ -309,6 +306,7 @@ public class KeyboardActivity extends AppCompatActivity {
                 BPMText.setText(Integer.toString(seekBar.getProgress()));
                 BPM=seekBar.getProgress();
                 if(metronome_maxcount!=0) { // 메트로놈 재시작
+                    metronome_count=0;
                     metronomeService.shutdownNow();
                     metronomeService = Executors.newSingleThreadScheduledExecutor();
                     metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000000 / BPM), TimeUnit.MICROSECONDS);
@@ -324,6 +322,12 @@ public class KeyboardActivity extends AppCompatActivity {
                     currentBPM+=1;
                     BPM=currentBPM;
                     metronome_seekbar.setProgress(currentBPM);
+                }
+                if(metronome_maxcount!=0) { // 메트로놈 재시작
+                    metronome_count=0;
+                    metronomeService.shutdownNow();
+                    metronomeService = Executors.newSingleThreadScheduledExecutor();
+                    metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000000 / BPM), TimeUnit.MICROSECONDS);
                 }
             }
         });
@@ -346,6 +350,12 @@ public class KeyboardActivity extends AppCompatActivity {
                     currentBPM-=1;
                     BPM=currentBPM;
                     metronome_seekbar.setProgress(currentBPM);
+                }
+                if(metronome_maxcount!=0) { // 메트로놈 재시작
+                    metronome_count=0;
+                    metronomeService.shutdownNow();
+                    metronomeService = Executors.newSingleThreadScheduledExecutor();
+                    metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000000 / BPM), TimeUnit.MICROSECONDS);
                 }
             }
         });
