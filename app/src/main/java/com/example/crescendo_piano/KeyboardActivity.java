@@ -10,11 +10,13 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -25,6 +27,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class KeyboardActivity extends AppCompatActivity {
     private View decorView;
     private int uiOption;
+
+    private ImageButton touch_improve;
+
     private int inst; // 0 : 피아노 1 : 바이올린 2 : 하프
     private SoundResourceManager soundmanager;
     private int soundKeys[], metronomesoundKeys[];
@@ -93,6 +98,7 @@ public class KeyboardActivity extends AppCompatActivity {
         btn_metronome_button=findViewById(R.id.metronome_button);
         btn_metronome_icon=findViewById(R.id.metronome_icon);
         btn_metronome_mode=findViewById(R.id.metronome_mode);
+        touch_improve=findViewById(R.id.touch_improve);
         BPM=120;
         Animation animation[]= new Animation[25];
         for(int i=0; i<25; i++) {
@@ -100,8 +106,20 @@ public class KeyboardActivity extends AppCompatActivity {
             animation[i].setDuration(100 + i * 90);
         }
 
-
-
+        ///////////////////// 뒷 배경 터치 시 건반 동작 안하는 현상 개선//////////////////////
+        keyboardTopBanner.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
+        touch_improve.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
+        //////////////////////////////////////////////////////////////////////////////////
         // 건반 백 15개, 흑 10개
         for(int i=0; i<15;i++) {
             wKeys[i] = findViewById(wButtonID[i]);
