@@ -99,14 +99,12 @@ public class MidiActivity extends AppCompatActivity {
         /////////////////////////////앱 하단바 제거///////////////////////////////
         decorView=getWindow().getDecorView();
         uiOption=getWindow().getDecorView().getSystemUiVisibility();
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-            uiOption|= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN)
-            uiOption|=View.SYSTEM_UI_FLAG_FULLSCREEN;
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT)
-            uiOption|=View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT) // 스피너 열렸을 때 네비게이션바 열려도 레이아웃 밀리지 않음
-            uiOption|=View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            uiOption=View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    |View.SYSTEM_UI_FLAG_FULLSCREEN
+                    |View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    |View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    |View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOption);
         /////////////////////////////앱 하단바 제거///////////////////////////////
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // 화면 안꺼지게 유지
