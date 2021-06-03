@@ -2,6 +2,7 @@ package com.example.crescendo_piano;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.SoundPool;
 import android.media.midi.MidiDevice;
 import android.media.midi.MidiDeviceInfo;
@@ -72,8 +73,8 @@ public class MidiActivity extends AppCompatActivity {
 
 
 
-
-    public Spinner channel_key_spinner, channel_drum_spinner;
+    private SharedPreferences channelConfigSharedPref; // 채널 설정 영구 저장
+    public Spinner channel_key_spinner, channel_drum_spinner; // 채널 설정할 수 있는 스피너
     AdapterChannelSpinner adapterDrumSpinner, adapterKeySpinner;
 
     public MidiMessageAnalyzer mAnalyzer;
@@ -167,8 +168,9 @@ public class MidiActivity extends AppCompatActivity {
 
             }
         });
-        channel_key_spinner.setSelection(0);
-        channel_drum_spinner.setSelection(9);
+        channelConfigSharedPref=getSharedPreferences("channelConfig", 0); // 기존에 저장된 채널 설정값 가져오기
+        channel_key_spinner.setSelection(channelConfigSharedPref.getInt("channel_key", 0));
+        channel_drum_spinner.setSelection(channelConfigSharedPref.getInt("channel_drum", 9));
         /////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -465,6 +467,11 @@ public class MidiActivity extends AppCompatActivity {
         soundManager.unLoad(midiSoundPool); // 사운드 리소스 메모리 해제
         soundManager.unLoad(midiDrumSoundPool);
         soundManager.unLoad(metronomeSoundPool);
+        SharedPreferences.Editor editor=channelConfigSharedPref.edit(); // 설정된 채널 저장
+        editor.putInt("channel_key", keyboardChannel-1);
+        editor.commit();
+        editor.putInt("channel_drum", drumChannel-1);
+        editor.commit();
         super.onDestroy();
     }
 }
