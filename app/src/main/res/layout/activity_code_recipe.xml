@@ -46,8 +46,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="10dp"
-        app:realtimeBlurRadius="8dp"
-        app:realtimeOverlayColor="#73C0C0C0"/>
+        app:realtimeBlurRadius="7dp"
+        app:realtimeOverlayColor="#87E5E5E5"/>
 
     <ScrollView
         android:layout_width="0dp"
