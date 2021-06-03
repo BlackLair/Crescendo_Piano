@@ -50,6 +50,7 @@ public class MidiActivity extends AppCompatActivity {
     public TextView deviceName;
     public Boolean isConnected=false;
     private ImageView midi_inst;
+    private ImageView channel_warning; // 같은 채널 선택 시 나타나는 경고문
 
     public RealtimeBlurView midi_blur; // 미연결 시 붉은 블러
     public TextView midi_unplugged_tv;
@@ -150,6 +151,10 @@ public class MidiActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 keyboardChannel=i+1;
+                if(keyboardChannel==drumChannel)
+                    channel_warning.setVisibility(View.VISIBLE);
+                else
+                    channel_warning.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -161,6 +166,10 @@ public class MidiActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 drumChannel=i+1;
+                if(keyboardChannel==drumChannel)
+                    channel_warning.setVisibility(View.VISIBLE);
+                else
+                    channel_warning.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -171,6 +180,9 @@ public class MidiActivity extends AppCompatActivity {
         channelConfigSharedPref=getSharedPreferences("channelConfig", 0); // 기존에 저장된 채널 설정값 가져오기
         channel_key_spinner.setSelection(channelConfigSharedPref.getInt("channel_key", 0));
         channel_drum_spinner.setSelection(channelConfigSharedPref.getInt("channel_drum", 9));
+
+        channel_warning=findViewById(R.id.channel_warning);
+
         /////////////////////////////////////////////////////////////////////////////////////////
 
 
