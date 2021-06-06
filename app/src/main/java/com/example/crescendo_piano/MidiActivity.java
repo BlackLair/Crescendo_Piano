@@ -224,8 +224,8 @@ public class MidiActivity extends AppCompatActivity {
             public void onClick(View view) {
                 myMidiCallback.disConnect();    // 연결 해제
                 midiManager.unregisterDeviceCallback(myMidiCallback);   //콜백 해제
-
                 finish();
+                overridePendingTransition(R.anim.zoomout_enter, R.anim.zoomout_exit);
             }
         });
         ////////////////////////////////////////////////////////////////////////////////////////////

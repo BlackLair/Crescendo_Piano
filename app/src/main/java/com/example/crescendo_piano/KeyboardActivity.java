@@ -156,6 +156,7 @@ public class KeyboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+                overridePendingTransition(R.anim.zoomout_enter, R.anim.zoomout_exit);
             }
         });
 

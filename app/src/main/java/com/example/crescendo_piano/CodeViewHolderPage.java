@@ -30,6 +30,7 @@ public class CodeViewHolderPage extends RecyclerView.ViewHolder {
                     Intent intent = new Intent(data.getContext(), CodeRecipeActivity.class);
                     intent.putExtra("selectedCode", selectedCode);
                     data.getContext().startActivity(intent);
+                    ((CodeSelectActivity)data.getContext()).overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit);
                 }
             }
         });
