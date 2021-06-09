@@ -147,6 +147,7 @@ public class DrumPadActivity extends AppCompatActivity {
             @Override       // 뒤로가기 버튼
             public void onClick(View view) {
                 finish();
+                overridePendingTransition(R.anim.zoomout_enter, R.anim.zoomout_exit);
             }
         });
         btn_goBack.setOnTouchListener(new View.OnTouchListener() { // 뒤로가기 버튼 이미지 변환 효과
