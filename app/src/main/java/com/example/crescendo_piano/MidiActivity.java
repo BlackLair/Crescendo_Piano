@@ -353,13 +353,14 @@ public class MidiActivity extends AppCompatActivity {
                     currentBPM+=1;
                     BPM=currentBPM;
                     metronome_seekbar.setProgress(currentBPM);
+                    if(metronome_maxcount!=0) { // 메트로놈 재시작
+                        metronome_count=0;
+                        metronomeService.shutdownNow();
+                        metronomeService = Executors.newSingleThreadScheduledExecutor();
+                        metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000000 / BPM), TimeUnit.MICROSECONDS);
+                    }
                 }
-                if(metronome_maxcount!=0) { // 메트로놈 재시작
-                    metronome_count=0;
-                    metronomeService.shutdownNow();
-                    metronomeService = Executors.newSingleThreadScheduledExecutor();
-                    metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000000 / BPM), TimeUnit.MICROSECONDS);
-                }
+
             }
         });
         bpmUp.setOnTouchListener(new View.OnTouchListener() {
@@ -381,12 +382,12 @@ public class MidiActivity extends AppCompatActivity {
                     currentBPM-=1;
                     BPM=currentBPM;
                     metronome_seekbar.setProgress(currentBPM);
-                }
-                if(metronome_maxcount!=0) { // 메트로놈 재시작
-                    metronome_count=0;
-                    metronomeService.shutdownNow();
-                    metronomeService = Executors.newSingleThreadScheduledExecutor();
-                    metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000000 / BPM), TimeUnit.MICROSECONDS);
+                    if(metronome_maxcount!=0) { // 메트로놈 재시작
+                        metronome_count=0;
+                        metronomeService.shutdownNow();
+                        metronomeService = Executors.newSingleThreadScheduledExecutor();
+                        metronomeService.scheduleAtFixedRate(metronomeRunnable, 0, (60000000 / BPM), TimeUnit.MICROSECONDS);
+                    }
                 }
             }
         });
