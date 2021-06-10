@@ -59,6 +59,8 @@ public class KeyboardActivity extends AppCompatActivity {
     public boolean isIconLeft=true; // 메트로놈 아이콘 좌우 변경 플래그
     private ScheduledExecutorService metronomeService;
 
+    public static boolean isPushed[]; // 건반이 눌린 상태인지 확인
+
     @Override
     protected void onDestroy() {
         soundmanager.unLoad(keyboardSoundPool); // 액티비티 종료 시 사운드 리소스 언로드
@@ -73,6 +75,7 @@ public class KeyboardActivity extends AppCompatActivity {
         soundmanager=new SoundResourceManager();    // 음원 파일 관리 객체
         soundKeys=new int[88];      // 건반 소리 재생을 위한 key값 저장 배열
         metronomesoundKeys=new int[2];      // 메트로놈 소리 재생을 위한 key값 저장 배열
+        isPushed=new boolean[88]; // 건반이 눌려있는지 확인
         /////////////////////////////앱 하단바 제거///////////////////////////////
         decorView=getWindow().getDecorView();
         uiOption=getWindow().getDecorView().getSystemUiVisibility();
@@ -171,8 +174,10 @@ public class KeyboardActivity extends AppCompatActivity {
                 else {
                     btnSustain.setBackgroundResource(R.drawable.keyboard_sustain_off);
                     sustain.set(false);
-                    for(int i=0; i<88; i++)
-                        PlayNote.noteOff(keyboardSoundPool, i);
+                    for(int i=0; i<88; i++) { // 서스테인 기능 껐을 때 눌려있지 않은 건반의 소리만 끔
+                        if(isPushed[i]==false)
+                            PlayNote.noteOff(keyboardSoundPool, i);
+                    }
                 }
             }
         });
