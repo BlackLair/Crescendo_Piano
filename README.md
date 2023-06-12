@@ -24,3 +24,22 @@ https://youtu.be/OAV-YgCIkk0
 
 3. 코드 레시피 열람 시연 영상
 https://youtu.be/ZARleXNgjg4
+
+
+
+
+ * 코드 레시피 영상에 삽입된 음악은 권정우 팀장이 직접 작곡하였습니다.
+
+Crescendo Style 1 : https://youtu.be/LXRKJog2lsw
+
+Crescendo Style 2 : https://youtu.be/xzOwKDuQRmg
+
+Crescendo Style 3 : https://youtu.be/q-l74XhEObk
+
+London Style : https://youtu.be/R6yPeFv5vsc
+
+Paris Style : https://youtu.be/FGjXqwE0CyY
+
+Tokyo Style : https://youtu.be/mUUuqnHvAcU
+
+Los Angeles Style : https://youtu.be/zK2FzgzZ6Bg
