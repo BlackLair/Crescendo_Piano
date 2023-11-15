@@ -9,6 +9,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -16,14 +18,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import kr.co.prnd.YouTubePlayerView;
+//import kr.co.prnd.YouTubePlayerView; // Deprecated API. Youtube iframe으로 대체
 
 public class CodeRecipeActivity extends AppCompatActivity {
     private View decorView;
     private int uiOption;
     private int selectedCode;
     private ImageButton goBack;
-    private YouTubePlayerView youTubePlayerView;
+    private WebView youTubePlayerView;
     ConstraintLayout coderecipe_layout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +46,15 @@ public class CodeRecipeActivity extends AppCompatActivity {
         Intent getCodeIntent=getIntent();
         selectedCode=getCodeIntent.getIntExtra("selectedCode", 0);
         String backColors[]={"#40017770", "#40007700", "#40777700", "#40780059", "#40000077", "#40770000", "#40764C00"};
-        String youTubeCode[]={"LXRKJog2lsw","xzOwKDuQRmg","q-l74XhEObk","R6yPeFv5vsc","FGjXqwE0CyY","mUUuqnHvAcU","zK2FzgzZ6Bg"};
+        String youTubeCode[]={"LXRKJog2lsw?si=zZUYgsN4vSjxrKNS","xzOwKDuQRmg?si=agPtn-JCbymEN-Qa","q-l74XhEObk?si=3FQWkZsLg8S5uDFL","R6yPeFv5vsc?si=qP3hzmfYC1aN19-g","FGjXqwE0CyY?si=Cmr62oVVwK893MT_","mUUuqnHvAcU?si=AzbPNzyle-1f4i2T","zK2FzgzZ6Bg?si=Y0plrETt9EIbP2b1"};
         coderecipe_layout.setBackgroundColor(Color.parseColor(backColors[selectedCode]));
 
         youTubePlayerView=findViewById(R.id.youtubeView);
-        youTubePlayerView.play(youTubeCode[selectedCode], null);
-
+        String videolink = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/"+youTubeCode[selectedCode]+"\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
+        //youTubePlayerView.play(youTubeCode[selectedCode], null);  // Deprecated API
+        youTubePlayerView.loadData(videolink, "text/html", "utf-8");
+        youTubePlayerView.getSettings().setJavaScriptEnabled(true);
+        youTubePlayerView.setWebChromeClient(new WebChromeClient());
 
         goBack=findViewById(R.id.coderecipe_goBack);
         goBack.setOnTouchListener(new View.OnTouchListener() { // 뒤로가기 버튼 이미지 변환 효과
