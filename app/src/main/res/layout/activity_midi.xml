@@ -179,11 +179,10 @@
 
 
 
-    <com.github.mmin18.widget.RealtimeBlurView
+    <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:realtimeBlurRadius="5dp"
-        app:realtimeOverlayColor="#73C00000"
+        android:background="#99333333"
         android:id="@+id/midi_blur"
         android:visibility="invisible"/>
     <ImageView

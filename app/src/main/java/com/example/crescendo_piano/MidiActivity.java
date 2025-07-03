@@ -25,7 +25,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.github.mmin18.widget.RealtimeBlurView;
+//import com.github.mmin18.widget.RealtimeBlurView;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
@@ -52,7 +52,7 @@ public class MidiActivity extends AppCompatActivity {
     private ImageView midi_inst;
     private ImageView channel_warning; // 같은 채널 선택 시 나타나는 경고문
 
-    public RealtimeBlurView midi_blur; // 미연결 시 붉은 블러
+    public View midi_blur; // 미연결 시 붉은 블러
     public TextView midi_unplugged_tv;
     public ImageView midi_unplugged; // 미연결 시 이미지
     public Animation showblur, hideblur; // 블러 애니메이션
@@ -194,7 +194,7 @@ public class MidiActivity extends AppCompatActivity {
         hideblur.setDuration(500);
 
         midi_unplugged_tv=(TextView)findViewById(R.id.midi_unplugged_tv);
-        midi_blur=(RealtimeBlurView)findViewById(R.id.midi_blur); // 장치 미연결 시 화면 블러 처리
+        midi_blur=(View)findViewById(R.id.midi_blur); // 장치 미연결 시 화면 블러 처리
         midi_unplugged=(ImageView)findViewById(R.id.midi_unplugged);
         midi_unplugged_tv.setVisibility(View.VISIBLE);
         midi_unplugged.setVisibility(View.VISIBLE);
